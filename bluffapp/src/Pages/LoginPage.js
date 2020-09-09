@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import {
   Button,
   Form,
@@ -10,59 +11,68 @@ import {
 } from "semantic-ui-react";
 
 import deck from "../Images/deck.png";
+import handleTokens from "../Utils/handleTokens";
+import validateUser from "../Utils/validateUser";
 
 import "../App.css";
 
 export default class LoginPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      username: '',
-      password: '',
+      email: "",
+      password: "",
       isFetching: false,
-      message: '',
+      message: "",
+      isError: false,
+      isLoading: false,
+    };
+  }
+
+  handleEmailChange = (event) => {
+    this.setState({ email: event.target.value });
+  };
+  handlePasswordChange = (event) => {
+    this.setState({ password: event.target.value });
+  };
+
+  handleSubmit = async (event) => {
+    this.setState({ isLoading: true });
+    event.preventDefault();
+    const jsonData = await validateUser(this.state.email, this.state.password);
+    if (jsonData.token) {
+      this.setState({ isError: false, isLoading: false });
+      handleTokens.addToken("token", jsonData.token);
+      this.props.history.push("/");
+    } else {
+      this.setState({
+        isError: true,
+        isLoading: false,
+      });
+      if (jsonData.message) {
+        this.setState({
+          message: jsonData.message,
+        });
+      }
     }
-    this.handleNameChange = this.handleNameChange.bind(this);
-  }
-
-  handleNameChange = (event) => this.setState({ username: event.target.value })
-  handlePasswordChange = (event) => this.setState({ password: event.target.value })
-
-  handleSubmit = (event) => {
-    fetch('http://www.abc.com')
-      .then(res => {
-        if (res === 200) {
-          console.log('yes')
-          res.json()
-            .then(data => {
-              //set Cookies here
-            }, reason => {/*good credentials but some problem with response*/ })
-            .catch(err => {/* Promise not resolved */ })
-        }
-        else {
-          //Show login failed messages here
-          console.log(res)
-        }
-      }, reason => this.setState({ message: reason.toString() }))
-      .catch(err => console.log(err))
-  }
+  };
 
   showMessage = () => {
-    if (this.state.message === '') {
-      return null
-    }
-    else {
+    if (this.state.message === "") {
+      return null;
+    } else {
       return (
-        <div className='ui bottom attached warning message'>
+        <div className="ui bottom attached red warning message">
           {this.state.message}
         </div>
-      )
+      );
     }
-  }
+  };
 
   render() {
     return (
       <div className="login">
+        {handleTokens.getToken("token") ? <Redirect to="/" /> : null}
         <Grid textAlign="center">
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="grey" textAlign="center">
@@ -73,10 +83,10 @@ export default class LoginPage extends Component {
               <Segment stacked>
                 <Form.Input
                   fluid
-                  icon="user"
-                  onChange={this.handleNameChange}
+                  icon="mail"
+                  onChange={this.handleEmailChange}
                   iconPosition="left"
-                  placeholder="Username"
+                  placeholder="Email"
                 />
                 <Form.Input
                   fluid
@@ -92,16 +102,19 @@ export default class LoginPage extends Component {
                   size="large"
                   onClick={this.handleSubmit}
                 >
-                  Login
+                  {this.state.isLoading ? (
+                    <div className="ui active centered inline tiny inverted loader"></div>
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               </Segment>
             </Form>
             <Message>
               New to us? <a href="/signup">Sign Up</a>
             </Message>
-            {this.showMessage()}
+            {this.state.isError ? this.showMessage() : null}
           </Grid.Column>
-          
         </Grid>
       </div>
     );
