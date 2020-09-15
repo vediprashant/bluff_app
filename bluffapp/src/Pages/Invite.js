@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import {
     Button,
     Form,
@@ -11,10 +10,10 @@ import {
 } from "semantic-ui-react";
 
 import deck from "../Images/deck.png";
-import handleTokens from "../Utils/handleTokens";
 import inviteUser from "../Utils/inviteUser";
 
 import "../App.css";
+import Logout from "../components/Logout";
 
 export default class InvitePage extends Component {
     constructor(props) {
@@ -33,7 +32,7 @@ export default class InvitePage extends Component {
     handleSubmit = async (event) => {
         this.setState({ message: 'Inviting' });
         event.preventDefault();
-        inviteUser(this.state.email, this.props.game).then(
+        inviteUser(this.state.email, this.props.match.params.game).then(
             message => {
                 if (message === 'Success') {
                     this.setState({
@@ -78,13 +77,13 @@ export default class InvitePage extends Component {
         var recentlyAdded = this.state.recentlyAdded
         if (recentlyAdded.length !== 0) {
             let list = []
-            recentlyAdded.map(user => {
-                list.push(<li>{user}</li>)
+            recentlyAdded.map((user, index) => {
+                list.push(<li key={index}>{user}</li>)
             })
             let message = (
-                <div class="ui info  message">
+                <div className="ui info  message">
                     <p>Recently invited players</p>
-                    <ol class='ui list'>
+                    <ol className='ui list'>
                         {list.map(li => li)}
                     </ol>
                 </div>
@@ -120,13 +119,14 @@ export default class InvitePage extends Component {
                                     {this.state.isLoading ? (
                                         <div className="ui active centered inline tiny inverted loader"></div>
                                     ) : (
-                                            "Login"
+                                            "Invite"
                                         )}
                                 </Button>
                             </Segment>
                         </Form>
                         {this.showMessage()}
                         {this.showRecentlyAdded()}
+                        <Logout history={this.props.history} />
                     </Grid.Column>
                 </Grid>
             </div>

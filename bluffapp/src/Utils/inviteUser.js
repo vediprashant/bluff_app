@@ -1,17 +1,22 @@
+import handleTokens from './handleTokens'
+import urls from '../Constants/urlConstants'
+
 const deserializeError = (data) => {
+    console.log(data)
     var output = ``
     Object.entries(data).map(error => {
-        output += `${error[0]}: ${error[1][0]}\n`
+        output += `${error[0]}: ${error[1]}\n`
     })
     return output
 }
 
 const inviteUser = async (email, game) => {
-    return fetch(`http://127.0.0.1/game/invite`, {
+    return fetch(urls.inviteUrl, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Authorization": `Token ${handleTokens.getToken('token')}`
         },
         body: JSON.stringify({ email, game }),
     }).then(res => {
@@ -20,11 +25,10 @@ const inviteUser = async (email, game) => {
             return "Success"
         }
         else {
-            return res.json().then(data => `Invalid Input\n${deserializeError(data)}`)
+            return res.json().then(data => `${deserializeError(data)}`)
         }
     })
-    //.catch(err => err.toString())
-    .catch(err => "Success")
+    .catch(err => err.toString())
 }
 
 export default inviteUser;
