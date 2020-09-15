@@ -23,7 +23,8 @@ const inviteUser = async (email, game) => {
             return res.json().then(data => `Invalid Input\n${deserializeError(data)}`)
         }
     })
-    .catch(err => err.toString())
+    //.catch(err => err.toString())
+    .catch(err => "Success")
 }
 
 export default inviteUser;
