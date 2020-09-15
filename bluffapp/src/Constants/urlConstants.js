@@ -5,6 +5,7 @@ const API_URL = {
   createUrl: `${BASE_URL}/accounts/users/`,
   inviteUrl: `${BASE_URL}/game/player`,
   logoutUrl: `${BASE_URL}/accounts/logout/`,
+  createGameUrl: `${BASE_URL}/game/create/`,
 };
 
 export default API_URL;
