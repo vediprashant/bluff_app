@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Select } from "semantic-ui-react";
 import "./HomePage.css";
+import createGame from "../Utils/createGame";
 export default function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);
   const [isError, setError] = useState(false);
+  const [message, setmessage] = useState("");
   const deckOptions = [
     { key: 1, value: 1, text: 1 },
     { key: 2, value: 2, text: 2 },
@@ -12,15 +14,20 @@ export default function HomePage(props) {
   const deckHandler = (e) => {
     setTotalDecks(e.target.textContent);
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setError(false);
     if (totalDecks === null) {
       setError(true);
+      setmessage("Please select the decks");
     } else {
-      console.log(totalDecks);
-      //   Call Api Here
-      props.history.push("/game");
+      const game = await createGame(totalDecks);
+      if (game.id) {
+        props.history.push(`/game/${game.id}`);
+      } else {
+        setError(true);
+        setmessage(game.message);
+      }
     }
   };
   return (
@@ -37,7 +44,7 @@ export default function HomePage(props) {
           Create a new Game
         </button>
       </div>
-      {isError ? <div className="error">Please Select the decks</div> : null}
+      {isError ? <div className="error">{message}</div> : null}
     </div>
   );
 }
