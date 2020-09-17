@@ -28,12 +28,8 @@ export default class LoginPage extends Component {
       isLoading: false,
     };
   }
-
-  handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
-  };
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   handleSubmit = async (event) => {
@@ -84,8 +80,9 @@ export default class LoginPage extends Component {
                 <Form.Input
                   fluid
                   icon="mail"
-                  onChange={this.handleEmailChange}
+                  onChange={this.handleInputChange}
                   iconPosition="left"
+                  name="email"
                   placeholder="Email"
                 />
                 <Form.Input
@@ -93,8 +90,9 @@ export default class LoginPage extends Component {
                   icon="lock"
                   iconPosition="left"
                   placeholder="Password"
+                  name="password"
                   type="password"
-                  onChange={this.handlePasswordChange}
+                  onChange={this.handleInputChange}
                 />
                 <Button
                   color="blue"

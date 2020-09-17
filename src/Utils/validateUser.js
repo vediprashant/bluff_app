@@ -16,10 +16,12 @@ const validateUser = async (email, password) => {
     if (data.status === 500) {
       return { message: "Internal Server Error, Please Try Later" };
     }
-    const jsonData = await data.json();
-    console.log(data);
-    console.log(jsonData);
-    return jsonData;
+    if (data.status === 200) {
+      const jsonData = await data.json();
+      return jsonData;
+    } else {
+      return { message: "Unexpected Error, Please Try Again" };
+    }
   } catch {
     return { message: "API Error, Please try Again" };
   }
