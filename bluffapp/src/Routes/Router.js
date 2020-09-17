@@ -6,6 +6,7 @@ import LoginPage from "../Pages/LoginPage";
 import SignUpPage from "../Pages/SignUpPage";
 import HomePage from "../Pages/HomePage";
 import ViewGamesPage from "../Pages/ViewGamesPage";
+import GamePage from "../Pages/GamePage";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -17,6 +18,11 @@ const AppRouter = () => (
         <Route
           path={ROUTES.VIEW_GAMES_ROUTE}
           component={ViewGamesPage}
+          exact={true}
+        />
+        <Route
+          path={ROUTES.GAME_SCREEN_ROUTE}
+          component={GamePage}
           exact={true}
         />
       </Switch>

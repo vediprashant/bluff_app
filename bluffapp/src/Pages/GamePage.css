@@ -1,0 +1,15 @@
+.gameScreen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: #35654d;
+}
+.player {
+  position: absolute;
+}
+.avatars {
+  position: relative;
+  margin-left: 40%;
+  /* width: 100vh;
+  height: 100vh; */
+}
