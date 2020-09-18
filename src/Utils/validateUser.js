@@ -2,7 +2,7 @@ import API_URL from "../Constants/urlConstants";
 
 const validateUser = async (email, password) => {
   try {
-    const data = await fetch(`${API_URL.validateUrl}`, {
+    const data = await fetch(API_URL.VALIDATE_URL, {
       method: "POST",
       headers: {
         Accept: "application/json",
