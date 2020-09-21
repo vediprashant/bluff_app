@@ -3,7 +3,7 @@
  * @param {*} status 
  */
 export default function deserializeErrors(status){
-    statusCategory = Math.floor(status/100)
+    let statusCategory = Math.floor(status/100)
     switch(statusCategory){
         case 1:
             return 'Continue'
