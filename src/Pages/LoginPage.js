@@ -31,8 +31,6 @@ class LoginPage extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(this.props);
-    console.log(this.props.cookies);
     this.props.validate(
       this.props.cookies,
       this.state.email,
@@ -51,6 +49,27 @@ class LoginPage extends Component {
       );
     }
   };
+  emailError = () => {
+    if (
+      this.props.errorMessage === "Email field can't be blank" ||
+      this.props.errorMessage === "Please provide valid Email" ||
+      this.props.errorMessage === "Please provide valid credentials" ||
+      this.props.errorMessage === "Please provide Input"
+    ) {
+      return true;
+    }
+    return false;
+  };
+  passwordError = () => {
+    if (
+      this.props.errorMessage === "Please provide Input" ||
+      this.props.errorMessage === "Please provide Password" ||
+      this.props.errorMessage === "Please provide valid credentials"
+    ) {
+      return true;
+    }
+    return false;
+  };
   componentDidUpdate() {
     if (this.props.loggedIn) {
       this.props.history.push("/");
@@ -59,7 +78,6 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="login">
-        {console.log(this.props.loggedIn)}
         <Grid textAlign="center">
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="grey" textAlign="center">
@@ -75,6 +93,7 @@ class LoginPage extends Component {
                   iconPosition="left"
                   name="email"
                   placeholder="Email"
+                  error={this.emailError()}
                 />
                 <Form.Input
                   fluid
@@ -84,6 +103,7 @@ class LoginPage extends Component {
                   name="password"
                   type="password"
                   onChange={this.handleInputChange}
+                  error={this.passwordError()}
                 />
                 <Button
                   color="blue"

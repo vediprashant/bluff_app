@@ -6,7 +6,6 @@ import LoginPage from "../Pages/LoginPage";
 import SignUpPage from "../Pages/SignUpPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AnonymousRoute from "./AnonymousRoute";
-import HomePage from "../Pages/HomePage";
 
 const AppRouter = () => (
   <BrowserRouter>

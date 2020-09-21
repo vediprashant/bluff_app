@@ -1,4 +1,5 @@
 import API_URL from "../Constants/urlConstants";
+import deserializeErrors from "../Utils/deserializeErrors";
 
 const validateUser = async (email, password) => {
   try {
@@ -23,7 +24,7 @@ const validateUser = async (email, password) => {
       const jsonData = await data.json();
       return jsonData;
     } else {
-      return { message: "Unexpected Error, Please Try Again" };
+      return { message: deserializeErrors(data.status) };
     }
   } catch {
     return { message: "API Error, Please try Again" };
