@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { withCookies } from "react-cookie";
 import {
   Button,
   Form,
@@ -30,7 +31,11 @@ class LoginPage extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.validate(this.state.email, this.state.password);
+    this.props.validate(
+      this.props.cookies,
+      this.state.email,
+      this.state.password
+    );
   };
 
   showMessage = () => {
@@ -44,6 +49,27 @@ class LoginPage extends Component {
       );
     }
   };
+  emailError = () => {
+    if (
+      this.props.errorMessage === "Email field can't be blank" ||
+      this.props.errorMessage === "Please provide valid Email" ||
+      this.props.errorMessage === "Please provide valid credentials" ||
+      this.props.errorMessage === "Please provide Input"
+    ) {
+      return true;
+    }
+    return false;
+  };
+  passwordError = () => {
+    if (
+      this.props.errorMessage === "Please provide Input" ||
+      this.props.errorMessage === "Please provide Password" ||
+      this.props.errorMessage === "Please provide valid credentials"
+    ) {
+      return true;
+    }
+    return false;
+  };
   componentDidUpdate() {
     if (this.props.loggedIn) {
       this.props.history.push("/");
@@ -52,7 +78,6 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="login">
-        {console.log(this.props.loggedIn)}
         <Grid textAlign="center">
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="grey" textAlign="center">
@@ -68,6 +93,7 @@ class LoginPage extends Component {
                   iconPosition="left"
                   name="email"
                   placeholder="Email"
+                  error={this.emailError()}
                 />
                 <Form.Input
                   fluid
@@ -77,6 +103,7 @@ class LoginPage extends Component {
                   name="password"
                   type="password"
                   onChange={this.handleInputChange}
+                  error={this.passwordError()}
                 />
                 <Button
                   color="blue"
@@ -103,17 +130,23 @@ class LoginPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   loggedIn: state.loggedIn,
   isLoading: state.isLoading,
   isError: state.isError,
   errorMessage: state.errorMessage,
+  cookies: ownProps.cookies,
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { validate: (email, password) => loginHandler(email, password) },
+    {
+      validate: (cookies, email, password) =>
+        loginHandler(cookies, email, password),
+    },
     dispatch
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default withCookies(
+  connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+);

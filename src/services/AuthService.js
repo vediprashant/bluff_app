@@ -1,4 +1,5 @@
 import API_URL from "../Constants/urlConstants";
+import deserializeErrors from "../Utils/deserializeErrors";
 
 const validateUser = async (email, password) => {
   try {
@@ -13,6 +14,9 @@ const validateUser = async (email, password) => {
     if (data.status === 400) {
       return { message: "Please provide valid input" };
     }
+    if (data.status === 401) {
+      return { message: "Please provide valid credentials" };
+    }
     if (data.status === 500) {
       return { message: "Internal Server Error, Please Try Later" };
     }
@@ -20,7 +24,7 @@ const validateUser = async (email, password) => {
       const jsonData = await data.json();
       return jsonData;
     } else {
-      return { message: "Unexpected Error, Please Try Again" };
+      return { message: deserializeErrors(data.status) };
     }
   } catch {
     return { message: "API Error, Please try Again" };

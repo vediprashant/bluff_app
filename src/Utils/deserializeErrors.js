@@ -1,6 +1,6 @@
 /**
  * returns a string describing staus code category
- * @param {*} status 
+ * @param {*} status
  */
 export default function deserializeErrors(status){
     let statusCategory = Math.floor(status/100)
@@ -21,7 +21,6 @@ export default function deserializeErrors(status){
             return 'Internal Server Error'
             
         default:
-            return ''
-            
+            return '' 
     }
 }
