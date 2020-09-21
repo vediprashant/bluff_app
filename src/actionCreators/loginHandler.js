@@ -20,6 +20,33 @@ function setMessage(message) {
 
 function validatingUser(email, password) {
   return async (dispatch) => {
+    if (email === "" && password === "") {
+      dispatch(setMessage("Please provide Input"));
+      dispatch(setError());
+      return;
+    }
+    if (email === "") {
+      dispatch(setMessage("Email field can't be blank"));
+      dispatch(setError());
+      return;
+    }
+    const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const result = pattern.test(email);
+    if (result === false) {
+      dispatch(setMessage("Please provide valid Email"));
+      dispatch(setError());
+      return;
+    }
+    if (password === "") {
+      dispatch(setMessage("Please provide Password"));
+      dispatch(setError());
+      return;
+    }
+    if (password.length < 8) {
+      dispatch(setMessage("Please provide valid credentials"));
+      dispatch(setError());
+      return;
+    }
     dispatch(loading());
     const jsonData = await validateUser(email, password);
     if (jsonData.message) {

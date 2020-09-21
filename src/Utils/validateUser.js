@@ -13,6 +13,9 @@ const validateUser = async (email, password) => {
     if (data.status === 400) {
       return { message: "Please provide valid input" };
     }
+    if (data.status === 401) {
+      return { message: "Please provide valid credentials" };
+    }
     if (data.status === 500) {
       return { message: "Internal Server Error, Please Try Later" };
     }
