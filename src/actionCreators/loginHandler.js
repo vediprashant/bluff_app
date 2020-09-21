@@ -18,7 +18,7 @@ function setMessage(message) {
   return { type: actions.SET_MESSAGE, payload: { message } };
 }
 
-function validatingUser(email, password) {
+function validatingUser(cookies, email, password) {
   return async (dispatch) => {
     if (email === "" && password === "") {
       dispatch(setMessage("Please provide Input"));
@@ -56,7 +56,7 @@ function validatingUser(email, password) {
     } else {
       dispatch(loading());
       dispatch(unsetError());
-      handleTokens.addToken("token", jsonData.token);
+      handleTokens.addToken(cookies, "token", jsonData.token);
       dispatch(login());
     }
   };

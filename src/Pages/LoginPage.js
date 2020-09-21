@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { withCookies } from "react-cookie";
 import {
   Button,
   Form,
@@ -30,7 +31,13 @@ class LoginPage extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.validate(this.state.email, this.state.password);
+    console.log(this.props);
+    console.log(this.props.cookies);
+    this.props.validate(
+      this.props.cookies,
+      this.state.email,
+      this.state.password
+    );
   };
 
   showMessage = () => {
@@ -103,17 +110,23 @@ class LoginPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   loggedIn: state.loggedIn,
   isLoading: state.isLoading,
   isError: state.isError,
   errorMessage: state.errorMessage,
+  cookies: ownProps.cookies,
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { validate: (email, password) => loginHandler(email, password) },
+    {
+      validate: (cookies, email, password) =>
+        loginHandler(cookies, email, password),
+    },
     dispatch
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default withCookies(
+  connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+);

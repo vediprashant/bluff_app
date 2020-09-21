@@ -1,7 +1,7 @@
 const handleTokens = {
-  addToken: (key, value) => localStorage.setItem(key, value),
-  getToken: (key) => localStorage.getItem(key),
-  removeToken: (key) => localStorage.removeItem(key),
+  addToken: (cookies, key, value) => cookies.set(key, value, { path: "/" }),
+  getToken: (cookies, key) => cookies.get(key),
+  removeToken: (cookies, key) => cookies.remove(key),
 };
 
 export default handleTokens;
