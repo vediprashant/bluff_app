@@ -13,6 +13,7 @@ const validate = (name, email, password, confirmPassword) => {
     var response = { message: 'OK' }
     var re = /\S+@\S+\.\S+/
     if (name === "") response = { name: "Name is required", message: "Check highlighted fields" }
+    console.log(`${email} regex returned ${re.test('')}`)
     if (!re.test(email)) {
         response = {
             ...response,
