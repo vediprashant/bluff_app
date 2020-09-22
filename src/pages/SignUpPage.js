@@ -75,16 +75,17 @@ class SignUpPage extends Component {
         },
       });
     } else {
-      emailField.class = "field";
-      emailField.placeholder = "Email";
       this.setState({
         emailField: {
           class: "field",
           placeholder: "Email",
         },
       });
-      this.setState({ email: evt.target.value });
     }
+  };
+
+  updateEmailState = (evt) => {
+    this.setState({ email: evt.target.value });
   };
 
   handlePasswordChange = (evt) => this.setState({ password: evt.target.value });
@@ -136,9 +137,7 @@ class SignUpPage extends Component {
     return true;
   }
   componentWillReceiveProps() {
-    console.log("will recieve");
     let response = this.props.response;
-    console.log(response);
     if (response.name) {
       this.setState({
         nameField: {
@@ -234,6 +233,7 @@ class SignUpPage extends Component {
                   placeholder={this.state.emailField.placeholder}
                   className={this.state.emailField.class}
                   onBlur={this.handleEmailChange}
+                  onChange={this.updateEmailState}
                 />
                 <Form.Input
                   fluid
