@@ -12,7 +12,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 
-import deck from "../Images/deck.png";
+import deck from "../assets/deck.png";
 import loginHandler from "../actionCreators/loginHandler";
 
 import "../App.css";

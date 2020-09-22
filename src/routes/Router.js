@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import ROUTES from "../Constants/pathConstants";
-import LoginPage from "../Pages/LoginPage";
-import SignUpPage from "../Pages/SignUpPage";
+import ROUTES from "../constants/pathConstants";
+import LoginPage from "../pages/LoginPage";
+import SignUpPage from "../pages/SignUpPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AnonymousRoute from "./AnonymousRoute";
 

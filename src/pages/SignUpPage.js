@@ -1,194 +1,207 @@
 import React, { Component } from "react";
-import { Button, Form, Grid, Header, Image, Segment, Input } from "semantic-ui-react";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Segment,
+  Input,
+} from "semantic-ui-react";
 import { connect } from "react-redux";
 
-import deck from "../Images/deck.png";
+import deck from "../assets/deck.png";
 import handleTokens from "../Utils/handleTokens";
 import "../App.css";
 import { Redirect } from "react-router-dom";
-import createUser from '../actionCreators/createUser'
-import deepEqual from '../Utils/deepEqual'
+import createUser from "../actionCreators/createUser";
+import deepEqual from "../Utils/deepEqual";
 
 class SignUpPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
       nameField: {
-        placeholder: 'Name',
-        class: 'field'
+        placeholder: "Name",
+        class: "field",
       },
       emailField: {
-        placeholder: 'Email',
-        class: 'field'
+        placeholder: "Email",
+        class: "field",
       },
       passwordField: {
-        placeholder: 'Password',
-        class: 'field'
+        placeholder: "Password",
+        class: "field",
       },
       confirmPasswordField: {
-        placeholder: 'Confirm Password',
-        class: 'field'
+        placeholder: "Confirm Password",
+        class: "field",
       },
-    }
+    };
   }
 
-  handleNameChange = evt => {
-    if (evt.target.value === '') {
+  handleNameChange = (evt) => {
+    if (evt.target.value === "") {
       this.setState({
         nameField: {
-          class: 'field error',
-          placeholder: 'Name cannot be blank',
-        }
-      })
-    }else {
-      this.setState({
-        nameField: {
-          class: 'field',
-          placeholder: 'Name',
-        }
-      })
-    }
-    this.setState({ name: evt.target.value })
-  }
-
-  handleEmailChange = evt => {
-    var emailField = this.state.emailField
-    var re = /\S+@\S+\.\S+/
-    if (!re.test(evt.target.value)) {
-      evt.target.value = ''
-      this.setState({
-        emailField: {
-          class: 'field error',
-          placeholder: 'Enter valid Email'
-        }
-      })
+          class: "field error",
+          placeholder: "Name cannot be blank",
+        },
+      });
     } else {
-      emailField.class = 'field'
-      emailField.placeholder = 'Email'
+      this.setState({
+        nameField: {
+          class: "field",
+          placeholder: "Name",
+        },
+      });
+    }
+    this.setState({ name: evt.target.value });
+  };
+
+  handleEmailChange = (evt) => {
+    var emailField = this.state.emailField;
+    var re = /\S+@\S+\.\S+/;
+    if (!re.test(evt.target.value)) {
+      evt.target.value = "";
       this.setState({
         emailField: {
-          class: 'field',
-          placeholder: 'Email'
-        }
-      })
-      this.setState({ email: evt.target.value })
+          class: "field error",
+          placeholder: "Enter valid Email",
+        },
+      });
+    } else {
+      emailField.class = "field";
+      emailField.placeholder = "Email";
+      this.setState({
+        emailField: {
+          class: "field",
+          placeholder: "Email",
+        },
+      });
+      this.setState({ email: evt.target.value });
     }
-  }
+  };
 
-  handlePasswordChange = evt => this.setState({ password: evt.target.value })
+  handlePasswordChange = (evt) => this.setState({ password: evt.target.value });
 
-  handleConfirmPasswordChange = evt => {
+  handleConfirmPasswordChange = (evt) => {
     if (evt.target.value !== this.state.password) {
       this.setState({
         passwordField: {
-          class: 'field error',
-          placeholder: 'Passwords do not match'
+          class: "field error",
+          placeholder: "Passwords do not match",
         },
         confirmPasswordField: {
-          class: 'field error',
-          placeholder: 'Passwords do not match'
-        }
-      })
+          class: "field error",
+          placeholder: "Passwords do not match",
+        },
+      });
     } else {
       this.setState({
         passwordField: {
-          class: 'field',
-          placeholder: 'Password'
+          class: "field",
+          placeholder: "Password",
         },
         confirmPasswordField: {
-          class: 'field',
-          placeholder: 'Confirm Password'
-        }
-      })
+          class: "field",
+          placeholder: "Confirm Password",
+        },
+      });
     }
-    this.setState({ confirmPassword: evt.target.value })
-  }
+    this.setState({ confirmPassword: evt.target.value });
+  };
 
   handleSubmit = () => {
-    var { name, email, password, confirmPassword } = this.state
-    this.props.createUserAction(name = name, email = email, password = password, confirmPassword = confirmPassword)
-  }
+    var { name, email, password, confirmPassword } = this.state;
+    this.props.createUserAction(
+      (name = name),
+      (email = email),
+      (password = password),
+      (confirmPassword = confirmPassword)
+    );
+  };
   /**
    * Shows warning messages
    */
 
   shouldComponentUpdate(nextProps, nextState) {
     if (deepEqual(nextState, this.state) && deepEqual(this.props, nextProps)) {
-      return false
+      return false;
     }
-    return true
+    return true;
   }
   componentWillReceiveProps() {
-    console.log('will recieve')
-    let response = this.props.response
-    console.log(response)
+    console.log("will recieve");
+    let response = this.props.response;
+    console.log(response);
     if (response.name) {
       this.setState({
         nameField: {
-          class: 'field error',
-          placeholder: response.name
+          class: "field error",
+          placeholder: response.name,
         },
-      })
+      });
     } else {
       this.setState({
         nameField: {
-          class: 'field',
-          placeholder: 'Name'
+          class: "field",
+          placeholder: "Name",
         },
-      })
+      });
     }
     if (response.email) {
       this.setState({
         emailField: {
-          class: 'field error',
-          placeholder: response.email
+          class: "field error",
+          placeholder: response.email,
         },
-      })
+      });
     } else {
       this.setState({
         emailField: {
-          class: 'field',
-          placeholder: 'Email'
+          class: "field",
+          placeholder: "Email",
         },
-      })
+      });
     }
     if (response.password) {
       this.setState({
         passwordField: {
-          class: 'field error',
-          placeholder: response.password
+          class: "field error",
+          placeholder: response.password,
         },
         confirmPasswordField: {
-          class: 'field error',
-          placeholder: response.password
-        }
-      })
+          class: "field error",
+          placeholder: response.password,
+        },
+      });
     } else {
       this.setState({
         passwordField: {
-          class: 'field',
-          placeholder: 'Password'
+          class: "field",
+          placeholder: "Password",
         },
         confirmPasswordField: {
-          class: 'field',
-          placeholder: 'Confirm Password'
-        }
-      })
+          class: "field",
+          placeholder: "Confirm Password",
+        },
+      });
     }
   }
 
   showMessage = () => {
-    var { response } = this.props
-    let message = response.message
+    var { response } = this.props;
+    let message = response.message;
     if (message === "") {
       return null;
     } else {
       return (
-        <div id='signUpWarn' className="ui bottom attached red warning message">
+        <div id="signUpWarn" className="ui bottom attached red warning message">
           {message}
         </div>
       );
@@ -257,15 +270,13 @@ class SignUpPage extends Component {
     );
   }
 }
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     loading: state.createUser.loading,
-    response: state.createUser.response
-  }
-}
-export default connect(
-  mapStatetoProps,
-  {
-    createUserAction: createUser
-  }
-)(SignUpPage)
+    response: state.createUser.response,
+  };
+};
+
+export default connect(mapStatetoProps, {
+  createUserAction: createUser,
+})(SignUpPage);

@@ -1,4 +1,4 @@
-import API_URL from "../Constants/urlConstants";
+import API_URL from "../constants/urlConstants";
 import deserializeErrors from "../Utils/deserializeErrors";
 
 const validateUser = async (email, password) => {
