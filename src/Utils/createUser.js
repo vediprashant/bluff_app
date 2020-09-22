@@ -58,12 +58,12 @@ const createUser = async (name, email, password, confirmPassword) => {
         else if (res.status === 400) {
             return res.json().then(data => {
                 if (data.email) return { response: { email: data.email[0], message: data.email[0] } }
-                return { email: 'wtf' }
+                else return { response: { message: deserializeErrors(400) } }
             })
         }
-        return { message: deserializeErrors(res.status) }
+        return { response: { message: deserializeErrors(res.status) } }
     })
-        .catch(err => ({ message: 'API Error' }))
+    .catch(err => ({ response: { message: 'API Error' } }))
 }
 
 export default createUser;

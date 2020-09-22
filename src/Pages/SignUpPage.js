@@ -198,7 +198,6 @@ class SignUpPage extends Component {
   render() {
     return (
       <div className="login">
-        {handleTokens.getToken("token") ? <Redirect to="/" /> : null}
         <Grid textAlign="center">
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="grey" textAlign="center">
