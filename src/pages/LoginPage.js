@@ -131,10 +131,10 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  loggedIn: state.loggedIn,
-  isLoading: state.isLoading,
-  isError: state.isError,
-  errorMessage: state.errorMessage,
+  loggedIn: state.login.loggedIn,
+  isLoading: state.login.isLoading,
+  isError: state.login.isError,
+  errorMessage: state.login.errorMessage,
   cookies: ownProps.cookies,
 });
 const mapDispatchToProps = (dispatch) => {
