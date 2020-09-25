@@ -1,0 +1,26 @@
+.playerCards {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 40px;
+  overflow: scroll;
+  /* width: fit-content; */
+}
+.card:first-child {
+  height: 200px;
+  position: relative;
+  transition: bottom 0.2s;
+  bottom: 0;
+  filter: drop-shadow(-20px 15px 10px rgba(49, 49, 49, 0.4));
+}
+.card:not(:first-child) {
+  height: 200px;
+  position: relative;
+  margin-left: -100px;
+  transition: bottom 0.2s;
+  bottom: 0;
+  filter: drop-shadow(-20px 15px 10px rgba(49, 49, 49, 0.4));
+}
+
+.card:hover {
+  bottom: 20px;
+}
