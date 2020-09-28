@@ -4,8 +4,8 @@ import "./playerCards.css";
 import { Select } from "semantic-ui-react";
 
 const PlayerCards = () => {
-  let cards = [];
-  for (let i = 1; i <= 12; i++) {
+  let cards = [2, 9, 16, 54, 84, 123, 156];
+  for (let i = 1; i <= 150; i++) {
     cards.push(i);
   }
   cards = cardsHandler(cards);

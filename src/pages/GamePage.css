@@ -1,15 +1,96 @@
 .gameScreen {
-  /* height: 100vh; */
+  height: 100vh;
   display: flex;
   justify-content: center;
   background: #35654d;
 }
+
+.avatars {
+  position: relative;
+  margin-left: 10%;
+  /* width: 100vh; */
+  height: 100vh;
+}
 .player {
   position: absolute;
 }
-.avatars {
+.tableCards {
+  position: absolute;
+  top: 40%;
+  left: 25%;
+}
+
+.cards:first-child {
+  height: 200px;
+  position: absolute;
+  z-index: 1;
+}
+
+.cards:not(:first-child) {
+  height: 200px;
+  position: absolute;
+}
+.cardCountImg {
   position: relative;
-  margin-left: 40%;
-  /* width: 100vh;
-  height: 100vh; */
+  filter: blur(1px);
+}
+.cardCountNum {
+  position: absolute;
+  top: 65%;
+  left: 10%;
+
+  font-size: 25px;
+  color: #292121;
+}
+.playerCard {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 500px;
+  height: 220px;
+}
+.actionButtons {
+  position: absolute;
+  top: 50px;
+  right: 90px;
+  width: 300px;
+  height: 200px;
+}
+.selectSet {
+  position: absolute;
+  top: 170px;
+  right: -30px;
+  width: 600px;
+  height: 300px;
+}
+.timer {
+  position: absolute;
+  left: 0;
+  height: 10px;
+  animation-name: animate-timer;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+}
+
+@keyframes animate-timer {
+  0% {
+    background-color: #fff;
+    width: 0%;
+  }
+  25% {
+    background-color: rgb(212, 162, 69);
+    width: 25%;
+  }
+  50% {
+    background-color: rgb(231, 129, 88);
+    width: 50%;
+  }
+  75% {
+    background-color: rgb(200, 37, 23);
+    width: 75%;
+  }
+  100% {
+    width: 100%;
+    background-color: rgb(116, 13, 13);
+  }
 }

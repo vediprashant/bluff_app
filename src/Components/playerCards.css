@@ -1,7 +1,7 @@
 .playerCards {
   display: flex;
   align-items: flex-end;
-  padding-top: 40px;
+  padding-top: 20px;
   overflow: scroll;
   /* width: fit-content; */
 }
