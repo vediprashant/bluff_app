@@ -13,6 +13,7 @@
 }
 .player {
   position: absolute;
+  width: 80px;
 }
 .tableCards {
   position: absolute;
