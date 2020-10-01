@@ -72,6 +72,9 @@
   animation-duration: 10s;
   animation-timing-function: linear;
 }
+.startGame {
+  position: absolute;
+}
 
 @keyframes animate-timer {
   0% {
