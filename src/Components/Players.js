@@ -11,7 +11,7 @@ export default function Player(props) {
   useEffect(() => {
     //Arrange players in nice circles
     const ele = document.getElementsByClassName("player");
-    const width = 650;
+    const width = 690;
     const height = 667;
     const radius = 300;
     let angle = 0;
@@ -60,5 +60,6 @@ export default function Player(props) {
       </div>
     );
   });
+
   return <div className="avatars">{renderedPlayers}</div>;
 }

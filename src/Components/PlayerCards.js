@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import cardsHandler from "../Utils/cardsHandler";
+import stringMapperToCards from "../Utils/stringMapperToCards";
 import "./playerCards.css";
 
-const PlayerCards = () => {
-  let pos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 54, 84, 123, 156];
-
-  let cards = cardsHandler(pos);
+const PlayerCards = (props) => {
+  let x = props.game?.gameState?.self?.cards;
+  let pos = [];
+  if (x !== undefined) {
+    pos = stringMapperToCards(x);
+  }
+  let cards = [];
+  if (pos.length > 0) {
+    cards = cardsHandler(pos);
+  }
   let playerCards = cards.map((number, ind) => (
     <img
       id={pos[ind]}
@@ -14,12 +22,14 @@ const PlayerCards = () => {
       alt="card"
     ></img>
   ));
-
-  let stack = document.querySelectorAll(".card");
-  for (let i = 0; i < stack.length; i++) {
-    let card = stack[i];
-    card.addEventListener("click", selectCard);
-  }
+  useEffect(() => {
+    let stack = document.querySelectorAll(".card");
+    console.log(stack);
+    for (let i = 0; i < stack.length; i++) {
+      let card = stack[i];
+      card.addEventListener("click", selectCard);
+    }
+  }, [playerCards]);
 
   function selectCard(event) {
     event.stopImmediatePropagation();
@@ -28,4 +38,10 @@ const PlayerCards = () => {
   return <div className="playerCards">{playerCards}</div>;
 };
 
-export default PlayerCards;
+const mapStateToProps = (state) => {
+  return {
+    game: state.game,
+  };
+};
+
+export default connect(mapStateToProps)(PlayerCards);
