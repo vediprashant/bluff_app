@@ -43,6 +43,14 @@ class GamePage extends Component {
     this.props.game.socket.send(jsonData);
   };
 
+  skip = () => {
+    const data = {
+      action: "skip",
+    };
+    const jsonData = JSON.stringify(data);
+    this.props.game.socket.send(jsonData);
+  }
+
   startGame = () => {
     const data = {
       action: "start",
@@ -50,6 +58,14 @@ class GamePage extends Component {
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
   };
+
+  show = () => {
+    const data = {
+      action: "callBluff",
+    };
+    const jsonData = JSON.stringify(data);
+    this.props.game.socket.send(jsonData);    
+  }
 
   selectSet = (event) => {
     let updatedSet;
@@ -76,8 +92,8 @@ class GamePage extends Component {
   render() {
     return (
       <div className="gameScreen">
-        {this.props.game?.gameState?.game_table?.currentUser ===
-        this.props.game?.gameState?.self?.user?.id ? (
+        {this.props.game?.gameState?.game_table?.current_player_id ===
+        this.props.game?.gameState?.self?.player_id ? (
           <div className="timer"></div>
         ) : null}
         <Players
@@ -89,20 +105,20 @@ class GamePage extends Component {
             card_count={this.props.game?.gameState?.game_table?.card_count}
           />
         </div>
-        {this.props.game?.gameState?.game_table?.currentUser ===
-        this.props.game?.gameState?.self?.user?.id ? (
+        {this.props.game?.gameState?.game_table?.current_player_id ===
+        this.props.game?.gameState?.self?.player_id ? (
           <div className="actionButtons">
-            <Button text={"Pass"} color={"purple"} />
+            <Button text={"Pass"} color={"purple"} onClick={this.skip} />
             <Button text={"Play"} color={"purple"} onClick={this.playCards} />
-            {this.props.game?.gameState?.game_table?.lastUser !==
-              this.props.game?.gameState?.self?.user?.id &&
+            {this.props.game?.gameState?.game_table?.last_player_id !==
+              this.props.game?.gameState?.self?.player_id &&
             this.props.game?.gameState?.game_table?.card_count !== 0 ? (
-              <Button text={"Show"} color={"purple"} className={"disabled"} />
+              <Button text={"Show"} color={"purple"} onClick={this.show} />
             ) : null}
           </div>
         ) : null}
         {this.props.game?.gameState?.game?.owner ===
-        this.props.game?.gameState?.self?.user?.id ? (
+        this.props.game?.gameState?.self?.user?.id && this.props.game?.gameState?.game?.started === false ? (
           <Button
             text={"Start Game"}
             color={"grey"}
