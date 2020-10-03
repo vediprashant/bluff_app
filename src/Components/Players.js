@@ -33,6 +33,7 @@ export default function Player(props) {
     renderedPlayers.push(
       <div className="player">
         <img
+          imgId={props.self.player_id}
           src="https://picsum.photos/200"
           class="ui avatar tiny image"
           alt="avatar"
@@ -42,12 +43,14 @@ export default function Player(props) {
     );
   }
   //Fill in rest of the players
+  console.log(props.game_players);
   props.game_players.map((player, index) => {
     renderedPlayers.push(
       <div className="player">
         <img
+          imgId={player.player_id}
           src="https://picsum.photos/200"
-          class="ui avatar tiny image"
+          class="ui avatar tiny image "
           alt="avatar"
         />
         <span>{player.user.name}</span>

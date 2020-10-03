@@ -8,6 +8,8 @@ import connectToGame from "../actionCreators/connectToGame";
 import TableCards from "../Components/TableCards";
 import Players from "../Components/Players";
 import cardsMapperToString from "../Utils/cardsMapperToString";
+import PlayedCardsModel from "../Components/PlayedCardsModel";
+import actions from "../actions";
 
 class GamePage extends Component {
   constructor(props) {
@@ -22,6 +24,19 @@ class GamePage extends Component {
   }
   componentDidUpdate() {
     console.log(this.props.game);
+    const allPlayers = document.getElementsByClassName("avatar");
+    for (let player = 0; player < allPlayers.length; player++) {
+      allPlayers[player].classList.remove("userPic");
+      if (
+        allPlayers[player].getAttribute("imgid") ==
+        this.props.game?.gameState?.game_table?.current_player_id
+      ) {
+        allPlayers[player].classList.add("userPic");
+      }
+    }
+    // const activePlayer = document.querySelector("[imgId=1]");
+    // console.log(activePlayer);
+    console.log(allPlayers);
   }
 
   playCards = () => {
@@ -49,7 +64,7 @@ class GamePage extends Component {
     };
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
-  }
+  };
 
   startGame = () => {
     const data = {
@@ -64,8 +79,8 @@ class GamePage extends Component {
       action: "callBluff",
     };
     const jsonData = JSON.stringify(data);
-    this.props.game.socket.send(jsonData);    
-  }
+    this.props.game.socket.send(jsonData);
+  };
 
   selectSet = (event) => {
     let updatedSet;
@@ -118,7 +133,8 @@ class GamePage extends Component {
           </div>
         ) : null}
         {this.props.game?.gameState?.game?.owner ===
-        this.props.game?.gameState?.self?.user?.id && this.props.game?.gameState?.game?.started === false ? (
+          this.props.game?.gameState?.self?.user?.id &&
+        this.props.game?.gameState?.game?.started === false ? (
           <Button
             text={"Start Game"}
             color={"grey"}
@@ -130,13 +146,14 @@ class GamePage extends Component {
           <h1 className="heading1">Select Cards</h1>
           <PlayerCards />
         </div>
-        {this.props.game?.gameState?.game_table?.currentUser ===
-          this.props?.game?.gameState?.self?.user?.id &&
+        {this.props.game?.gameState?.game_table?.current_player_id ===
+          this.props?.game?.gameState?.self?.player_id &&
         this.props?.game?.gameState?.game_table?.card_count === 0 ? (
           <div className="selectSet">
             <SelectSet selectSet={this.selectSet} />
           </div>
         ) : null}
+        {/* <PlayedCardsModel /> */}
       </div>
     );
   }
