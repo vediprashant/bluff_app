@@ -23,7 +23,7 @@ class GamePage extends Component {
     this.props.connectToGame("ws://localhost:8000/ws/chat/1/");
   }
   componentDidUpdate() {
-    console.log(this.props.game);
+    console.log(this.props.game.gameState);
     const allPlayers = document.getElementsByClassName("avatar");
     for (let player = 0; player < allPlayers.length; player++) {
       allPlayers[player].classList.remove("userPic");
@@ -34,9 +34,6 @@ class GamePage extends Component {
         allPlayers[player].classList.add("userPic");
       }
     }
-    // const activePlayer = document.querySelector("[imgId=1]");
-    // console.log(activePlayer);
-    console.log(allPlayers);
   }
 
   playCards = () => {
@@ -47,7 +44,6 @@ class GamePage extends Component {
       cardsSelected[card].classList.remove("selected");
     }
     let stringCards = cardsMapperToString(mappedCards);
-    console.log("play");
     const data = {
       action: "play",
       cardsPlayed: stringCards,
@@ -153,7 +149,7 @@ class GamePage extends Component {
             <SelectSet selectSet={this.selectSet} />
           </div>
         ) : null}
-        {/* <PlayedCardsModel /> */}
+        <PlayedCardsModel />
       </div>
     );
   }

@@ -16,11 +16,9 @@ export default function Player(props) {
     const radius = 300;
     let angle = 0;
     let step = (2 * Math.PI) / ele.length;
-    console.log(step);
     for (let i = 0; i < ele.length; i++) {
       var x = Math.round(width / 2 + radius * Math.cos(angle) - 80 / 2);
       var y = Math.round(height / 2 + radius * Math.sin(angle) - 80 / 2);
-      console.log(x, y);
       ele[i].style.top = x + "px";
       ele[i].style.right = y + "px";
       angle += step;
@@ -28,7 +26,6 @@ export default function Player(props) {
   });
 
   //initialize with self player entry
-  console.log(props.self ? props.self.user.name : "Loading");
   if (props.self) {
     renderedPlayers.push(
       <div className="player">
@@ -43,7 +40,6 @@ export default function Player(props) {
     );
   }
   //Fill in rest of the players
-  console.log(props.game_players);
   props.game_players.map((player, index) => {
     renderedPlayers.push(
       <div className="player">
