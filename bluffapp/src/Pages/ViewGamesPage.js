@@ -4,6 +4,7 @@ import Games from "../Components/Games";
 import Pagination from "../Components/Pagination";
 import API_URL from "../Constants/urlConstants";
 import "./ViewGamePage.css";
+import handleTokens from "../Utils/handleTokens";
 
 const ViewGamesPage = () => {
   const [games, setGames] = useState([]);
@@ -22,9 +23,16 @@ const ViewGamesPage = () => {
     }
     button[0].classList.add("active");
     setLoading(true);
-    const games = await fetch(API_URL.getCompletedGames);
+    const games = await fetch(API_URL.getCompletedGames, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `token ${handleTokens.getToken("token")}`,
+      },
+    });
     const jsonGames = await games.json();
-    setGames(jsonGames);
+    console.log(jsonGames.results);
+    setGames(jsonGames.results);
     setLoading(false);
   };
   const fetchOngoingGames = async () => {
@@ -34,9 +42,16 @@ const ViewGamesPage = () => {
     }
     button[1].classList.add("active");
     setLoading(true);
-    const games = await fetch(API_URL.getOngingGames);
+    const games = await fetch(API_URL.getOngingGames, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `token ${handleTokens.getToken("token")}`,
+      },
+    });
     const jsonGames = await games.json();
-    setGames(jsonGames);
+    setGames(jsonGames.results);
+    console.log(jsonGames.results);
     setLoading(false);
   };
   const paginate = (pageNum, elem) => {
