@@ -36,7 +36,7 @@ function ModalExampleBasic(props) {
       onOpen={() => setOpen(true)}
       open={open}
     >
-      <Modal.Header>Cards Played</Modal.Header>
+      <Modal.Header>{props.game.gameState.bluffLooser} lost</Modal.Header>
       <Modal.Content image>
         <div class="bluffCards">{playerCards}</div>
       </Modal.Content>
