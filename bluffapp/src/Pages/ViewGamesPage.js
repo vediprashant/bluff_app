@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Games from "../Components/Games";
 import Pagination from "../Components/Pagination";
+import API_URL from "../Constants/urlConstants";
 import "./ViewGamePage.css";
 
 const ViewGamesPage = () => {
@@ -21,7 +22,7 @@ const ViewGamesPage = () => {
     }
     button[0].classList.add("active");
     setLoading(true);
-    const games = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const games = await fetch(API_URL.getCompletedGames);
     const jsonGames = await games.json();
     setGames(jsonGames);
     setLoading(false);
@@ -32,9 +33,8 @@ const ViewGamesPage = () => {
       button[btn].classList.remove("active");
     }
     button[1].classList.add("active");
-    console.log(button);
     setLoading(true);
-    const games = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const games = await fetch(API_URL.getOngingGames);
     const jsonGames = await games.json();
     setGames(jsonGames);
     setLoading(false);
