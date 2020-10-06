@@ -9,6 +9,7 @@ import AnonymousRoute from "./AnonymousRoute";
 import ViewGamesPage from "../pages/ViewGamesPage";
 import GamePage from "../pages/GamePage";
 import HomePage from "../pages/HomePage";
+import GameStatus from "../pages/GameStatus"
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -37,6 +38,11 @@ const AppRouter = () => (
         <ProtectedRoute
           path={ROUTES.GAME_SCREEN_ROUTE}
           component={GamePage}
+          exact={true}
+        />
+        <ProtectedRoute
+          path='/status/'
+          component={GameStatus}
           exact={true}
         />
       </Switch>

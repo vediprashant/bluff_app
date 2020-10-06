@@ -21,9 +21,12 @@ class GamePage extends Component {
       error: null,
     };
   }
+  
   componentDidMount() {
-    this.props.connectToGame("ws://localhost:8000/ws/chat/1/");
+    let gameId = this.props.match.params.id
+    this.props.connectToGame(`ws://localhost:8000/ws/chat/${gameId}/`);
   }
+
   componentDidUpdate() {
     console.log(this.props.game.gameState);
 
