@@ -24,8 +24,6 @@ class GamePage extends Component {
     this.props.connectToGame("ws://localhost:8000/ws/chat/1/");
   }
   componentDidUpdate() {
-    console.log(this.props.game.gameState);
-
     const allPlayers = document.getElementsByClassName("avatar");
     for (let player = 0; player < allPlayers.length; player++) {
       allPlayers[player].classList.remove("userPic");
@@ -129,8 +127,8 @@ class GamePage extends Component {
           <div className="timer"></div>
         ) : null}
         <Players
-          game_players={this.props.game.gameState.game_players}
-          self={this.props.game.gameState.self}
+          game_players={this.props.game?.gameState?.game_players}
+          self={this.props.game?.gameState?.self}
           last_player_turn={this.props.game?.gameState?.last_player_turn}
           action={this.props.game?.gameState?.action}
         />
@@ -189,7 +187,6 @@ class GamePage extends Component {
         ) : null}
         <PlayedCardsModel />
         <WinnerModal />
-        {console.log(this.state.set)}
       </div>
     );
   }
