@@ -10,6 +10,7 @@ import ViewGamesPage from "../pages/ViewGamesPage";
 import GamePage from "../pages/GamePage";
 import HomePage from "../pages/HomePage";
 import InvitePage from  "../pages/Invite"
+import GameStatus from "../pages/GameStatus";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -43,6 +44,11 @@ const AppRouter = () => (
         <ProtectedRoute
           path='/invite/:game'
           component={InvitePage}
+          exact={true}
+        />
+        <ProtectedRoute
+          path='/stats/:game'
+          component={GameStatus}
           exact={true}
         />
       </Switch>

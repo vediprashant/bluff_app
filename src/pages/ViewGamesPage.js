@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import Games from "../Components/Games";
 import Pagination from "../Components/Pagination";
 import "./ViewGamePage.css";
+import { withCookies } from 'react-cookie'
+import handleTokens from '../Utils/handleTokens'
 
-const ViewGamesPage = () => {
+const ViewGamesPage = (props) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,9 +23,13 @@ const ViewGamesPage = () => {
     }
     button[0].classList.add("activated");
     setLoading(true);
-    const games = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const games = await fetch("http://127.0.01:8000/game/list/?filters=completed", {
+      headers:{
+        Authorization: `Token ${handleTokens.getToken(props.cookies, 'token')}`
+      }
+    });
     const jsonGames = await games.json();
-    setGames(jsonGames);
+    setGames(jsonGames.results);
     setLoading(false);
   };
   const fetchOngoingGames = async () => {
@@ -34,9 +40,13 @@ const ViewGamesPage = () => {
     button[1].classList.add("activated");
     console.log(button);
     setLoading(true);
-    const games = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const games = await fetch("http://127.0.01:8000/game/list/", {
+      headers:{
+        Authorization: `Token ${handleTokens.getToken(props.cookies, 'token')}`
+      }
+    });
     const jsonGames = await games.json();
-    setGames(jsonGames);
+    setGames(jsonGames.results);
     setLoading(false);
   };
   const paginate = (pageNum, elem) => {
@@ -89,4 +99,4 @@ const ViewGamesPage = () => {
   );
 };
 
-export default ViewGamesPage;
+export default withCookies(ViewGamesPage);

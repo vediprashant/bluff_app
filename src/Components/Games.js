@@ -10,8 +10,8 @@ const Games = ({ games, loading }) => {
     <div class="gamesList">
       <div role="list" class="ui list">
         {games.map((game) => (
-          <a role="listitem" class="item" href="#">
-            {game.id}
+          <a role="listitem" class="item" href={`/stats/${game.id}`}>
+            Game ID {game.id}, created on {game.created_at}
           </a>
         ))}
       </div>
