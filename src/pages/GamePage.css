@@ -75,7 +75,7 @@
   left: 0;
   height: 10px;
   animation-name: animate-timer;
-  animation-duration: 10s;
+  animation-duration: 60s;
   animation-timing-function: linear;
 }
 .startGame {
@@ -108,4 +108,11 @@
     width: 100%;
     background-color: rgb(116, 13, 13);
   }
+}
+
+.bluffTimer {
+  font-size: 22px;
+  color: rgb(19, 6, 53);
+  font-weight: 500;
+  margin-top: 8px;
 }
