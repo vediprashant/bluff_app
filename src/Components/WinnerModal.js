@@ -21,7 +21,10 @@ function WinnerModal(props) {
       <Modal.Content>
         <Modal.Description>
           <Header>
-            {props?.game?.gameState?.game?.winner_name} is the Winner!!!
+            {props?.game?.gameState?.game?.winner ===
+            props.game?.gameState?.self?.user?.id
+              ? "You Won, Congratulations!!!"
+              : `${props?.game?.gameState?.game?.winner_name} is the Winner!!!`}
           </Header>
         </Modal.Description>
       </Modal.Content>
