@@ -194,10 +194,14 @@ class SignUpPage extends Component {
   }
 
   showMessage = () => {
+    console.log(this.props)
     var { response } = this.props;
     let message = response.message;
+    console.log(message)
     if (message === "") {
       return null;
+    } else if (message === "Success"){
+      this.props.history.push('/login/')
     } else {
       return (
         <div id="signUpWarn" className="ui bottom attached red warning message">
