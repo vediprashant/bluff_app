@@ -9,7 +9,6 @@ import TableCards from "../Components/TableCards";
 import Players from "../Components/Players";
 import cardsMapperToString from "../Utils/cardsMapperToString";
 import PlayedCardsModel from "../Components/PlayedCardsModel";
-import actions from "../actions";
 import WinnerModal from "../Components/WinnerModal";
 
 class GamePage extends Component {
@@ -36,6 +35,12 @@ class GamePage extends Component {
       ) {
         allPlayers[player].classList.add("userPic");
       }
+    }
+    if (
+      this.props.game.gameState !== undefined &&
+      this.state.set != this.props.game.gameState?.game_table?.currentSet
+    ) {
+      this.setState({ set: this.props.game.gameState.game_table.currentSet });
     }
   }
 
@@ -112,6 +117,7 @@ class GamePage extends Component {
         updatedSet = event.target.textContent;
         break;
     }
+    this.props.game.gameState.game_table.currentSet = updatedSet;
     this.setState({ set: updatedSet });
   };
 
@@ -133,8 +139,9 @@ class GamePage extends Component {
             card_count={this.props.game?.gameState?.game_table?.card_count}
           />
         </div>
-        {this.props.game?.gameState?.game_table?.current_player_id ===
-        this.props.game?.gameState?.self?.player_id ? (
+        {this.props.game?.gameState?.game?.started &&
+        this.props.game?.gameState?.game_table?.current_player_id ===
+          this.props.game?.gameState?.self?.player_id ? (
           <div className="actionButtons">
             <Button text={"Pass"} color={"purple"} onClick={this.skip} />
             <Button text={"Play"} color={"purple"} onClick={this.playCards} />
