@@ -1,6 +1,7 @@
 import React, { Component, } from "react";
 import { connect } from 'react-redux'
 import inviteUserAction from '../actionCreators/inviteUser'
+import listInvitedUsers from '../actionCreators/showInvitedUsers'
 import {
     Button,
     Form,
@@ -26,6 +27,9 @@ class InvitePage extends Component {
             recentlyAdded: [],
         };
     }
+    componentDidMount() {
+        this.props.listInvited(this.props.cookies, this.props.match.params.game)
+    }
 
     handleEmailChange = (event) => {
         this.setState({ email: event.target.value });
@@ -48,7 +52,7 @@ class InvitePage extends Component {
                 </div>
             );
         }
-        else if (message === 'User Invited'){
+        else if (message === 'User Invited') {
             return (
                 <div className="ui bottom attached success message">
                     {message}
@@ -65,18 +69,18 @@ class InvitePage extends Component {
     };
 
     showRecentlyAdded = () => {
-        var recentlyAdded = this.state.recentlyAdded
+        var recentlyAdded = this.props.invitedPlayers
         if (recentlyAdded.length !== 0) {
             let list = []
             recentlyAdded.map((user, index) => {
-                list.push(<li key={index}>{user}</li>)
+                list.push(<div className='item' key={index}>{user}</div>)
             })
             let message = (
-                <div className="ui info  message">
-                    <p>Recently invited players</p>
-                    <ol className='ui list'>
-                        {list.map(li => li)}
-                    </ol>
+                <div className="ui info message">
+                    <div className='header'>Invited Players</div>
+                    <div className='ui ordered list'>
+                        {list}
+                    </div>
                 </div>
             )
             return message
@@ -126,12 +130,13 @@ class InvitePage extends Component {
 
 const mapStateToProps = state => {
     return {
-        message: state.inviteMessage
+        message: state.invite.inviteMessage,
+        invitedPlayers: state.invite.invitedPlayers
     }
 }
 export default withCookies(
     connect(
         mapStateToProps,
-        { invite: inviteUserAction}
+        { invite: inviteUserAction , listInvited: listInvitedUsers}
     )
-(InvitePage))
+        (InvitePage))

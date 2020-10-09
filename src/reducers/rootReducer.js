@@ -8,5 +8,5 @@ export default combineReducers({
     login: loginReducer,
     createUser: createUserReducer,
     game: game,
-    inviteMessage: inviteUser,
+    invite: inviteUser,
 })

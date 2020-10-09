@@ -21,7 +21,7 @@ const inviteUser = async (cookies, email, game) => {
     }).then(res => {
         if (res.status === 201) {
             //user invited
-            return "Success"
+            return "User Invited"
         }
         else {
             return res.json().then(data => `${deserializeError(data)}`)
