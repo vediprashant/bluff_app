@@ -9,9 +9,12 @@ const Games = ({ games, loading }) => {
   return (
     <div class="gamesList">
       <div role="list" class="ui list">
-        {games.map((game) => (
-          <a role="listitem" class="item" href={`/stats/${game.id}`}>
-            Game ID {game.id}, created on {game.created_at}
+        {games.map((game, index) => (
+          <a key={index} role="listitem" class="item" href={`/stats/${game.id}`}>
+            Game code: {game.id}
+            <div>
+              {Date('2020-09-13T19:13:58.525486+05:30')}
+            </div>
           </a>
         ))}
       </div>
