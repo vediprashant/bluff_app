@@ -58,7 +58,8 @@ const createUser = async (name, email, password, confirmPassword) => {
     .then((res) => {
       if (res.status === 201) {
         //user created
-        return { message: "Success" };
+        console.log('created')
+        return { response: { message: "Success" } };
       } else if (res.status === 400) {
         return res.json().then((data) => {
           if (data.email)
