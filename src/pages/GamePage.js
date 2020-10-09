@@ -46,7 +46,7 @@ class GamePage extends Component {
   }
 
   playCards = () => {
-    const cardsSelected = document.querySelectorAll(".selected");
+    const cardsSelected = document.querySelectorAll(".selectedCards");
     let mappedCards = [];
     if (
       this.state.set === null &&
@@ -62,7 +62,7 @@ class GamePage extends Component {
     this.setState({ error: null });
     for (let card = 0; card < cardsSelected.length; card++) {
       mappedCards.push(cardsSelected[card].id);
-      cardsSelected[card].classList.remove("selected");
+      cardsSelected[card].classList.remove("selectedCards");
     }
     let stringCards = cardsMapperToString(mappedCards);
     const data = {
@@ -154,9 +154,19 @@ class GamePage extends Component {
     return updatedSet;
   };
 
+  backHandler = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     return (
       <div className="gameScreen">
+        <Button
+          text={"Go Back"}
+          color={"black"}
+          onClick={this.backHandler}
+          className={"goBack"}
+        />
         {this.props.game?.gameState?.game?.started &&
         this.props.game?.gameState?.game_table?.current_player_id ===
           this.props.game?.gameState?.self?.player_id ? (

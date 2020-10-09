@@ -32,7 +32,7 @@ const PlayerCards = (props) => {
 
   function selectCard(event) {
     event.stopImmediatePropagation();
-    event.target.classList.toggle("selected");
+    event.target.classList.toggle("selectedCards");
   }
   return <div className="playerCards">{playerCards}</div>;
 };

@@ -19,7 +19,7 @@ const ViewGamesPage = () => {
     for (let btn = 0; btn < button.length; btn++) {
       button[btn].classList.remove("activated");
     }
-    button[0].classList.add("activated");
+    button[1].classList.add("activated");
     setLoading(true);
     const games = await fetch("https://jsonplaceholder.typicode.com/posts");
     const jsonGames = await games.json();
@@ -31,7 +31,7 @@ const ViewGamesPage = () => {
     for (let btn = 0; btn < button.length; btn++) {
       button[btn].classList.remove("activated");
     }
-    button[1].classList.add("activated");
+    button[2].classList.add("activated");
     console.log(button);
     setLoading(true);
     const games = await fetch("https://jsonplaceholder.typicode.com/todos");

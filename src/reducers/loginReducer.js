@@ -34,6 +34,11 @@ function login(state = initialState, action) {
         ...state,
         errorMessage: action.payload.message,
       };
+    case actions.LOGGED_OUT:
+      return {
+        ...state,
+        loggedIn: false,
+      };
     default:
       return state;
   }
