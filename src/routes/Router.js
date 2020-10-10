@@ -9,13 +9,10 @@ import AnonymousRoute from "./AnonymousRoute";
 import ViewGamesPage from "../pages/ViewGamesPage";
 import GamePage from "../pages/GamePage";
 import HomePage from "../pages/HomePage";
-<<<<<<< HEAD
 import InvitePage from  "../pages/Invite"
 import GameStatus from "../pages/GameStatus";
-=======
 import Header from "../Components/Header";
 import NotFoundPage from "../pages/NotFoundPage";
->>>>>>> origin/pc_navBar
 
 const AppRouter = () => {
   let location = useLocation();
