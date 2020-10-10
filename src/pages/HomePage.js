@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Select } from "semantic-ui-react";
+import { withCookies } from "react-cookie";
+
 import "./HomePage.css";
 import createGame from "../services/createGame";
-export default function HomePage(props) {
+
+function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);
   const [isError, setError] = useState(false);
   const [message, setmessage] = useState("");
@@ -21,7 +24,7 @@ export default function HomePage(props) {
       setError(true);
       setmessage("Please select the decks");
     } else {
-      const game = await createGame(totalDecks);
+      const game = await createGame(props.cookies, totalDecks);
       if (game.id) {
         props.history.push(`/game/${game.id}`);
       } else {
@@ -48,3 +51,5 @@ export default function HomePage(props) {
     </div>
   );
 }
+
+export default withCookies(HomePage);

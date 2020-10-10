@@ -10,6 +10,7 @@ import Players from "../Components/Players";
 import cardsMapperToString from "../Utils/cardsMapperToString";
 import PlayedCardsModel from "../Components/PlayedCardsModel";
 import WinnerModal from "../Components/WinnerModal";
+import Timer from "../Components/Timer";
 
 class GamePage extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class GamePage extends Component {
       cards: [],
       set: null,
       error: null,
+      showVisible: true,
     };
   }
   
@@ -28,7 +30,6 @@ class GamePage extends Component {
 
   componentDidUpdate() {
     console.log(this.props.game.gameState);
-
     const allPlayers = document.getElementsByClassName("avatar");
     for (let player = 0; player < allPlayers.length; player++) {
       allPlayers[player].classList.remove("userPic");
@@ -48,7 +49,7 @@ class GamePage extends Component {
   }
 
   playCards = () => {
-    const cardsSelected = document.querySelectorAll(".selected");
+    const cardsSelected = document.querySelectorAll(".selectedCards");
     let mappedCards = [];
     if (
       this.state.set === null &&
@@ -64,7 +65,7 @@ class GamePage extends Component {
     this.setState({ error: null });
     for (let card = 0; card < cardsSelected.length; card++) {
       mappedCards.push(cardsSelected[card].id);
-      cardsSelected[card].classList.remove("selected");
+      cardsSelected[card].classList.remove("selectedCards");
     }
     let stringCards = cardsMapperToString(mappedCards);
     const data = {
@@ -75,6 +76,8 @@ class GamePage extends Component {
     };
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
+    this.props.game.gameState.game_table.current_player_id = null;
+    this.setState({ showVisible: true });
   };
 
   skip = () => {
@@ -83,6 +86,9 @@ class GamePage extends Component {
     };
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
+    console.log("skip");
+    this.props.game.gameState.game_table.current_player_id = null;
+    this.setState({ error: null, showVisible: true });
   };
 
   startGame = () => {
@@ -99,6 +105,12 @@ class GamePage extends Component {
     };
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
+    this.props.game.gameState.game_table.current_player_id = null;
+    this.setState({ error: null, showVisible: true });
+  };
+
+  disableShow = () => {
+    this.setState({ showVisible: false });
   };
 
   selectSet = (event) => {
@@ -123,13 +135,47 @@ class GamePage extends Component {
     this.props.game.gameState.game_table.currentSet = updatedSet;
     this.setState({ set: updatedSet });
   };
+  displaySet = (currentSet) => {
+    let updatedSet = currentSet;
+    switch (currentSet) {
+      case 11:
+        updatedSet = "J";
+        break;
+      case 12:
+        updatedSet = "Q";
+        break;
+      case 13:
+        updatedSet = "K";
+        break;
+      case 1:
+        updatedSet = "A";
+        break;
+      default:
+        updatedSet = currentSet;
+        break;
+    }
+    return updatedSet;
+  };
+
+  backHandler = () => {
+    this.props.history.goBack();
+  };
 
   render() {
     return (
       <div className="gameScreen">
-        {this.props.game?.gameState?.game_table?.current_player_id ===
-        this.props.game?.gameState?.self?.player_id ? (
-          <div className="timer"></div>
+        <Button
+          text={"Go Back"}
+          color={"black"}
+          onClick={this.backHandler}
+          className={"goBack"}
+        />
+        {this.props.game?.gameState?.game?.started &&
+        this.props.game?.gameState?.game_table?.current_player_id ===
+          this.props.game?.gameState?.self?.player_id ? (
+          <div className="timer">
+            <Timer disableShow={this.skip} startTime={60} />
+          </div>
         ) : null}
         <Players
           game_players={this.props.game.gameState.game_players}
@@ -150,11 +196,27 @@ class GamePage extends Component {
             <Button text={"Play"} color={"purple"} onClick={this.playCards} />
             {this.props.game?.gameState?.game_table?.last_player_id !==
               this.props.game?.gameState?.self?.player_id &&
-            this.props.game?.gameState?.game_table?.card_count !== 0 ? (
-              <Button text={"Show"} color={"purple"} onClick={this.show} />
+            this.props.game?.gameState?.game_table?.card_count !== 0 &&
+            this.state.showVisible ? (
+              <span>
+                <Button text={"Show "} color={"purple"} onClick={this.show} />
+                <Timer
+                  disableShow={this.disableShow}
+                  startTime={30}
+                  text={"Time left to call bluff"}
+                />
+              </span>
             ) : null}
             {this.state.error ? (
               <div className="playError">{this.state.error}</div>
+            ) : null}
+            {this.props.game?.gameState?.game_table?.currentSet ? (
+              <div className="bluffTimer">
+                Current Set:
+                {this.displaySet(
+                  this.props.game.gameState.game_table.currentSet
+                )}
+              </div>
             ) : null}
           </div>
         ) : null}

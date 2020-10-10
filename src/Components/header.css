@@ -1,0 +1,14 @@
+.navbar {
+  background-color: #49474e;
+  overflow: auto;
+  height: 60px;
+  padding-top: 10px;
+}
+
+.menu {
+  padding: 0 40px;
+  color: #e4dede;
+}
+.logout {
+  float: right;
+}
