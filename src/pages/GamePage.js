@@ -11,6 +11,7 @@ import cardsMapperToString from "../Utils/cardsMapperToString";
 import PlayedCardsModel from "../Components/PlayedCardsModel";
 import WinnerModal from "../Components/WinnerModal";
 import Timer from "../Components/Timer";
+import ErrorModal from "../Components/ErrorModal"
 
 class GamePage extends Component {
   constructor(props) {
@@ -254,6 +255,7 @@ class GamePage extends Component {
         ) : null}
         <PlayedCardsModel />
         <WinnerModal />
+        <ErrorModal history={this.props.history}/>
         {console.log(this.state.set)}
       </div>
     );
