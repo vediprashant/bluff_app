@@ -13,13 +13,15 @@ import InvitePage from  "../pages/Invite"
 import GameStatus from "../pages/GameStatus";
 import Header from "../Components/Header";
 import NotFoundPage from "../pages/NotFoundPage";
+import { matchPath } from "react-router"
 
 const AppRouter = () => {
   let location = useLocation();
   console.log(location.pathname);
+  const match = matchPath(location.pathname, { path: '/game/:id', exact: true })
   return (
     <div>
-      {location.pathname === ROUTES.GAME_SCREEN_ROUTE ? null : <Header />}
+      {match ? null : <Header />}
       <Switch>
         <AnonymousRoute
           path={ROUTES.LOGIN_ROUTE}

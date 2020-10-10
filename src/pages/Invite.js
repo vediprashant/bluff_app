@@ -45,7 +45,10 @@ class InvitePage extends Component {
         let message = this.props.message
         if (message === "") {
             return null;
-        } else if (message === 'Inviting') {
+        } else if (message === 'Forbidden'){
+            this.props.history.push('/games/')
+        }
+        else if (message === 'Inviting') {
             return (
                 <div className="ui bottom attached message">
                     {message}
@@ -92,6 +95,9 @@ class InvitePage extends Component {
             <div className="login">
                 <Grid textAlign="center">
                     <Grid.Column style={{ maxWidth: 450 }}>
+                        <Header as='h3' color='brown'>
+                            Game Code {this.props.match.params.game}
+                        </Header>
                         <Header as="h2" color="grey" textAlign="center">
                             <Image src={deck} />
                             Invite your friends

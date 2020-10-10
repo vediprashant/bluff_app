@@ -63,7 +63,7 @@ export default function Player(props) {
         <span>{player.user.name}</span>
         <img
           className="cardCountImg ui tiny image"
-          src="./PNG/blue_back.png"
+          src="../PNG/blue_back.png"
           alt="cardsCount"
         />
         <span class="cardCountNum">{player.card_count}</span>

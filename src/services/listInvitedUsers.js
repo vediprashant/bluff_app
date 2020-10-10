@@ -27,10 +27,18 @@ const listInvitedUsers = async (cookies, game) => {
             })
         }
         else {
-            return res.json().then(data => ({
+            return res.json().then(data => {
+                if (data.non_field_errors[0] === 'User is not the owner of game'){
+                    return {
+                        message: 'Forbidden',
+                        list: []
+                    }
+                }
+                return {
                 message: 'An error occured when tring to fetch invited users',
                 list: []
-            }))
+                }
+            })
         }
     })
     .catch(err => ({

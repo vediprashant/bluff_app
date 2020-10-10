@@ -22,7 +22,7 @@ function listInvitedPlayers(list) {
 
 export default function inviteUser(cookies, game) {
     return async (dispatch) => {
-        let response = await listInvitedUsers(cookies, 1)
+        let response = await listInvitedUsers(cookies, game)
         dispatch(listInvitedPlayers(response.list))
         if (response.message !== '') dispatch(setMessage(response.message))
     }

@@ -26,7 +26,7 @@ function HomePage(props) {
     } else {
       const game = await createGame(props.cookies, totalDecks);
       if (game.id) {
-        props.history.push(`/game/${game.id}`);
+        props.history.push(`/stats/${game.id}`);
       } else {
         setError(true);
         setmessage(game.message);

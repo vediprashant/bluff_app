@@ -86,7 +86,9 @@ const ViewGamesPage = (props) => {
         </button>
       </div>
       <Games games={currentgames} loading={loading} />
-      <Pagination
+      {
+        games.length === 0 ? <div className='emptyList'> No Games to show </div> :
+        <Pagination
         gamesPerPage={gamesPerPage}
         totalGames={games.length}
         prevPage={prevPage}
@@ -95,6 +97,7 @@ const ViewGamesPage = (props) => {
         currentPage={currentPage}
         startPage={startPage}
       />
+      }
     </div>
   );
 };

@@ -18,7 +18,7 @@ const PlayerCards = (props) => {
     <img
       id={pos[ind]}
       class="card"
-      src={`./PNG/${number}.png`}
+      src={`../PNG/${number}.png`}
       alt="card"
     ></img>
   ));
