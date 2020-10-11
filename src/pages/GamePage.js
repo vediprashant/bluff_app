@@ -11,6 +11,7 @@ import cardsMapperToString from "../Utils/cardsMapperToString";
 import PlayedCardsModel from "../Components/PlayedCardsModel";
 import WinnerModal from "../Components/WinnerModal";
 import Timer from "../Components/Timer";
+import SinglePlayerModal from "../Components/SinglePlayerModal";
 
 class GamePage extends Component {
   constructor(props) {
@@ -22,9 +23,9 @@ class GamePage extends Component {
       showVisible: true,
     };
   }
-  
+
   componentDidMount() {
-    let gameId = this.props.match.params.id
+    let gameId = this.props.match.params.id;
     this.props.connectToGame(`ws://localhost:8000/ws/chat/${gameId}/`);
   }
 
@@ -254,6 +255,7 @@ class GamePage extends Component {
         ) : null}
         <PlayedCardsModel />
         <WinnerModal />
+        <SinglePlayerModal />
         {console.log(this.state.set)}
       </div>
     );
