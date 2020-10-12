@@ -32,7 +32,7 @@ const Pagination = ({
         <a
           onClick={() => paginate(num)}
           href="#"
-          className={currentPage === num ? "active item" : "item"}
+          className={currentPage === num ? "activated item" : "item"}
         >
           {num}
         </a>

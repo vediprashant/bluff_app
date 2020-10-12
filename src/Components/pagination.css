@@ -5,7 +5,7 @@
   margin: 0 auto;
   /* transform: translate(-50%, -50%); */
 }
-.active {
+.activated {
   background-color: #0099ff !important;
   color: white !important;
   border: 1px solid #0099ff;

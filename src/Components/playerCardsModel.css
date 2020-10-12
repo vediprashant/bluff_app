@@ -1,0 +1,12 @@
+.bluffCards {
+  /* display: flex;
+  align-items: flex-end; */
+  padding-top: 20px;
+  /* overflow: scroll; */
+
+  /* width: fit-content; */
+}
+.bluffCardsPlayed {
+  height: 200px;
+  filter: drop-shadow(-20px 15px 10px rgba(49, 49, 49, 0.4));
+}

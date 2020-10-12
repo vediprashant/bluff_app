@@ -5,7 +5,6 @@ import stringMapperToCards from "../Utils/stringMapperToCards";
 import "./playerCards.css";
 
 const PlayerCards = (props) => {
-  console.log(props.game)
   let x = props.game?.gameState?.self?.cards;
   let pos = [];
   if (x !== undefined) {
@@ -25,7 +24,6 @@ const PlayerCards = (props) => {
   ));
   useEffect(() => {
     let stack = document.querySelectorAll(".card");
-    console.log(stack);
     for (let i = 0; i < stack.length; i++) {
       let card = stack[i];
       card.addEventListener("click", selectCard);

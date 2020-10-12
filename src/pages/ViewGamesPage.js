@@ -17,9 +17,9 @@ const ViewGamesPage = () => {
   const fetchCompletedGames = async () => {
     const button = document.getElementsByClassName("button");
     for (let btn = 0; btn < button.length; btn++) {
-      button[btn].classList.remove("active");
+      button[btn].classList.remove("activated");
     }
-    button[0].classList.add("active");
+    button[0].classList.add("activated");
     setLoading(true);
     const games = await fetch("https://jsonplaceholder.typicode.com/posts");
     const jsonGames = await games.json();
@@ -29,9 +29,9 @@ const ViewGamesPage = () => {
   const fetchOngoingGames = async () => {
     const button = document.getElementsByClassName("button");
     for (let btn = 0; btn < button.length; btn++) {
-      button[btn].classList.remove("active");
+      button[btn].classList.remove("activated");
     }
-    button[1].classList.add("active");
+    button[1].classList.add("activated");
     console.log(button);
     setLoading(true);
     const games = await fetch("https://jsonplaceholder.typicode.com/todos");
