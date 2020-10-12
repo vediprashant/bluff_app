@@ -46,7 +46,6 @@ export default function Player(props) {
     if (player.disconnected === true) {
       disconnectedClass = "disconnected";
     }
-    console.log(player.disconnected, disconnectedClass);
     renderedPlayers.push(
       <div class={`player ${disconnectedClass}`}>
         <img
