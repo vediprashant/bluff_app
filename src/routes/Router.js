@@ -6,6 +6,7 @@ import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AnonymousRoute from "./AnonymousRoute";
+import HomePage from "../pages/HomePage";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -21,7 +22,11 @@ const AppRouter = () => (
           component={SignUpPage}
           exact={true}
         />
-        <ProtectedRoute path={ROUTES.HOME_ROUTE} exact={true} />
+        <ProtectedRoute
+          path={ROUTES.HOME_ROUTE}
+          component={HomePage}
+          exact={true}
+        />
       </Switch>
     </div>
   </BrowserRouter>
