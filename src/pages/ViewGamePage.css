@@ -1,8 +1,10 @@
 .container {
-  height: 100vh;
   padding-bottom: 42px;
 }
 .button:active {
   background-color: #0099ff !important;
   color: white !important;
+}
+.emptyList {
+  font: 30px black;
 }

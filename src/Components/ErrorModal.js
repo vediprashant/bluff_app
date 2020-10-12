@@ -2,12 +2,11 @@ import React from "react";
 import { Button, Header, Image, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 
-function WinnerModal(props) {
+function ErrorModal(props) {
   const [open, setOpen] = React.useState(false);
-  if (
-    props.game?.gameState?.game?.winner !== undefined &&
-    props.game?.gameState?.game?.winner !== null
-  ) {
+  if (props.game?.gameState?.init_success === false) {
+    var message = props.game.gameState.message
+    message = message.split('string=')[1].split('\'')[1]
     if (open === false) setOpen(true);
   }
 
@@ -17,14 +16,11 @@ function WinnerModal(props) {
       onOpen={() => setOpen(true)}
       open={open}
     >
-      <Modal.Header>Game Finished</Modal.Header>
+      <Modal.Header>Unable to join game</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <Header>
-            {props?.game?.gameState?.game?.winner ===
-            props.game?.gameState?.self?.user?.id
-              ? "You Won, Congratulations!!!"
-              : `${props?.game?.gameState?.game?.winner_name} is the Winner!!!`}
+            {message}
           </Header>
         </Modal.Description>
       </Modal.Content>
@@ -32,11 +28,11 @@ function WinnerModal(props) {
         <Button
           color="black"
           onClick={() => {
-            props.game.gameState.game.winner = null;
+            props.history.push('/games/')
             setOpen(false);
           }}
         >
-          Close
+          Redirect to my games
         </Button>
       </Modal.Actions>
     </Modal>
@@ -49,4 +45,4 @@ const mapStatetoProps = (state) => {
   };
 };
 
-export default connect(mapStatetoProps)(WinnerModal);
+export default connect(mapStatetoProps)(ErrorModal);

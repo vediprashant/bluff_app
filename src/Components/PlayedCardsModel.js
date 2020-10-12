@@ -22,7 +22,7 @@ function ModalExampleBasic(props) {
     playerCards = cards.map((number, ind) => (
       <img
         class="bluffCardsPlayed"
-        src={`./PNG/${number}.png`}
+        src={`../PNG/${number}.png`}
         alt="card"
       ></img>
     ));

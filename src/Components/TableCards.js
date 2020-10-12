@@ -23,7 +23,7 @@ export default function TableCards(props) {
       <img
         key={temp.length}
         className="cards"
-        src={`./PNG/${color}_back.png`}
+        src={`../PNG/${color}_back.png`}
         alt="card"
       ></img>
     );

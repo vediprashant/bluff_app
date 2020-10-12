@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
 
 import ROUTES from "../constants/pathConstants";
 import LoginPage from "../pages/LoginPage";
@@ -10,10 +10,21 @@ import HomePage from "../pages/HomePage";
 import InvitePage from "../pages/Invite";
 import ViewGamesPage from "../pages/ViewGamesPage";
 import GamePage from "../pages/GamePage";
+import GameStatus from "../pages/GameStatus";
+import Header from "../Components/Header";
+import NotFoundPage from "../pages/NotFoundPage";
+import { matchPath } from "react-router";
 
-const AppRouter = () => (
-  <BrowserRouter>
+const AppRouter = () => {
+  let location = useLocation();
+  console.log(location.pathname);
+  const match = matchPath(location.pathname, {
+    path: "/game/:id",
+    exact: true,
+  });
+  return (
     <div>
+      {match ? null : <Header />}
       <Switch>
         <AnonymousRoute
           path={ROUTES.LOGIN_ROUTE}
@@ -31,9 +42,11 @@ const AppRouter = () => (
           exact={true}
         />
         <ProtectedRoute
-          exact
           path={ROUTES.INVITE_ROUTE}
           component={InvitePage}
+          exact={true}
+        />
+        <ProtectedRoute
           path={ROUTES.VIEW_GAMES_ROUTE}
           component={ViewGamesPage}
           exact={true}
@@ -43,9 +56,20 @@ const AppRouter = () => (
           component={GamePage}
           exact={true}
         />
+        <ProtectedRoute
+          path="/invite/:game"
+          component={InvitePage}
+          exact={true}
+        />
+        <ProtectedRoute
+          path="/stats/:game"
+          component={GameStatus}
+          exact={true}
+        />
+        <ProtectedRoute path={ROUTES.INVALID_ROUTE} component={NotFoundPage} />
       </Switch>
     </div>
-  </BrowserRouter>
-);
+  );
+};
 
 export default AppRouter;

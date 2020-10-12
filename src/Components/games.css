@@ -4,6 +4,11 @@
   border-bottom: 1px solid rgb(197, 110, 110);
 }
 
+.gamesList div a div {
+  font-size: 15px;
+  color: darkslategray
+}
+
 .gamesList div {
   margin: 20px 20px !important;
 }
