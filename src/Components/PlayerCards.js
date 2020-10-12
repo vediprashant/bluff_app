@@ -5,6 +5,7 @@ import stringMapperToCards from "../Utils/stringMapperToCards";
 import "./playerCards.css";
 
 const PlayerCards = (props) => {
+  console.log(props.game)
   let x = props.game?.gameState?.self?.cards;
   let pos = [];
   if (x !== undefined) {
