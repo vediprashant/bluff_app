@@ -8,6 +8,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import AnonymousRoute from "./AnonymousRoute";
 import HomePage from "../pages/HomePage";
 import InvitePage from "../pages/Invite";
+import ViewGamesPage from "../pages/ViewGamesPage";
+import GamePage from "../pages/GamePage";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -32,6 +34,14 @@ const AppRouter = () => (
           exact
           path={ROUTES.INVITE_ROUTE}
           component={InvitePage}
+          path={ROUTES.VIEW_GAMES_ROUTE}
+          component={ViewGamesPage}
+          exact={true}
+        />
+        <ProtectedRoute
+          path={ROUTES.GAME_SCREEN_ROUTE}
+          component={GamePage}
+          exact={true}
         />
       </Switch>
     </div>

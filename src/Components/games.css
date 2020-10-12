@@ -1,0 +1,9 @@
+.gamesList div a {
+  font-size: 30px;
+  color: rgb(82, 11, 17) !important;
+  border-bottom: 1px solid rgb(197, 110, 110);
+}
+
+.gamesList div {
+  margin: 20px 20px !important;
+}

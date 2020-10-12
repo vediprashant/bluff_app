@@ -1,0 +1,12 @@
+.pagination {
+  position: fixed;
+  bottom: 10px;
+  left: 35%;
+  margin: 0 auto;
+  /* transform: translate(-50%, -50%); */
+}
+.active {
+  background-color: #0099ff !important;
+  color: white !important;
+  border: 1px solid #0099ff;
+}

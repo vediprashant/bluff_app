@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Select } from "semantic-ui-react";
 import "./HomePage.css";
-import createGame from "../Utils/createGame";
+import createGame from "../services/createGame";
 export default function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);
   const [isError, setError] = useState(false);

@@ -1,0 +1,7 @@
+.heading1 {
+  display: flex;
+  justify-content: center;
+}
+.setSelection {
+  width: fit-content;
+}
