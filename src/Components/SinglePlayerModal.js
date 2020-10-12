@@ -5,25 +5,31 @@ import actions from "../actions";
 
 function SinglePlayerModal(props) {
   const [open, setOpen] = React.useState(false);
-
+  console.log(props.game.gameState)
+  console.log('came here on top')
   const totalPlayers = document.getElementsByClassName("player");
   const disconnectedPlayers = document.getElementsByClassName("disconnected");
+  console.log(`disconnected player = ${disconnectedPlayers.length}
+            total players = ${totalPlayers.length}`)
   if (
     totalPlayers.length !== 0 &&
     disconnectedPlayers.length === totalPlayers.length - 1 &&
     props?.game?.gameState?.game?.winner === null
   ) {
-    if (open === false) {
-      const newData = {
-        game_table: {
-          ...props.game.gameState.game_table,
-          current_player_id: null,
-        },
-      };
+    const newData = {
+      game_table: {
+        ...props.game.gameState.game_table,
+        current_player_id: null,
+      },
+    };
+    if (props.game?.gameState?.game_table && props.game.gameState.game_table.current_player_id !== null){
       props.dispatch({
         type: actions.GAME_UPDATE_STATE,
         payload: { newData },
       });
+    }
+    if (open === false) {
+      console.log('came here')
       setOpen(true);
     }
   } else {
