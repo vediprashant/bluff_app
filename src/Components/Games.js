@@ -13,7 +13,7 @@ const Games = ({ games, loading }) => {
           <a key={index} role="listitem" class="item" href={`/stats/${game.id}`}>
             Game code: {game.id}
             <div>
-              {Date('2020-09-13T19:13:58.525486+05:30')}
+              Created on {new Date(game.created_at).toLocaleString()}
             </div>
           </a>
         ))}
