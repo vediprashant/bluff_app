@@ -25,3 +25,6 @@
 .card:hover {
   bottom: 20px;
 }
+.selected {
+  bottom: 20px !important;
+}
