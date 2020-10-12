@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { render } from "@testing-library/react";
+import { Label } from "semantic-ui-react";
 /**
  * Takes list containing players, and an object containng self details
  * renders them in a circle
@@ -41,14 +42,24 @@ export default function Player(props) {
   }
   //Fill in rest of the players
   props.game_players.map((player, index) => {
+    let disconnectedClass = "";
+    if (player.disconnected === true) {
+      disconnectedClass = "disconnected";
+    }
+    console.log(player.disconnected, disconnectedClass);
     renderedPlayers.push(
-      <div className="player">
+      <div class={`player ${disconnectedClass}`}>
         <img
           imgId={player.player_id}
           src="https://picsum.photos/200"
           class="ui avatar tiny image "
           alt="avatar"
         />
+        {props.last_player_turn === player.player_id ? (
+          <Label color="red" floating pointing="below">
+            {props.action}
+          </Label>
+        ) : null}
         <span>{player.user.name}</span>
         <img
           className="cardCountImg ui tiny image"

@@ -9,7 +9,7 @@ import TableCards from "../Components/TableCards";
 import Players from "../Components/Players";
 import cardsMapperToString from "../Utils/cardsMapperToString";
 import PlayedCardsModel from "../Components/PlayedCardsModel";
-import actions from "../actions";
+import WinnerModal from "../Components/WinnerModal";
 
 class GamePage extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class GamePage extends Component {
     this.state = {
       cards: [],
       set: null,
+      error: null,
     };
   }
   componentDidMount() {
@@ -24,6 +25,7 @@ class GamePage extends Component {
   }
   componentDidUpdate() {
     console.log(this.props.game.gameState);
+
     const allPlayers = document.getElementsByClassName("avatar");
     for (let player = 0; player < allPlayers.length; player++) {
       allPlayers[player].classList.remove("userPic");
@@ -34,11 +36,29 @@ class GamePage extends Component {
         allPlayers[player].classList.add("userPic");
       }
     }
+    if (
+      this.props.game.gameState !== undefined &&
+      this.state.set != this.props.game.gameState?.game_table?.currentSet
+    ) {
+      this.setState({ set: this.props.game.gameState.game_table.currentSet });
+    }
   }
 
   playCards = () => {
     const cardsSelected = document.querySelectorAll(".selected");
     let mappedCards = [];
+    if (
+      this.state.set === null &&
+      this.props.game.gameState.game_table.currentSet === null
+    ) {
+      this.setState({ error: "Please select the set" });
+      return;
+    }
+    if (cardsSelected.length === 0) {
+      this.setState({ error: "Please select the cards" });
+      return;
+    }
+    this.setState({ error: null });
     for (let card = 0; card < cardsSelected.length; card++) {
       mappedCards.push(cardsSelected[card].id);
       cardsSelected[card].classList.remove("selected");
@@ -97,6 +117,7 @@ class GamePage extends Component {
         updatedSet = event.target.textContent;
         break;
     }
+    this.props.game.gameState.game_table.currentSet = updatedSet;
     this.setState({ set: updatedSet });
   };
 
@@ -110,14 +131,17 @@ class GamePage extends Component {
         <Players
           game_players={this.props.game.gameState.game_players}
           self={this.props.game.gameState.self}
+          last_player_turn={this.props.game?.gameState?.last_player_turn}
+          action={this.props.game?.gameState?.action}
         />
         <div className="tableCards">
           <TableCards
             card_count={this.props.game?.gameState?.game_table?.card_count}
           />
         </div>
-        {this.props.game?.gameState?.game_table?.current_player_id ===
-        this.props.game?.gameState?.self?.player_id ? (
+        {this.props.game?.gameState?.game?.started &&
+        this.props.game?.gameState?.game_table?.current_player_id ===
+          this.props.game?.gameState?.self?.player_id ? (
           <div className="actionButtons">
             <Button text={"Pass"} color={"purple"} onClick={this.skip} />
             <Button text={"Play"} color={"purple"} onClick={this.playCards} />
@@ -126,22 +150,36 @@ class GamePage extends Component {
             this.props.game?.gameState?.game_table?.card_count !== 0 ? (
               <Button text={"Show"} color={"purple"} onClick={this.show} />
             ) : null}
+            {this.state.error ? (
+              <div className="playError">{this.state.error}</div>
+            ) : null}
           </div>
         ) : null}
-        {this.props.game?.gameState?.game?.owner ===
-          this.props.game?.gameState?.self?.user?.id &&
-        this.props.game?.gameState?.game?.started === false ? (
-          <Button
-            text={"Start Game"}
-            color={"grey"}
-            className={"startGame"}
-            onClick={this.startGame}
-          />
+
+        {this.props.game?.gameState?.game?.started === false ? (
+          this.props.game?.gameState?.game?.owner ===
+          this.props.game?.gameState?.self?.user?.id ? (
+            <Button
+              text={"Start Game"}
+              color={"grey"}
+              className={"startGame"}
+              onClick={this.startGame}
+            />
+          ) : (
+            <Button
+              text={"Please wait for the owner to start the game"}
+              color={"grey"}
+              className={"startGame"}
+            />
+          )
         ) : null}
-        <div className="playerCard">
-          <h1 className="heading1">Select Cards</h1>
-          <PlayerCards />
-        </div>
+        {this.props.game.gameState?.game?.started ? (
+          <div className="playerCard">
+            <h1 className="heading1">Select Cards</h1>
+            <PlayerCards />
+          </div>
+        ) : null}
+
         {this.props.game?.gameState?.game_table?.current_player_id ===
           this.props?.game?.gameState?.self?.player_id &&
         this.props?.game?.gameState?.game_table?.card_count === 0 ? (
@@ -150,6 +188,8 @@ class GamePage extends Component {
           </div>
         ) : null}
         <PlayedCardsModel />
+        <WinnerModal />
+        {console.log(this.state.set)}
       </div>
     );
   }
