@@ -3,7 +3,7 @@ import { Select } from "semantic-ui-react";
 import { withCookies } from "react-cookie";
 
 import "./HomePage.css";
-import createGame from "../services/createGame";
+import createGame from "../Utils/createGame";
 
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);

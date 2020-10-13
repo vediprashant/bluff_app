@@ -12,7 +12,7 @@ import PlayedCardsModel from "../Components/PlayedCardsModel";
 import WinnerModal from "../Components/WinnerModal";
 import Timer from "../Components/Timer";
 import SinglePlayerModal from "../Components/SinglePlayerModal";
-import ErrorModal from "../Components/ErrorModal"
+import ErrorModal from "../Components/ErrorModal";
 
 class GamePage extends Component {
   constructor(props) {
@@ -31,10 +31,7 @@ class GamePage extends Component {
   }
 
   componentDidUpdate() {
-<<<<<<< HEAD
-=======
     console.log(this.props.game.gameState);
->>>>>>> pc_haltGame
     const allPlayers = document.getElementsByClassName("avatar");
     for (let player = 0; player < allPlayers.length; player++) {
       allPlayers[player].classList.remove("userPic");
@@ -259,12 +256,9 @@ class GamePage extends Component {
         ) : null}
         <PlayedCardsModel />
         <WinnerModal />
-<<<<<<< HEAD
-=======
         <SinglePlayerModal />
-        <ErrorModal history={this.props.history}/>
+        <ErrorModal history={this.props.history} />
         {console.log(this.state.set)}
->>>>>>> pc_haltGame
       </div>
     );
   }
