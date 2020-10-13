@@ -46,36 +46,30 @@ const createUser = async (name, email, password, confirmPassword) => {
   if (validationResponse.message !== "OK") {
     return { response: validationResponse };
   }
-
-  return fetch(`${API_URL.CREATE_URL}`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      password,
-      confirm_password: confirmPassword,
-    }),
-  })
-    .then((res) => {
-      if (res.status === 201) {
-        //user created
-        return { response: { message: "Success" } };
-      } else if (res.status === 400) {
-        return res.json().then((data) => {
-          if (data.email)
-            return {
-              response: { email: data.email[0], message: data.email[0] },
-            };
-          else return { response: { message: deserializeErrors(400) } };
-        });
-      }
-      return { response: { message: deserializeErrors(res.status) } };
+  try {
+    let res =await fetch(`${API_URL.CREATE_URL}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        confirm_password: confirmPassword,
+      }),
     })
-    .catch((err) => ({ response: { message: "API Error" } }));
-};
+    if (res.status === 201) {
+      //user created
+      return { response: { message: "Success" } };
+    } else if (res.status === 400) {
+        let data = await res.json()
+        if (data.email)
+        return { response: { email: data.email[0], message: data.email[0] }, }
+        else return { response: { message: deserializeErrors(400) } };
+      } else return { response: { message: deserializeErrors(res.status) } }; 
+  }catch(err) { return { response: { message: "API Error" } } }
+}
 
 export default createUser;

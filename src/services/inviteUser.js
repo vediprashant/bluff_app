@@ -25,24 +25,24 @@ const inviteUser = async (cookies, email, game) => {
   if (!re.test(email)) {
     return "Enter valid email address";
   }
-  return fetch(apiUrls.INVITE_URL, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
-    },
-    body: JSON.stringify({ email, game }),
-  })
-    .then((res) => {
-      if (res.status === 201) {
-        //user invited
-        return "User Invited";
-      } else {
-        return res.json().then((data) => `${deserializeError(data)}`);
-      }
+  try {
+    let res = await fetch(apiUrls.INVITE_URL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
+      },
+      body: JSON.stringify({ email, game }),
     })
-    .catch((err) => err.toString());
+    if (res.status === 201) {
+      //user invited
+      return "User Invited";
+    } else {
+      let data = await res.json()
+      return `${deserializeError(data)}`
+    }
+  }catch(err) { return err.toString() }
 };
 
 export default inviteUser;
