@@ -13,7 +13,8 @@ const Header = (props) => {
       props.dispatch({ type: actions.LOGGED_IN });
     }
   }, []);
-  const clickHanlder = () => {
+  const clickHandler = () => {
+    console.log('click handler called')
     handleTokens.removeToken(props.cookies, "token");
     props.dispatch({
       type: actions.LOGGED_OUT,
@@ -31,7 +32,7 @@ const Header = (props) => {
           <NavLink className="menu" to={ROUTES.VIEW_GAMES_ROUTE}>
             Games
           </NavLink>
-          <button className="ui primary button logout" onClick={clickHanlder}>
+          <button className="ui primary button logout" onClick={clickHandler}>
             Log Out{" "}
           </button>
         </div>

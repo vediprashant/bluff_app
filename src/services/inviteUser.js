@@ -10,6 +10,11 @@ const deserializeError = (data) => {
 };
 
 const inviteUser = async (cookies, email, game) => {
+  //Validate email first 
+  var re = /\S+@\S+\.\S+/;
+  if (!re.test(email)){
+    return 'Enter valid email address'
+  }
   return fetch(apiUrls.INVITE_URL, {
     method: "POST",
     headers: {
