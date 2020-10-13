@@ -1,5 +1,5 @@
 /**
- * returns a string describing staus code category
+ * Returns a string describing status code category
  * @param {*} status
  */
 export default function deserializeErrors(status) {

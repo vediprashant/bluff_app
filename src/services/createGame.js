@@ -2,6 +2,11 @@ import API_URL from "../constants/urlConstants";
 import handleTokens from "../Utils/handleTokens";
 import deserializeErrors from "../Utils/deserializeErrors";
 
+/**
+ * Creates a new game with given decks
+ * @param {*} cookies 
+ * @param {*} decks 
+ */
 const createGame = async (cookies, decks) => {
   try {
     const game = await fetch(API_URL.CREATE_GAME_URL, {

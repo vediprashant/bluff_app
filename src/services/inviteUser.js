@@ -1,6 +1,10 @@
 import handleTokens from "../Utils/handleTokens";
 import apiUrls from "../constants/urlConstants";
 
+/**
+ * Converts JSON from api to 'easy to read' format
+ * @param {*} data 
+ */
 const deserializeError = (data) => {
   var output = ``;
   Object.entries(data).map((error) => {
@@ -9,6 +13,12 @@ const deserializeError = (data) => {
   return output;
 };
 
+/**
+ * Invite a user to a game
+ * @param {*} cookies 
+ * @param {*} email 
+ * @param {*} game 
+ */
 const inviteUser = async (cookies, email, game) => {
   //Validate email first
   var re = /\S+@\S+\.\S+/;

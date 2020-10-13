@@ -1,6 +1,11 @@
 import API_URL from "../constants/urlConstants";
 import deserializeErrors from "../Utils/deserializeErrors";
 
+/**
+ * Gets auth token from api
+ * @param {*} email 
+ * @param {*} password 
+ */
 const validateUser = async (email, password) => {
   try {
     const data = await fetch(API_URL.VALIDATE_URL, {

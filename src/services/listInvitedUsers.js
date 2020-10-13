@@ -1,6 +1,11 @@
 import handleTokens from "../Utils/handleTokens";
 import apiUrls from "../constants/urlConstants";
 
+/**
+ * Fetches list of all users invited to a game
+ * @param {*} cookies 
+ * @param {*} game 
+ */
 const listInvitedUsers = async (cookies, game) => {
   return fetch(`${apiUrls.LIST_INVITED_USERS}${game}/invitedList/`, {
     method: "GET",
