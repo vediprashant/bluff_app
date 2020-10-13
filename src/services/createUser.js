@@ -53,7 +53,12 @@ const createUser = async (name, email, password, confirmPassword) => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, email, password, confirm_password: confirmPassword }),
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+      confirm_password: confirmPassword,
+    }),
   })
     .then((res) => {
       if (res.status === 201) {

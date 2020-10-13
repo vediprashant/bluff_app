@@ -2,15 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import inviteUserAction from "../actionCreators/inviteUser";
 import listInvitedUsers from "../actionCreators/showInvitedUsers";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Image,
-  Message,
-  Segment,
-} from "semantic-ui-react";
+import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 
 import deck from "../assets/deck.png";
 
@@ -55,7 +47,9 @@ class InvitePage extends Component {
       return <div className="ui bottom attached message">{message}</div>;
     } else if (message === "User Invited") {
       return (
-        <div className="ui boimport { Redirect } from 'react-router-dom'ttom attached success message">{message}</div>
+        <div className="ui boimport { Redirect } from 'react-router-dom'ttom attached success message">
+          {message}
+        </div>
       );
     } else {
       return (

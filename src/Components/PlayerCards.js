@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import cardsHandler from "../Utils/cardsHandler";
 import stringMapperToCards from "../Utils/stringMapperToCards";
 import "./playerCards.css";
 
 const PlayerCards = (props) => {
+  const allCards = useRef(null);
   let x = props.game?.gameState?.self?.cards;
   let pos = [];
   if (x !== undefined) {
@@ -23,9 +24,8 @@ const PlayerCards = (props) => {
     ></img>
   ));
   useEffect(() => {
-    let stack = document.querySelectorAll(".card");
-    for (let i = 0; i < stack.length; i++) {
-      let card = stack[i];
+    for (let i = 0; i < allCards.current.childNodes.length; i++) {
+      let card = allCards.current.childNodes[i];
       card.addEventListener("click", selectCard);
     }
   }, [playerCards]);
@@ -34,7 +34,11 @@ const PlayerCards = (props) => {
     event.stopImmediatePropagation();
     event.target.classList.toggle("selectedCards");
   }
-  return <div className="playerCards">{playerCards}</div>;
+  return (
+    <div className="playerCards" ref={allCards}>
+      {playerCards}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

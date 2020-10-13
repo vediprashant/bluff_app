@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { Label } from "semantic-ui-react";
 /**
@@ -9,9 +9,10 @@ import { Label } from "semantic-ui-react";
  */
 export default function Player(props) {
   var renderedPlayers = [];
+  const allPlayers = useRef(null);
   useEffect(() => {
     //Arrange players in nice circles
-    const ele = document.getElementsByClassName("player");
+    const ele = allPlayers.current.childNodes;
     const width = 690;
     const height = 667;
     const radius = 300;
@@ -70,5 +71,9 @@ export default function Player(props) {
     );
   });
 
-  return <div className="avatars">{renderedPlayers}</div>;
+  return (
+    <div className="avatars" ref={allPlayers}>
+      {renderedPlayers}
+    </div>
+  );
 }

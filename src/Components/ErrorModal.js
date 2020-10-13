@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 function ErrorModal(props) {
   const [open, setOpen] = React.useState(false);
   if (props.game?.gameState?.init_success === false) {
-    var message = props.game.gameState.message
-    message = message.split('string=')[1].split('\'')[1]
+    var message = props.game.gameState.message;
+    message = message.split("string=")[1].split("'")[1];
     if (open === false) setOpen(true);
   }
 
@@ -19,16 +19,14 @@ function ErrorModal(props) {
       <Modal.Header>Unable to join game</Modal.Header>
       <Modal.Content>
         <Modal.Description>
-          <Header>
-            {message}
-          </Header>
+          <Header>{message}</Header>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
         <Button
           color="black"
           onClick={() => {
-            props.history.push('/games/')
+            props.history.push("/games/");
             setOpen(false);
           }}
         >

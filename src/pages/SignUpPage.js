@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Image,
-  Segment,
-} from "semantic-ui-react";
+import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import deck from "../assets/deck.png";
@@ -195,8 +188,8 @@ class SignUpPage extends Component {
     let message = response.message;
     if (message === "") {
       return null;
-    } else if (message === "Success"){
-      this.props.history.push('/login/')
+    } else if (message === "Success") {
+      this.props.history.push("/login/");
     } else {
       return (
         <div id="signUpWarn" className="ui bottom attached red warning message">

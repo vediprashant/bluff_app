@@ -10,11 +10,14 @@ const Games = ({ games, loading }) => {
     <div class="gamesList">
       <div role="list" class="ui list">
         {games.map((game, index) => (
-          <a key={index} role="listitem" class="item" href={`/stats/${game.id}`}>
+          <a
+            key={index}
+            role="listitem"
+            class="item"
+            href={`/stats/${game.id}`}
+          >
             Game code: {game.id}
-            <div>
-              Created on {new Date(game.created_at).toLocaleString()}
-            </div>
+            <div>Created on {new Date(game.created_at).toLocaleString()}</div>
           </a>
         ))}
       </div>

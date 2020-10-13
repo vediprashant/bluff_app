@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Games from "../Components/Games";
 import Pagination from "../Components/Pagination";
@@ -13,15 +13,17 @@ const ViewGamesPage = (props) => {
   const [gamesPerPage, setGamesPerPage] = useState(4);
   const [startPage, setStartPage] = useState(1);
 
+  const actionButtons = useRef(null);
+
   useEffect(() => {
     fetchCompletedGames();
   }, []);
   const fetchCompletedGames = async () => {
-    const button = document.getElementsByClassName("button");
-    for (let btn = 0; btn < button.length; btn++) {
-      button[btn].classList.remove("activated");
+    const buttons = actionButtons.current.childNodes;
+    for (let btn = 0; btn < buttons.length; btn++) {
+      buttons[btn].classList.remove("activated");
     }
-    button[1].classList.add("activated");
+    buttons[0].classList.add("activated");
     setLoading(true);
     const games = await fetch(
       "http://127.0.01:8000/game/list/?filters=completed",
@@ -39,11 +41,11 @@ const ViewGamesPage = (props) => {
     setLoading(false);
   };
   const fetchOngoingGames = async () => {
-    const button = document.getElementsByClassName("button");
-    for (let btn = 0; btn < button.length; btn++) {
-      button[btn].classList.remove("activated");
+    const buttons = actionButtons.current.childNodes;
+    for (let btn = 0; btn < buttons.length; btn++) {
+      buttons[btn].classList.remove("activated");
     }
-    button[2].classList.add("activated");
+    buttons[1].classList.add("activated");
     setLoading(true);
     const games = await fetch("http://127.0.01:8000/game/list/", {
       headers: {
@@ -82,7 +84,7 @@ const ViewGamesPage = (props) => {
 
   return (
     <div class="container">
-      <div class="ui top attached buttons">
+      <div class="ui top attached buttons" ref={actionButtons}>
         <button class="ui button complete" onClick={fetchCompletedGames}>
           Completed Games
         </button>

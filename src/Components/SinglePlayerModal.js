@@ -18,7 +18,10 @@ function SinglePlayerModal(props) {
         current_player_id: null,
       },
     };
-    if (props.game?.gameState?.game_table && props.game.gameState.game_table.current_player_id !== null){
+    if (
+      props.game?.gameState?.game_table &&
+      props.game.gameState.game_table.current_player_id !== null
+    ) {
       props.dispatch({
         type: actions.GAME_UPDATE_STATE,
         payload: { newData },

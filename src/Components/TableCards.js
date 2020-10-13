@@ -1,13 +1,14 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * Takes table card count, renders those cards
  * @param {*} props
  */
 export default function TableCards(props) {
+  const allTableCards = useRef(null);
   useEffect(() => {
-    const ely = document.getElementsByClassName("cards");
+    const ely = allTableCards.current.childNodes;
     for (let j = 1; j < ely.length; j++) {
       var deg = Math.floor(Math.random() * 100 + 1);
       ely[j].style.transform = `rotate(${deg}deg)`;
@@ -29,5 +30,5 @@ export default function TableCards(props) {
     );
     card++;
   }
-  return temp;
+  return <div ref={allTableCards}>{temp}</div>;
 }

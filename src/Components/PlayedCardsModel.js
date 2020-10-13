@@ -30,9 +30,7 @@ function PlayedCardsModal(props) {
     }
   }
   return (
-    <Modal
-      open={open}
-    >
+    <Modal open={open}>
       <Modal.Header>{props.game.gameState.bluffLooser} lost</Modal.Header>
       <Modal.Content image>
         <div class="bluffCards">{playerCards}</div>
