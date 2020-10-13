@@ -13,6 +13,7 @@ import WinnerModal from "../Components/WinnerModal";
 import Timer from "../Components/Timer";
 import SinglePlayerModal from "../Components/SinglePlayerModal";
 import ErrorModal from "../Components/ErrorModal";
+import urls from "../constants/urlConstants"
 
 class GamePage extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class GamePage extends Component {
 
   componentDidMount() {
     let gameId = this.props.match.params.id;
-    this.props.connectToGame(`ws://localhost:8000/ws/chat/${gameId}/`);
+    this.props.connectToGame(`${urls.WEB_SOCKET_URL}${gameId}/`);
   }
 
   componentDidUpdate() {
