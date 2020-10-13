@@ -28,7 +28,7 @@ const listInvitedUsers = async (cookies, game) => {
         }
         else {
             return res.json().then(data => {
-                if (data.non_field_errors[0] === 'User is not the owner of game'){
+                if (data[0] === 'User is not the owner of game'){
                     return {
                         message: 'Forbidden',
                         list: []
