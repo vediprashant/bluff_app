@@ -1,14 +1,6 @@
 import handleTokens from '../Utils/handleTokens'
 import apiUrls from '../constants/urlConstants'
 
-const deserializeError = (data) => {
-    var output = ``
-    Object.entries(data).map(error => {
-        output += `${error[1]}\n`
-    })
-    return output
-}
-
 const listInvitedUsers = async (cookies, game) => {
     return fetch(`${apiUrls.LIST_INVITED_USERS}${game}/invitedList/`, {
         method: "GET",

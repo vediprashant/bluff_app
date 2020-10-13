@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Button, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 import cardsHandler from "../Utils/cardsHandler";
 import "./playerCardsModel.css";
 import stringMapperToCards from "../Utils/stringMapperToCards";
 
-function ModalExampleBasic(props) {
+function PlayedCardsModal(props) {
   const [open, setOpen] = useState(false);
   let stringCards;
   if (props.game.gameState.bluff_cards !== undefined)
@@ -18,7 +18,6 @@ function ModalExampleBasic(props) {
   if (stringCards !== null) {
     let listCards = stringMapperToCards(stringCards);
     let cards = cardsHandler(listCards);
-    console.log(cards);
     playerCards = cards.map((number, ind) => (
       <img
         class="bluffCardsPlayed"
@@ -32,8 +31,6 @@ function ModalExampleBasic(props) {
   }
   return (
     <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
       open={open}
     >
       <Modal.Header>{props.game.gameState.bluffLooser} lost</Modal.Header>
@@ -60,4 +57,4 @@ const mapStatetoProps = (state) => {
   };
 };
 
-export default connect(mapStatetoProps)(ModalExampleBasic);
+export default connect(mapStatetoProps)(PlayedCardsModal);

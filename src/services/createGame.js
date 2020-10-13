@@ -4,7 +4,6 @@ import deserializeErrors from "../Utils/deserializeErrors";
 
 const createGame = async (cookies, decks) => {
   try {
-    console.log(cookies);
     const game = await fetch(API_URL.CREATE_GAME_URL, {
       method: "POST",
       headers: {

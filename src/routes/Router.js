@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, useLocation } from "react-router-dom";
+import { Switch, useLocation } from "react-router-dom";
 
 import ROUTES from "../constants/pathConstants";
 import LoginPage from "../pages/LoginPage";
@@ -17,7 +17,6 @@ import { matchPath } from "react-router";
 
 const AppRouter = () => {
   let location = useLocation();
-  console.log(location.pathname);
   const match = matchPath(location.pathname, {
     path: "/game/:id",
     exact: true,

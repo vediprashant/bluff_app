@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { render } from "@testing-library/react";
+import { useEffect } from "react";
+
 import { Label } from "semantic-ui-react";
 /**
  * Takes list containing players, and an object containng self details

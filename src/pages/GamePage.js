@@ -31,7 +31,6 @@ class GamePage extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.game.gameState);
     const allPlayers = document.getElementsByClassName("avatar");
     for (let player = 0; player < allPlayers.length; player++) {
       allPlayers[player].classList.remove("userPic");
@@ -88,7 +87,6 @@ class GamePage extends Component {
     };
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
-    console.log("skip");
     this.props.game.gameState.game_table.current_player_id = null;
     this.setState({ error: null, showVisible: true });
   };
@@ -258,7 +256,6 @@ class GamePage extends Component {
         <WinnerModal />
         <SinglePlayerModal />
         <ErrorModal history={this.props.history} />
-        {console.log(this.state.set)}
       </div>
     );
   }

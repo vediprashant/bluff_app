@@ -44,7 +44,6 @@ const ViewGamesPage = (props) => {
       button[btn].classList.remove("activated");
     }
     button[2].classList.add("activated");
-    console.log(button);
     setLoading(true);
     const games = await fetch("http://127.0.01:8000/game/list/", {
       headers: {

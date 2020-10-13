@@ -1,16 +1,12 @@
 import React from "react";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Header, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 import actions from "../actions";
 
 function SinglePlayerModal(props) {
   const [open, setOpen] = React.useState(false);
-  console.log(props.game.gameState)
-  console.log('came here on top')
   const totalPlayers = document.getElementsByClassName("player");
   const disconnectedPlayers = document.getElementsByClassName("disconnected");
-  console.log(`disconnected player = ${disconnectedPlayers.length}
-            total players = ${totalPlayers.length}`)
   if (
     totalPlayers.length !== 0 &&
     disconnectedPlayers.length === totalPlayers.length - 1 &&
@@ -29,7 +25,6 @@ function SinglePlayerModal(props) {
       });
     }
     if (open === false) {
-      console.log('came here')
       setOpen(true);
     }
   } else {

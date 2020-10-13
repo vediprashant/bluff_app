@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Select } from "semantic-ui-react";
 import { withCookies } from "react-cookie";
 
 import "./HomePage.css";
-import createGame from "../Utils/createGame";
+import createGame from "../services/createGame";
 
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);

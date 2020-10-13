@@ -55,7 +55,7 @@ class InvitePage extends Component {
       return <div className="ui bottom attached message">{message}</div>;
     } else if (message === "User Invited") {
       return (
-        <div className="ui bottom attached success message">{message}</div>
+        <div className="ui boimport { Redirect } from 'react-router-dom'ttom attached success message">{message}</div>
       );
     } else {
       return (

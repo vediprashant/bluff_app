@@ -1,5 +1,5 @@
 import API_URL from "../constants/urlConstants";
-import deserializeErrors from "./deserializeErrors";
+import deserializeErrors from "../Utils/deserializeErrors";
 
 /**
  * Send form data to api to create a user
@@ -53,12 +53,11 @@ const createUser = async (name, email, password, confirmPassword) => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, email, password }),
+    body: JSON.stringify({ name, email, password, confirm_password: confirmPassword }),
   })
     .then((res) => {
       if (res.status === 201) {
         //user created
-        console.log("created");
         return { response: { message: "Success" } };
       } else if (res.status === 400) {
         return res.json().then((data) => {

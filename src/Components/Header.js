@@ -14,12 +14,10 @@ const Header = (props) => {
     }
   }, []);
   const clickHandler = () => {
-    console.log('click handler called')
     handleTokens.removeToken(props.cookies, "token");
     props.dispatch({
       type: actions.LOGGED_OUT,
     });
-    console.log(1);
     props.history.push(ROUTES.LOGIN_ROUTE);
   };
   return (

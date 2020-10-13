@@ -6,14 +6,11 @@ import {
   Header,
   Image,
   Segment,
-  Input,
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import deck from "../assets/deck.png";
-import handleTokens from "../Utils/handleTokens";
 import "../App.css";
-import { Redirect } from "react-router-dom";
 import createUser from "../actionCreators/createUser";
 import deepEqual from "../Utils/deepEqual";
 
@@ -194,10 +191,8 @@ class SignUpPage extends Component {
   }
 
   showMessage = () => {
-    console.log(this.props)
     var { response } = this.props;
     let message = response.message;
-    console.log(message)
     if (message === "") {
       return null;
     } else if (message === "Success"){

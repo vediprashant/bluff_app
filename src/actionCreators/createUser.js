@@ -1,4 +1,4 @@
-import createUserService from "../Utils/createUser";
+import createUserService from "../services/createUser";
 import actions from "../actions";
 
 function setResponse(response) {
