@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Select } from "semantic-ui-react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
+import actions from "../actions";
 
 import "./HomePage.css";
-import createGame from "../services/createGame";
+import createGame from "../actionCreators/createGame";
 
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);
-  const [isError, setError] = useState(false);
-  const [message, setmessage] = useState("");
+  useEffect(() => {
+    if (props.gameId) {
+      props.history.push(`./stats/${props.gameId}`);
+      props.resetId();
+    }
+    return () => {
+      props.resetId();
+    };
+  }, [props.gameId]);
+
   const deckOptions = [
     { key: 1, value: 1, text: 1 },
     { key: 2, value: 2, text: 2 },
@@ -19,19 +30,7 @@ function HomePage(props) {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
-    setError(false);
-    if (totalDecks === null) {
-      setError(true);
-      setmessage("Please select the decks");
-    } else {
-      const game = await createGame(props.cookies, totalDecks);
-      if (game.id) {
-        props.history.push(`/stats/${game.id}`);
-      } else {
-        setError(true);
-        setmessage(game.message);
-      }
-    }
+    props.createGame(props.cookies, totalDecks);
   };
   return (
     <div className="container">
@@ -47,9 +46,26 @@ function HomePage(props) {
           Create a new Game
         </button>
       </div>
-      {isError ? <div className="error">{message}</div> : null}
+      {props.isError ? <div className="error">{props.message}</div> : null}
     </div>
   );
 }
+const mapStateToProps = (state, ownProps) => ({
+  cookies: ownProps.cookies,
+  isError: state.createGame.gameError,
+  message: state.createGame.gameMessage,
+  gameId: state.createGame.gameId,
+});
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      createGame: (cookies, decks) => createGame(cookies, decks),
+      resetId: () => ({ type: actions.SET_GAME_ID, payload: { gameId: null } }),
+    },
+    dispatch
+  );
+};
 
-export default withCookies(HomePage);
+export default withCookies(
+  connect(mapStateToProps, mapDispatchToProps)(HomePage)
+);

@@ -1,4 +1,3 @@
-import React from "react";
 import listInvitedUsers from "../services/listInvitedUsers";
 import actions from "../actions";
 

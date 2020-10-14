@@ -8,7 +8,6 @@ import deck from "../assets/deck.png";
 
 import "../App.css";
 import { withCookies } from "react-cookie";
-//import Logout from "../components/Logout";
 
 class InvitePage extends Component {
   constructor(props) {
