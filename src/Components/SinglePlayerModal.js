@@ -3,6 +3,10 @@ import { Header, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 import actions from "../actions";
 
+/**
+ * Modal to show when only one player is connected to game
+ * @param {*} props 
+ */
 function SinglePlayerModal(props) {
   const [open, setOpen] = React.useState(false);
   const totalPlayers = props.game.gameState.game_players.length + 1;

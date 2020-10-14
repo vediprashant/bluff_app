@@ -15,6 +15,9 @@ import SinglePlayerModal from "../Components/SinglePlayerModal";
 import ErrorModal from "../Components/ErrorModal";
 import urls from "../constants/urlConstants";
 
+/**
+ * The main game screen where game is played
+ */
 class GamePage extends Component {
   constructor(props) {
     super(props);
@@ -157,6 +160,7 @@ class GamePage extends Component {
   };
 
   render() {
+    var gameState = this.props.game.gameState;
     return (
       <div className="gameScreen">
         <Button
@@ -165,9 +169,9 @@ class GamePage extends Component {
           onClick={this.backHandler}
           className={"goBack"}
         />
-        {this.props.game?.gameState?.game?.started &&
-        this.props.game?.gameState?.game_table?.current_player_id ===
-          this.props.game?.gameState?.self?.player_id ? (
+        {gameState?.game?.started &&
+        gameState?.game_table?.current_player_id ===
+          gameState?.self?.player_id ? (
           <div className="timer">
             <Timer disableShow={this.skip} startTime={60} />
           </div>
@@ -182,19 +186,17 @@ class GamePage extends Component {
           }
         />
         <div className="tableCards">
-          <TableCards
-            card_count={this.props.game?.gameState?.game_table?.card_count}
-          />
+          <TableCards card_count={gameState?.game_table?.card_count} />
         </div>
-        {this.props.game?.gameState?.game?.started &&
-        this.props.game?.gameState?.game_table?.current_player_id ===
-          this.props.game?.gameState?.self?.player_id ? (
+        {gameState?.game?.started &&
+        gameState?.game_table?.current_player_id ===
+          gameState?.self?.player_id ? (
           <div className="actionButtons">
             <Button text={"Pass"} color={"purple"} onClick={this.skip} />
             <Button text={"Play"} color={"purple"} onClick={this.playCards} />
-            {this.props.game?.gameState?.game_table?.last_player_id !==
-              this.props.game?.gameState?.self?.player_id &&
-            this.props.game?.gameState?.game_table?.card_count !== 0 &&
+            {gameState?.game_table?.last_player_id !==
+              gameState?.self?.player_id &&
+            gameState?.game_table?.card_count !== 0 &&
             this.state.showVisible ? (
               <span>
                 <Button text={"Show "} color={"purple"} onClick={this.show} />
@@ -208,20 +210,17 @@ class GamePage extends Component {
             {this.state.error ? (
               <div className="playError">{this.state.error}</div>
             ) : null}
-            {this.props.game?.gameState?.game_table?.currentSet ? (
+            {gameState?.game_table?.currentSet ? (
               <div className="bluffTimer">
                 Current Set:
-                {this.displaySet(
-                  this.props.game.gameState.game_table.currentSet
-                )}
+                {this.displaySet(gameState.game_table.currentSet)}
               </div>
             ) : null}
           </div>
         ) : null}
 
-        {this.props.game?.gameState?.game?.started === false ? (
-          this.props.game?.gameState?.game?.owner ===
-          this.props.game?.gameState?.self?.user?.id ? (
+        {gameState?.game?.started === false ? (
+          gameState?.game?.owner === gameState?.self?.user?.id ? (
             <Button
               text={"Start Game"}
               color={"grey"}
@@ -236,16 +235,16 @@ class GamePage extends Component {
             />
           )
         ) : null}
-        {this.props.game.gameState?.game?.started ? (
+        {gameState?.game?.started ? (
           <div className="playerCard">
             <h1 className="heading1">Select Cards</h1>
             <PlayerCards game={this.props.game} />
           </div>
         ) : null}
 
-        {this.props.game?.gameState?.game_table?.current_player_id ===
-          this.props?.game?.gameState?.self?.player_id &&
-        this.props?.game?.gameState?.game_table?.card_count === 0 ? (
+        {gameState?.game_table?.current_player_id ===
+          gameState?.self?.player_id &&
+        gameState?.game_table?.card_count === 0 ? (
           <div className="selectSet">
             <SelectSet selectSet={this.selectSet} />
           </div>
