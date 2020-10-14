@@ -126,7 +126,8 @@ class SignUpPage extends Component {
     }
     return true;
   }
-  componentWillReceiveProps() {
+
+  componentDidUpdate() {
     let response = this.props.response;
     if (response.name) {
       this.setState({

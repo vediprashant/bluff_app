@@ -5,6 +5,7 @@ import Pagination from "../Components/Pagination";
 import "./ViewGamePage.css";
 import { withCookies } from "react-cookie";
 import handleTokens from "../Utils/handleTokens";
+import urls from "../constants/urlConstants"
 
 const ViewGamesPage = (props) => {
   const [games, setGames] = useState([]);
@@ -26,7 +27,7 @@ const ViewGamesPage = (props) => {
     buttons[0].classList.add("activated");
     setLoading(true);
     const games = await fetch(
-      "http://127.0.01:8000/game/list/?filters=completed",
+      `${urls.LIST_GAMES}?filters=completed`,
       {
         headers: {
           Authorization: `Token ${handleTokens.getToken(
@@ -47,7 +48,7 @@ const ViewGamesPage = (props) => {
     }
     buttons[1].classList.add("activated");
     setLoading(true);
-    const games = await fetch("http://127.0.01:8000/game/list/", {
+    const games = await fetch(`${urls.LIST_GAMES}`, {
       headers: {
         Authorization: `Token ${handleTokens.getToken(props.cookies, "token")}`,
       },

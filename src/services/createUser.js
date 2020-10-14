@@ -47,7 +47,7 @@ const createUser = async (name, email, password, confirmPassword) => {
     return { response: validationResponse };
   }
   try {
-    let res =await fetch(`${API_URL.CREATE_URL}`, {
+    let res = await fetch(`${API_URL.CREATE_URL}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -64,12 +64,12 @@ const createUser = async (name, email, password, confirmPassword) => {
       //user created
       return { response: { message: "Success" } };
     } else if (res.status === 400) {
-        let data = await res.json()
-        if (data.email)
+      let data = await res.json()
+      if (data.email)
         return { response: { email: data.email[0], message: data.email[0] }, }
-        else return { response: { message: deserializeErrors(400) } };
-      } else return { response: { message: deserializeErrors(res.status) } }; 
-  }catch(err) { return { response: { message: "API Error" } } }
+      else return { response: { message: deserializeErrors(400) } };
+    } else return { response: { message: deserializeErrors(res.status) } };
+  } catch (err) { return { response: { message: "API Error" } } }
 }
 
 export default createUser;
