@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { Button, Modal } from "semantic-ui-react";
-import { connect } from "react-redux";
 import cardsHandler from "../Utils/cardsHandler";
 import "./playerCardsModel.css";
 import stringMapperToCards from "../Utils/stringMapperToCards";
@@ -49,10 +48,5 @@ function PlayedCardsModal(props) {
     </Modal>
   );
 }
-const mapStatetoProps = (state) => {
-  return {
-    game: state.game,
-  };
-};
 
-export default connect(mapStatetoProps)(PlayedCardsModal);
+export default PlayedCardsModal;

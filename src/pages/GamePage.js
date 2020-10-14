@@ -26,6 +26,10 @@ class GamePage extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.game.socket.close()
+  }
+
   componentDidMount() {
     let gameId = this.props.match.params.id;
     this.props.connectToGame(`${urls.WEB_SOCKET_URL}${gameId}/`);
@@ -242,7 +246,7 @@ class GamePage extends Component {
         {this.props.game.gameState?.game?.started ? (
           <div className="playerCard">
             <h1 className="heading1">Select Cards</h1>
-            <PlayerCards />
+            <PlayerCards game={this.props.game} />
           </div>
         ) : null}
 
@@ -253,10 +257,10 @@ class GamePage extends Component {
             <SelectSet selectSet={this.selectSet} />
           </div>
         ) : null}
-        <PlayedCardsModel />
-        <WinnerModal />
+        <PlayedCardsModel game={this.props.game} />
+        <WinnerModal game={this.props.game} />
         <SinglePlayerModal />
-        <ErrorModal history={this.props.history} />
+        <ErrorModal history={this.props.history} game={this.props.game} />
       </div>
     );
   }

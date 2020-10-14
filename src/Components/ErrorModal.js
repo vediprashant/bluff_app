@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Header, Modal } from "semantic-ui-react";
-import { connect } from "react-redux";
 
 function ErrorModal(props) {
   const [open, setOpen] = React.useState(false);
@@ -37,10 +36,4 @@ function ErrorModal(props) {
   );
 }
 
-const mapStatetoProps = (state) => {
-  return {
-    game: state.game,
-  };
-};
-
-export default connect(mapStatetoProps)(ErrorModal);
+export default ErrorModal;

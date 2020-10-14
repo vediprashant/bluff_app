@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { connect } from "react-redux";
 import cardsHandler from "../Utils/cardsHandler";
 import stringMapperToCards from "../Utils/stringMapperToCards";
 import "./playerCards.css";
 
 const PlayerCards = (props) => {
+  console.log(props)
   const allCards = useRef(null);
   let x = props.game?.gameState?.self?.cards;
   let pos = [];
@@ -41,10 +41,4 @@ const PlayerCards = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    game: state.game,
-  };
-};
-
-export default connect(mapStateToProps)(PlayerCards);
+export default PlayerCards;

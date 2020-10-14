@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Header, Modal } from "semantic-ui-react";
-import { connect } from "react-redux";
 
 function WinnerModal(props) {
   const [open, setOpen] = React.useState(false);
@@ -43,10 +42,4 @@ function WinnerModal(props) {
   );
 }
 
-const mapStatetoProps = (state) => {
-  return {
-    game: state.game,
-  };
-};
-
-export default connect(mapStatetoProps)(WinnerModal);
+export default WinnerModal;
