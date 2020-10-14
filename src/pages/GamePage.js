@@ -251,7 +251,6 @@ class GamePage extends Component {
         ) : null}
         <PlayedCardsModel game={this.props.game} />
         <WinnerModal game={this.props.game} />
-        {console.log(this.props.game)}
         <SinglePlayerModal />
         <ErrorModal history={this.props.history} game={this.props.game} />
       </div>

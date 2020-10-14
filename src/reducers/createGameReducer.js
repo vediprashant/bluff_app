@@ -7,7 +7,6 @@ const initialState = {
 };
 
 function createGameReducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case actions.GAME_CREATION_ERROR_SET:
       return {

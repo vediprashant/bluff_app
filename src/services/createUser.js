@@ -1,5 +1,6 @@
 import API_URL from "../constants/urlConstants";
 import deserializeErrors from "../Utils/deserializeErrors";
+import validate from "../Utils/signUpValidator"
 
 /**
  * Send form data to api to create a user
@@ -8,39 +9,6 @@ import deserializeErrors from "../Utils/deserializeErrors";
  * @param {*} password
  * @param {*} confirmPassword
  */
-
-const validate = (name, email, password, confirmPassword) => {
-  var response = { message: "OK" };
-  var re = /\S+@\S+\.\S+/;
-  if (name === "")
-    response = {
-      name: "Name is required",
-      message: "Check highlighted fields",
-    };
-  if (!re.test(email)) {
-    response = {
-      ...response,
-      email: "Enter Valid Email",
-      message: "Check highlighted fields",
-    };
-  }
-  if (password.length < 8) {
-    response = {
-      ...response,
-      password: "Password must have atleast 8 characters",
-      message: "Check highlighted fields",
-    };
-  }
-  if (password !== confirmPassword) {
-    response = {
-      ...response,
-      password: "Passwords do not match",
-      message: "Check highlighted fields",
-    };
-  }
-  return response;
-};
-
 const createUser = async (name, email, password, confirmPassword) => {
   var validationResponse = validate(name, email, password, confirmPassword);
   if (validationResponse.message !== "OK") {
@@ -65,9 +33,7 @@ const createUser = async (name, email, password, confirmPassword) => {
       return { response: { message: "Success" } };
     } else if (res.status === 400) {
       let data = await res.json()
-      if (data.email)
-        return { response: { email: data.email[0], message: data.email[0] }, }
-      else return { response: { message: deserializeErrors(400) } };
+      return { response: { ...data, message: data[Object.keys(data)[0]] }, }
     } else return { response: { message: deserializeErrors(res.status) } };
   } catch (err) { return { response: { message: "API Error" } } }
 }

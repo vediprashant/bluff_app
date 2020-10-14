@@ -120,67 +120,56 @@ class SignUpPage extends Component {
    * Shows warning messages
    */
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (deepEqual(nextState, this.state) && deepEqual(this.props, nextProps)) {
-      return false;
-    }
-    return true;
-  }
+  componentDidUpdate(prevProps) {
+    //if no api call, return
+    if (!prevProps.loading) return
 
-  componentDidUpdate() {
     let response = this.props.response;
+    let newState = { ...this.state }
     if (response.name) {
-      this.setState({
-        nameField: {
-          class: "field error",
-          placeholder: response.name,
-        },
-      });
+      newState.nameField = {
+        class: "field error",
+        placeholder: response.name,
+      }
     } else {
-      this.setState({
-        nameField: {
-          class: "field",
-          placeholder: "Name",
-        },
-      });
+      newState.nameField = {
+        class: "field",
+        placeholder: "Name",
+      }
     }
     if (response.email) {
-      this.setState({
-        emailField: {
-          class: "field error",
-          placeholder: response.email,
-        },
-      });
+      newState.emailField = {
+        class: "field error",
+        placeholder: response.email,
+      }
     } else {
-      this.setState({
-        emailField: {
-          class: "field",
-          placeholder: "Email",
-        },
-      });
+      newState.emailField = {
+        class: "field",
+        placeholder: "Email",
+      }
     }
     if (response.password) {
-      this.setState({
-        passwordField: {
-          class: "field error",
-          placeholder: response.password,
-        },
-        confirmPasswordField: {
-          class: "field error",
-          placeholder: response.password,
-        },
-      });
+      newState.passwordField = {
+        class: "field error",
+        placeholder: response.password,
+      }
+      newState.confirmPasswordField = {
+        class: "field error",
+        placeholder: response.password,
+      }
     } else {
-      this.setState({
-        passwordField: {
-          class: "field",
-          placeholder: "Password",
-        },
-        confirmPasswordField: {
-          class: "field",
-          placeholder: "Confirm Password",
-        },
-      });
+      newState.passwordField = {
+        class: "field",
+        placeholder: "Password",
+      }
+      newState.confirmPasswordField = {
+        class: "field",
+        placeholder: "Confirm Password",
+      }
+    }
+    //prevents infinite render loop in case api takes too long to respond
+    if (!deepEqual(this.state, newState)) {
+      this.setState(newState)
     }
   }
 

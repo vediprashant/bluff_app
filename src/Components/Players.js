@@ -52,7 +52,6 @@ export default function Player(props) {
     if (props.current_player_id === player.player_id) {
       currentPlayerClass = "userPic";
     }
-    console.log(player.disconnected);
     if (player.disconnected === true) {
       disconnectedClass = "disconnected";
     }
