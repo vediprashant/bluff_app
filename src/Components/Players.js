@@ -29,12 +29,16 @@ export default function Player(props) {
 
   //initialize with self player entry
   if (props.self) {
+    let currentPlayerClass = "";
+    if (props.current_player_id === props.self.player_id) {
+      currentPlayerClass = "userPic";
+    }
     renderedPlayers.push(
-      <div className="player">
+      <div className={`player`}>
         <img
           imgId={props.self.player_id}
           src="https://picsum.photos/200"
-          class="ui avatar tiny image"
+          class={`ui avatar tiny image ${currentPlayerClass}`}
           alt="avatar"
         />
         <span>{props.self.user.name}</span>
@@ -44,6 +48,11 @@ export default function Player(props) {
   //Fill in rest of the players
   props.game_players.map((player, index) => {
     let disconnectedClass = "";
+    let currentPlayerClass = "";
+    if (props.current_player_id === player.player_id) {
+      currentPlayerClass = "userPic";
+    }
+    console.log(player.disconnected);
     if (player.disconnected === true) {
       disconnectedClass = "disconnected";
     }
@@ -52,7 +61,7 @@ export default function Player(props) {
         <img
           imgId={player.player_id}
           src="https://picsum.photos/200"
-          class="ui avatar tiny image "
+          class={`ui avatar tiny image ${currentPlayerClass}`}
           alt="avatar"
         />
         {props.last_player_turn === player.player_id ? (

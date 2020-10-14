@@ -5,11 +5,15 @@ import actions from "../actions";
 
 function SinglePlayerModal(props) {
   const [open, setOpen] = React.useState(false);
-  const totalPlayers = document.getElementsByClassName("player");
-  const disconnectedPlayers = document.getElementsByClassName("disconnected");
+  const totalPlayers = props.game.gameState.game_players.length + 1;
+  const disconnectedPlayers = props.game.gameState.game_players.filter(
+    (player) => {
+      return player.disconnected;
+    }
+  );
   if (
-    totalPlayers.length !== 0 &&
-    disconnectedPlayers.length === totalPlayers.length - 1 &&
+    props.game.gameState &&
+    disconnectedPlayers.length === totalPlayers - 1 &&
     props?.game?.gameState?.game?.winner === null
   ) {
     const newData = {
