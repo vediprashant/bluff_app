@@ -13,7 +13,7 @@ import WinnerModal from "../Components/WinnerModal";
 import Timer from "../Components/Timer";
 import SinglePlayerModal from "../Components/SinglePlayerModal";
 import ErrorModal from "../Components/ErrorModal";
-import urls from "../constants/urlConstants"
+import urls from "../constants/urlConstants";
 
 /**
  * The main game screen where game is played
@@ -30,7 +30,7 @@ class GamePage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.game.socket.close()
+    this.props.game.socket.close();
   }
 
   componentDidMount() {
@@ -39,16 +39,6 @@ class GamePage extends Component {
   }
 
   componentDidUpdate() {
-    const allPlayers = document.getElementsByClassName("avatar");
-    for (let player = 0; player < allPlayers.length; player++) {
-      allPlayers[player].classList.remove("userPic");
-      if (
-        allPlayers[player].getAttribute("imgid") ==
-        this.props.game?.gameState?.game_table?.current_player_id
-      ) {
-        allPlayers[player].classList.add("userPic");
-      }
-    }
     if (
       this.props.game.gameState !== undefined &&
       this.state.set != this.props.game.gameState?.game_table?.currentSet
@@ -170,7 +160,7 @@ class GamePage extends Component {
   };
 
   render() {
-    var gameState = this.props.game.gameState
+    var gameState = this.props.game.gameState;
     return (
       <div className="gameScreen">
         <Button
@@ -187,15 +177,16 @@ class GamePage extends Component {
           </div>
         ) : null}
         <Players
-          game_players={gameState?.game_players}
-          self={gameState?.self}
-          last_player_turn={gameState?.last_player_turn}
-          action={gameState?.action}
+          game_players={this.props.game?.gameState?.game_players}
+          self={this.props.game?.gameState?.self}
+          last_player_turn={this.props.game?.gameState?.last_player_turn}
+          action={this.props.game?.gameState?.action}
+          current_player_id={
+            this.props.game?.gameState?.game_table?.current_player_id
+          }
         />
         <div className="tableCards">
-          <TableCards
-            card_count={gameState?.game_table?.card_count}
-          />
+          <TableCards card_count={gameState?.game_table?.card_count} />
         </div>
         {gameState?.game?.started &&
         gameState?.game_table?.current_player_id ===
@@ -222,17 +213,14 @@ class GamePage extends Component {
             {gameState?.game_table?.currentSet ? (
               <div className="bluffTimer">
                 Current Set:
-                {this.displaySet(
-                  gameState.game_table.currentSet
-                )}
+                {this.displaySet(gameState.game_table.currentSet)}
               </div>
             ) : null}
           </div>
         ) : null}
 
         {gameState?.game?.started === false ? (
-          gameState?.game?.owner ===
-          gameState?.self?.user?.id ? (
+          gameState?.game?.owner === gameState?.self?.user?.id ? (
             <Button
               text={"Start Game"}
               color={"grey"}
@@ -263,6 +251,7 @@ class GamePage extends Component {
         ) : null}
         <PlayedCardsModel game={this.props.game} />
         <WinnerModal game={this.props.game} />
+        {console.log(this.props.game)}
         <SinglePlayerModal />
         <ErrorModal history={this.props.history} game={this.props.game} />
       </div>
