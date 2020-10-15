@@ -6,9 +6,17 @@ import apiUrls from "../constants/urlConstants";
  * @param {*} data 
  */
 const deserializeError = (data) => {
+  let dict = {
+    "The fields user, game must make a unique set.": "User already invited"
+  }
+  let handler = {
+    get: (target, prop, reciever) => prop in target ? target[prop] : prop
+  }
+  let translateAPIError= new Proxy(dict, handler)
+
   var output = ``;
   Object.entries(data).map((error) => {
-    output += `${error[1]}\n`;
+    output += `${translateAPIError[`${error[1]}`]}\n`;
   });
   return output;
 };
@@ -33,7 +41,7 @@ const inviteUser = async (cookies, email, game) => {
         "Content-Type": "application/json",
         Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
       },
-      body: JSON.stringify({ email, game }),
+      body: JSON.stringify({ user: email, game }),
     })
     if (res.status === 201) {
       //user invited
