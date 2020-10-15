@@ -5,7 +5,7 @@ import actions from "../actions";
 
 /**
  * Modal to show when only one player is connected to game
- * @param {*} props 
+ * @param {*} props
  */
 function SinglePlayerModal(props) {
   const [open, setOpen] = React.useState(false);

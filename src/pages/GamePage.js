@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import "./GamePage.css";
 import { connect } from "react-redux";
 import SelectSet from "../Components/SelectSet";
@@ -14,6 +15,7 @@ import Timer from "../Components/Timer";
 import SinglePlayerModal from "../Components/SinglePlayerModal";
 import ErrorModal from "../Components/ErrorModal";
 import urls from "../constants/urlConstants";
+import actions from "../actions";
 
 /**
  * The main game screen where game is played
@@ -45,6 +47,12 @@ class GamePage extends Component {
     ) {
       this.setState({ set: this.props.game.gameState.game_table.currentSet });
     }
+    this.resetPlayer = {
+      game_table: {
+        ...this.props.game.gameState.game_table,
+        current_player_id: null,
+      },
+    };
   }
 
   playCards = () => {
@@ -73,9 +81,9 @@ class GamePage extends Component {
       set: this.state.set,
       current_user: 1,
     };
+    this.props.resetPlayer(this.resetPlayer);
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
-    this.props.game.gameState.game_table.current_player_id = null;
     this.setState({ showVisible: true });
   };
 
@@ -83,9 +91,9 @@ class GamePage extends Component {
     const data = {
       action: "skip",
     };
+    this.props.resetPlayer(this.resetPlayer);
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
-    this.props.game.gameState.game_table.current_player_id = null;
     this.setState({ error: null, showVisible: true });
   };
 
@@ -101,9 +109,10 @@ class GamePage extends Component {
     const data = {
       action: "callBluff",
     };
+    this.props.resetPlayer(this.resetPlayer);
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
-    this.props.game.gameState.game_table.current_player_id = null;
+
     this.setState({ error: null, showVisible: true });
   };
 
@@ -160,7 +169,7 @@ class GamePage extends Component {
   };
 
   render() {
-    var gameState = this.props.game.gameState;
+    const gameState = this.props.game.gameState;
     return (
       <div className="gameScreen">
         <Button
@@ -263,7 +272,17 @@ const mapStatetoProps = (state) => {
     game: state.game,
   };
 };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      connectToGame: (url) => connectToGame(url),
+      resetPlayer: (newData) => ({
+        type: actions.GAME_UPDATE_STATE,
+        payload: { newData },
+      }),
+    },
+    dispatch
+  );
+};
 
-export default connect(mapStatetoProps, {
-  connectToGame: connectToGame,
-})(GamePage);
+export default connect(mapStatetoProps, mapDispatchToProps)(GamePage);
