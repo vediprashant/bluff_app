@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Header, Modal } from "semantic-ui-react";
+import { Header, Modal } from "semantic-ui-react";
 
 function WinnerModal(props) {
   const [open, setOpen] = React.useState(false);
@@ -27,17 +27,6 @@ function WinnerModal(props) {
           </Header>
         </Modal.Description>
       </Modal.Content>
-      <Modal.Actions>
-        <Button
-          color="black"
-          onClick={() => {
-            props.game.gameState.game.winner = null;
-            setOpen(false);
-          }}
-        >
-          Close
-        </Button>
-      </Modal.Actions>
     </Modal>
   );
 }
