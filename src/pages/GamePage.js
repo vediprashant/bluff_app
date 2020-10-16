@@ -15,6 +15,7 @@ import Timer from "../Components/Timer";
 import SinglePlayerModal from "../Components/SinglePlayerModal";
 import ErrorModal from "../Components/ErrorModal";
 import urls from "../constants/urlConstants";
+import updateSelectedCards from "../actionCreators/updateSelectedCards"
 import actions from "../actions";
 
 /**
@@ -56,8 +57,9 @@ class GamePage extends Component {
   }
 
   playCards = () => {
-    const cardsSelected = document.querySelectorAll(".selectedCards");
-    let mappedCards = [];
+    //get selected cards from store
+    //when api responds, these cards will be removed automatically from page
+    const cardsSelected = [ ...this.props.selectedCards ]
     if (
       this.state.set === null &&
       this.props.game.gameState.game_table.currentSet === null
@@ -70,11 +72,12 @@ class GamePage extends Component {
       return;
     }
     this.setState({ error: null });
-    for (let card = 0; card < cardsSelected.length; card++) {
-      mappedCards.push(cardsSelected[card].id);
-      cardsSelected[card].classList.remove("selectedCards");
-    }
-    let stringCards = cardsMapperToString(mappedCards);
+    // for (let card = 0; card < cardsSelected.length; card++) {
+    //   mappedCards.push(cardsSelected[card].id);
+      
+    //   cardsSelected[card].classList.remove("selectedCards");
+    // }
+    let stringCards = cardsMapperToString(cardsSelected);
     const data = {
       action: "play",
       cardsPlayed: stringCards,
@@ -85,6 +88,7 @@ class GamePage extends Component {
     const jsonData = JSON.stringify(data);
     this.props.game.socket.send(jsonData);
     this.setState({ showVisible: true });
+    this.props.updateSelectedCards([])
   };
 
   skip = () => {
@@ -270,6 +274,7 @@ class GamePage extends Component {
 const mapStatetoProps = (state) => {
   return {
     game: state.game,
+    selectedCards: state.selectedCards
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -285,4 +290,8 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
+const mapDispatchToProps = {
+  connectToGame: connectToGame,
+  updateSelectedCards: updateSelectedCards
+}
 export default connect(mapStatetoProps, mapDispatchToProps)(GamePage);
