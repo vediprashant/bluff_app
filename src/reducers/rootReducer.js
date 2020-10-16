@@ -16,3 +16,50 @@ export default combineReducers({
   viewGames: viewGamesReducer,
   selectedCards: updateSelectedCards,
 });
+
+/*
+user: {
+  login: {
+    loggedIn: false,
+    isLoading: false,
+    isError: false,
+    errorMessage: "",
+  }
+  signUp: {
+    response: {
+      errorField: ""
+      message: "",
+    },
+    loading: "",
+  }
+}
+game: {
+  activeGame: {
+    isConnected: false,
+    socket: null,
+    gameState: {
+      game: {},
+      game_players: [],
+      self: {
+        selectedCards: []
+      },
+      game_table: {}
+  },
+  createGame: {
+    gameError: false,
+    gameMessage: "",
+    gameId: null,
+    createGameLoading: false,
+  }
+  inviteToGame: {
+    inviteMessage: "",
+    invitedPlayers: [],
+  }
+  viewGames: {
+    isGamesLoading: false,
+    games: [],
+    gameMessage: null,
+  }
+}
+selectedCards: updateSelectedCards,
+*/

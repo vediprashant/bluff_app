@@ -4,7 +4,10 @@ const initialState = {
   isConnected: false,
   socket: null,
   gameState: {
+    game: {},
     game_players: [],
+    self: {},
+    game_table: {}
   },
 };
 export default function game(state = initialState, action) {
@@ -25,6 +28,10 @@ export default function game(state = initialState, action) {
         gameState: {
           ...state.gameState,
           ...action.payload.newData,
+          self: {
+            ...state.gameState.self,
+            ...action.payload.newData.self
+          }
         },
       };
     default:
