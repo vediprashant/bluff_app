@@ -1,31 +1,48 @@
 import React from "react";
 import cardsHandler from "../Utils/cardsHandler";
 import stringMapperToCards from "../Utils/stringMapperToCards";
+import cardsMapperToString from "../Utils/cardsMapperToString"
 import "./playerCards.css";
+import { connect } from "react-redux"
+import updateSelectedCards from "../actionCreators/updateSelectedCards"
 
+/**
+ * Render cards and save card selection to store
+ * @param {*} props 
+ */
 const PlayerCards = (props) => {
-  let x = props.game?.gameState?.self?.cards;
-  let pos = [];
-  if (x !== undefined) {
-    pos = stringMapperToCards(x);
-  }
-  let givenCards = [];
-  if (pos.length > 0) {
-    givenCards = cardsHandler(pos);
-  }
-  let playerCards = givenCards.map((number, ind) => (
-    <img
-      id={pos[ind]}
-      class="card"
-      src={`../PNG/${number}.png`}
+  const cardPositions = props.myCards ? stringMapperToCards(props.myCards) : null
+  const labeledCards = cardPositions ? cardsHandler(cardPositions) : null
+  const selectedCardsHash = cardsMapperToString(props.selectedCards, true)
+  let playerCards = labeledCards.map((cardName, ind) => {
+    return <img
+      id={cardPositions[ind]}
+      className={selectedCardsHash[cardPositions[ind]-1] ? 'card selectedCards' : 'card' }
+      src={`../PNG/${cardName}.png`}
       alt="card"
       onClick={selectCard}
     ></img>
-  ));
+    }
+  );
+
   function selectCard(event) {
-    event.target.classList.toggle("selectedCards");
+    let newState = [ ...props.selectedCards ]
+    const id = event.target.id
+    if (selectedCardsHash[id-1]) newState.splice(newState.indexOf(id+''), 1)
+    else newState.push(id)
+    //update store here, send selected cards,
+    props.updateSelectedCards(newState)
   }
   return <div className="playerCards">{playerCards}</div>;
 };
 
-export default PlayerCards;
+const mapStateToProps = (state) => {
+  return {
+    selectedCards: state.selectedCards,
+    myCards: state.game.gameState.self.cards
+  }
+}
+export default connect(
+  mapStateToProps,
+  { updateSelectedCards: updateSelectedCards }
+)(PlayerCards);
