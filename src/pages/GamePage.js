@@ -199,7 +199,9 @@ class GamePage extends Component {
           }
         />
         <div className="tableCards">
-          <TableCards card_count={gameState?.game_table?.card_count} />
+          <TableCards
+            card_count={this.props.game?.gameState?.game_table?.card_count}
+          />
         </div>
         {gameState?.game?.started &&
         gameState?.game_table?.current_player_id ===
@@ -265,11 +267,12 @@ class GamePage extends Component {
         <PlayedCardsModel game={this.props.game} />
         <WinnerModal game={this.props.game} />
         <SinglePlayerModal />
-        {gameState.init_success === false && (() => {
-          let message = gameState.message;
-          message = message.split("string=")[1].split("'")[1];
-          return <ErrorModal title='Unable to join game' message={message} />})()
-        }
+        {gameState.init_success === false &&
+          (() => {
+            let message = gameState.message;
+            message = message.split("string=")[1].split("'")[1];
+            return <ErrorModal title="Unable to join game" message={message} />;
+          })()}
       </div>
     );
   }
