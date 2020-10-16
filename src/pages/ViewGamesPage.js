@@ -12,29 +12,24 @@ const ViewGamesPage = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage, setGamesPerPage] = useState(4);
   const [startPage, setStartPage] = useState(1);
-
-  const actionButtons = useRef(null);
+  const [activeButton, setActiveButton] = useState("completed");
 
   useEffect(() => {
     fetchCompletedGames();
   }, []);
 
   const fetchCompletedGames = async () => {
-    const buttons = actionButtons.current.childNodes;
-    for (let btn = 0; btn < buttons.length; btn++) {
-      buttons[btn].classList.remove("activated");
-    }
-    buttons[0].classList.add("activated");
     props.viewGames(props.cookies, "completed");
+    if (activeButton !== "completed") {
+      setActiveButton("completed");
+    }
   };
 
   const fetchOngoingGames = async () => {
-    const buttons = actionButtons.current.childNodes;
-    for (let btn = 0; btn < buttons.length; btn++) {
-      buttons[btn].classList.remove("activated");
-    }
-    buttons[1].classList.add("activated");
     props.viewGames(props.cookies);
+    if (activeButton !== "ongoing") {
+      setActiveButton("ongoing");
+    }
   };
 
   const paginate = (pageNum, elem) => {
@@ -68,11 +63,25 @@ const ViewGamesPage = (props) => {
 
   return (
     <div class="container">
-      <div class="ui top attached buttons" ref={actionButtons}>
-        <button class="ui button complete" onClick={fetchCompletedGames}>
+      <div class="ui top attached buttons">
+        <button
+          className={
+            activeButton === "completed"
+              ? "ui button complete activated"
+              : "ui button complete"
+          }
+          onClick={fetchCompletedGames}
+        >
           Completed Games
         </button>
-        <button class="ui button ongoing" onClick={fetchOngoingGames}>
+        <button
+          className={
+            activeButton === "ongoing"
+              ? "ui button ongoing activated"
+              : "ui button ongoing"
+          }
+          onClick={fetchOngoingGames}
+        >
           Ongoing Games
         </button>
       </div>
