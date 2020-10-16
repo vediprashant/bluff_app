@@ -7,7 +7,6 @@ const initialState = {
 };
 
 function viewGamesReducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case actions.SET_GAMES:
       return {

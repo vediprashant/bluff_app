@@ -1,6 +1,4 @@
 import React from "react";
-import { useEffect, useRef } from "react";
-
 import { Label } from "semantic-ui-react";
 /**
  * Takes list containing players, and an object containng self details
@@ -8,33 +6,22 @@ import { Label } from "semantic-ui-react";
  * @param {*} props
  */
 export default function Player(props) {
-  var renderedPlayers = [];
-  const allPlayers = useRef(null);
-  useEffect(() => {
-    //Arrange players in nice circles
-    const ele = allPlayers.current.childNodes;
-    const width = 690;
-    const height = 667;
-    const radius = 300;
-    let angle = 0;
-    let step = (2 * Math.PI) / ele.length;
-    for (let i = 0; i < ele.length; i++) {
-      var x = Math.round(width / 2 + radius * Math.cos(angle) - 80 / 2);
-      var y = Math.round(height / 2 + radius * Math.sin(angle) - 80 / 2);
-      ele[i].style.top = x + "px";
-      ele[i].style.right = y + "px";
-      angle += step;
-    }
-  });
-
-  //initialize with self player entry
+  const renderedPlayers = [];
+  const totalPlayers = props.self ? props.game_players.length + 1 : 0;
+  const width = 690;
+  const height = 667;
+  const radius = 300;
+  let angle = 0;
+  let step = (2 * Math.PI) / totalPlayers;
   if (props.self) {
+    let x = Math.round(width / 2 + radius * Math.cos(angle) - 80 / 2);
+    let y = Math.round(height / 2 + radius * Math.sin(angle) - 80 / 2);
     let currentPlayerClass = "";
     if (props.current_player_id === props.self.player_id) {
       currentPlayerClass = "userPic";
     }
     renderedPlayers.push(
-      <div className={`player`}>
+      <div className={`player`} style={{ top: `${x}px`, right: `${y}px` }}>
         <img
           imgId={props.self.player_id}
           src="https://picsum.photos/200"
@@ -44,9 +31,13 @@ export default function Player(props) {
         <span>{props.self.user.name}</span>
       </div>
     );
+    angle += step;
   }
+
   //Fill in rest of the players
-  props.game_players.map((player, index) => {
+  props.game_players.forEach((player, index) => {
+    let x = Math.round(width / 2 + radius * Math.cos(angle) - 80 / 2);
+    let y = Math.round(height / 2 + radius * Math.sin(angle) - 80 / 2);
     let disconnectedClass = "";
     let currentPlayerClass = "";
     if (props.current_player_id === player.player_id) {
@@ -56,7 +47,10 @@ export default function Player(props) {
       disconnectedClass = "disconnected";
     }
     renderedPlayers.push(
-      <div class={`player ${disconnectedClass}`}>
+      <div
+        class={`player ${disconnectedClass}`}
+        style={{ top: `${x}px`, right: `${y}px` }}
+      >
         <img
           imgId={player.player_id}
           src="https://picsum.photos/200"
@@ -77,11 +71,7 @@ export default function Player(props) {
         <span class="cardCountNum">{player.card_count}</span>
       </div>
     );
+    angle += step;
   });
-
-  return (
-    <div className="avatars" ref={allPlayers}>
-      {renderedPlayers}
-    </div>
-  );
+  return <div className="avatars">{renderedPlayers}</div>;
 }
