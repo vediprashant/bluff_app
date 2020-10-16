@@ -19,8 +19,8 @@ export default function Player(props) {
     let angle = 0;
     let step = (2 * Math.PI) / ele.length;
     for (let i = 0; i < ele.length; i++) {
-      var x = Math.round(width / 2 + radius * Math.cos(angle) - 80 / 2);
-      var y = Math.round(height / 2 + radius * Math.sin(angle) - 80 / 2);
+      const x = Math.round(width / 2 + radius * Math.cos(angle) - 80 / 2);
+      const y = Math.round(height / 2 + radius * Math.sin(angle) - 80 / 2);
       ele[i].style.top = x + "px";
       ele[i].style.right = y + "px";
       angle += step;

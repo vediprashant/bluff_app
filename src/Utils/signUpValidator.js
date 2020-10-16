@@ -1,6 +1,6 @@
 const validate = (name, email, password, confirmPassword) => {
-    var response = { message: "OK" };
-    var re = /\S+@\S+\.\S+/;
+    const response = { message: "OK" };
+    const re = /\S+@\S+\.\S+/;
     if (name === "")
       response = {
         name: "Name is required"

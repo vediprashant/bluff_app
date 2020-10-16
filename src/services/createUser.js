@@ -10,7 +10,7 @@ import validate from "../Utils/signUpValidator"
  * @param {*} confirmPassword
  */
 const createUser = async (name, email, password, confirmPassword) => {
-  var validationResponse = validate(name, email, password, confirmPassword);
+  const validationResponse = validate(name, email, password, confirmPassword);
   if (validationResponse.message !== "OK") {
     return { response: validationResponse };
   }

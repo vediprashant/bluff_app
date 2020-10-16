@@ -54,8 +54,8 @@ class SignUpPage extends Component {
   };
 
   handleEmailChange = (evt) => {
-    var emailField = this.state.emailField;
-    var re = /\S+@\S+\.\S+/;
+    const emailField = this.state.emailField;
+    const re = /\S+@\S+\.\S+/;
     if (!re.test(evt.target.value)) {
       evt.target.value = "";
       this.setState({
@@ -108,7 +108,7 @@ class SignUpPage extends Component {
   };
 
   handleSubmit = () => {
-    var { name, email, password, confirmPassword } = this.state;
+    const { name, email, password, confirmPassword } = this.state;
     this.props.createUserAction(
       (name = name),
       (email = email),
@@ -174,7 +174,7 @@ class SignUpPage extends Component {
   }
 
   showMessage = () => {
-    var { response } = this.props;
+    const { response } = this.props;
     let message = response.message;
     if (message === "") {
       return null;

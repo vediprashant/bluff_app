@@ -14,7 +14,7 @@ const deserializeError = (data) => {
   }
   let translateAPIError= new Proxy(dict, handler)
 
-  var output = ``;
+  let output = ``;
   Object.entries(data).map((error) => {
     output += `${translateAPIError[`${error[1]}`]}\n`;
   });
@@ -29,7 +29,7 @@ const deserializeError = (data) => {
  */
 const inviteUser = async (cookies, email, game) => {
   //Validate email first
-  var re = /\S+@\S+\.\S+/;
+  const re = /\S+@\S+\.\S+/;
   if (!re.test(email)) {
     return "Enter valid email address";
   }
