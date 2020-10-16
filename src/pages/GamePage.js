@@ -278,7 +278,7 @@ class GamePage extends Component {
 const mapStatetoProps = (state) => {
   return {
     game: state.game,
-    selectedCards: state.game.gameState.self.selectedCards,
+    selectedCards: state.game.gameState.selectedCards,
   };
 };
 const mapDispatchToProps = (dispatch) => {

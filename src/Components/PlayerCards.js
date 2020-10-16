@@ -38,7 +38,7 @@ const PlayerCards = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    selectedCards: state.selectedCards,
+    selectedCards: state.game.gameState.selectedCards,
     myCards: state.game.gameState.self.cards
   }
 }

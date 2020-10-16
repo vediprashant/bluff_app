@@ -4,14 +4,20 @@ const initialState = {
   isConnected: false,
   socket: null,
   gameState: {
-    game: {},
+    selectedCards: [],
     game_players: [],
-    self: {},
-    game_table: {}
   },
 };
 export default function game(state = initialState, action) {
   switch (action.type) {
+    case actions.UPDATE_SELECTED_CARDS:
+      return {
+        ...state,
+        gameState:{
+          ...state.gameState,
+          selectedCards: action.payload
+        }
+      }
     case actions.GAME_CONNECTED:
       return {
         ...state,
@@ -28,10 +34,6 @@ export default function game(state = initialState, action) {
         gameState: {
           ...state.gameState,
           ...action.payload.newData,
-          self: {
-            ...state.gameState.self,
-            ...action.payload.newData.self
-          }
         },
       };
     default:
