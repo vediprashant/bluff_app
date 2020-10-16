@@ -8,14 +8,13 @@ import deck from "../assets/deck.png";
 
 import "../App.css";
 import { withCookies } from "react-cookie";
+import ErrorModal from "../Components/ErrorModal";
 
 class InvitePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      message: "",
-      recentlyAdded: [],
     };
   }
   componentDidMount() {
@@ -27,7 +26,6 @@ class InvitePage extends Component {
   };
 
   handleSubmit = async (event) => {
-    this.setState({ message: "Inviting" });
     event.preventDefault();
     this.props.invite(
       this.props.cookies,
@@ -36,41 +34,16 @@ class InvitePage extends Component {
     );
   };
 
-  showMessage = () => {
-    let message = this.props.message;
-    if (message === "") {
-      return null;
-    } else if (message === "Forbidden") {
-      this.props.history.push("/games/");
-    } else if (message === "Inviting") {
-      return <div className="ui bottom attached message">{message}</div>;
-    } else if (message === "User Invited") {
-      return (
-        <div className="ui boimport { Redirect } from 'react-router-dom'ttom attached success message">
-          {message}
-        </div>
-      );
-    } else {
-      return (
-        <div id="inviteWarn" className="ui bottom attached red warning message">
-          {message}
-        </div>
-      );
-    }
-  };
 
-  showRecentlyAdded = () => {
-    var recentlyAdded = this.props.invitedPlayers;
-    if (recentlyAdded.length !== 0) {
-      let list = [];
-      recentlyAdded.map((user, index) => {
-        list.push(
+  showInvited = () => {
+    const invited = this.props.invitedPlayers;
+    if (invited.length !== 0) {
+      const list = invited.map((user, index) => 
           <div className="item" key={index}>
             {user}
           </div>
-        );
-      });
-      let message = (
+      );
+      const message = (
         <div className="ui info message">
           <div className="header">Invited Players</div>
           <div className="ui ordered list">{list}</div>
@@ -81,6 +54,7 @@ class InvitePage extends Component {
   };
 
   render() {
+    const message = this.props.message
     return (
       <div className="login">
         <Grid textAlign="center">
@@ -107,16 +81,37 @@ class InvitePage extends Component {
                   size="large"
                   onClick={this.handleSubmit}
                 >
-                  {this.state.isLoading ? (
+                  {message === 'Inviting' ? (
                     <div className="ui active centered inline tiny inverted loader"></div>
                   ) : (
-                    "Invite"
-                  )}
+                      "Invite"
+                    )}
                 </Button>
               </Segment>
             </Form>
-            {this.showMessage()}
-            {this.showRecentlyAdded()}
+            {
+              message === 'Forbidden' &&
+              <ErrorModal
+                message='You must be owner of the game in order to invite players'
+                title='Forbidden' />
+            }
+            {
+              message === 'Inviting' &&
+              <div className="ui bottom attached message">{message}</div>
+            }
+            {
+              message === 'User Invited' &&
+              <div className="ui bottom attached success message">
+                {message}
+              </div>
+            }
+            {
+              !['Forbidden', 'Inviting', 'User Invited', ''].includes(message) &&
+              <div id="inviteWarn" className="ui bottom attached red warning message">
+                {message}
+              </div>
+            }
+            {this.showInvited()}
           </Grid.Column>
         </Grid>
       </div>
@@ -130,9 +125,12 @@ const mapStateToProps = (state) => {
     invitedPlayers: state.invite.invitedPlayers,
   };
 };
+
+const mapDispatchToProps = {
+  invite: inviteUserAction,
+  listInvited: listInvitedUsers,
+}
+
 export default withCookies(
-  connect(mapStateToProps, {
-    invite: inviteUserAction,
-    listInvited: listInvitedUsers,
-  })(InvitePage)
+  connect(mapStateToProps, mapDispatchToProps)(InvitePage)
 );

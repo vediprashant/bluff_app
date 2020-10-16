@@ -265,7 +265,11 @@ class GamePage extends Component {
         <PlayedCardsModel game={this.props.game} />
         <WinnerModal game={this.props.game} />
         <SinglePlayerModal />
-        <ErrorModal history={this.props.history} game={this.props.game} />
+        {gameState.init_success === false && (() => {
+          let message = gameState.message;
+          message = message.split("string=")[1].split("'")[1];
+          return <ErrorModal title='Unable to join game' message={message} />})()
+        }
       </div>
     );
   }
@@ -285,13 +289,14 @@ const mapDispatchToProps = (dispatch) => {
         type: actions.GAME_UPDATE_STATE,
         payload: { newData },
       }),
+      updateSelectedCards: updateSelectedCards
     },
     dispatch
   );
 };
 
-const mapDispatchToProps = {
-  connectToGame: connectToGame,
-  updateSelectedCards: updateSelectedCards
-}
+// const mapDispatchToProps = {
+//   connectToGame: connectToGame,
+  
+// }
 export default connect(mapStatetoProps, mapDispatchToProps)(GamePage);
