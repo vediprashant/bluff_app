@@ -10,28 +10,22 @@ import createGame from "../actionCreators/createGame";
 
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);
-  useEffect(() => {
-    if (props.gameId) {
-      props.history.push(`./stats/${props.gameId}`);
-      props.resetId();
-    }
-    return () => {
-      props.resetId();
-    };
-  }, [props.gameId]);
 
   const deckOptions = [
     { key: 1, value: 1, text: 1 },
     { key: 2, value: 2, text: 2 },
     { key: 3, value: 3, text: 3 },
   ];
+
   const deckHandler = (e) => {
     setTotalDecks(e.target.textContent);
   };
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    props.createGame(props.cookies, totalDecks);
+    props.createGame(props.cookies, totalDecks, props.history);
   };
+
   return (
     <div className="container">
       <div className="logo">BLUFF</div>
@@ -42,8 +36,15 @@ function HomePage(props) {
           options={deckOptions}
           onChange={deckHandler}
         />
-        <button className="ui primary button" onClick={submitHandler}>
-          Create a new Game
+        <button
+          className={
+            props.isLoading
+              ? "ui primary loading disabled button"
+              : "ui primary button"
+          }
+          onClick={submitHandler}
+        >
+          Create a new game
         </button>
       </div>
       {props.isError ? <div className="error">{props.message}</div> : null}
@@ -55,11 +56,13 @@ const mapStateToProps = (state, ownProps) => ({
   isError: state.createGame.gameError,
   message: state.createGame.gameMessage,
   gameId: state.createGame.gameId,
+  isLoading: state.createGame.createGameLoading,
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      createGame: (cookies, decks) => createGame(cookies, decks),
+      createGame: (cookies, decks, history) =>
+        createGame(cookies, decks, history),
       resetId: () => ({ type: actions.SET_GAME_ID, payload: { gameId: null } }),
     },
     dispatch

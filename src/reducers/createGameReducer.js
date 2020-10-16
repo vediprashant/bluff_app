@@ -4,6 +4,7 @@ const initialState = {
   gameError: false,
   gameMessage: "",
   gameId: null,
+  createGameLoading: false,
 };
 
 function createGameReducer(state = initialState, action) {
@@ -27,6 +28,11 @@ function createGameReducer(state = initialState, action) {
       return {
         ...state,
         gameId: action.payload.gameId,
+      };
+    case actions.CREATE_GAME_LOADING:
+      return {
+        ...state,
+        createGameLoading: !state.createGameLoading,
       };
     default:
       return state;

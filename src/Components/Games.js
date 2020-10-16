@@ -2,10 +2,7 @@ import React from "react";
 
 import "./games.css";
 
-const Games = ({ games, loading }) => {
-  if (loading) {
-    return <h2>loading...</h2>;
-  }
+const Games = ({ games }) => {
   return (
     <div class="gamesList">
       <div role="list" class="ui list">

@@ -4,6 +4,7 @@ import createUserReducer from "./createUserReducer";
 import game from "./gameScreenReducer";
 import inviteUser from "./inviteReducer";
 import createGameReducer from "./createGameReducer";
+import viewGamesReducer from "./viewGamesReducer";
 import updateSelectedCards from "./updateSelectedCards";
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   game: game,
   invite: inviteUser,
   createGame: createGameReducer,
-  selectedCards: updateSelectedCards
+  viewGames: viewGamesReducer,
+  selectedCards: updateSelectedCards,
 });

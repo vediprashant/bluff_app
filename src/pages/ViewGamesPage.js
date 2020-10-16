@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { withCookies } from "react-cookie";
 
 import Games from "../Components/Games";
 import Pagination from "../Components/Pagination";
+import viewGames from "../actionCreators/viewGames";
 import "./ViewGamePage.css";
-import { withCookies } from "react-cookie";
-import handleTokens from "../Utils/handleTokens";
-import urls from "../constants/urlConstants"
 
 const ViewGamesPage = (props) => {
-  const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage, setGamesPerPage] = useState(4);
   const [startPage, setStartPage] = useState(1);
@@ -19,47 +18,29 @@ const ViewGamesPage = (props) => {
   useEffect(() => {
     fetchCompletedGames();
   }, []);
+
   const fetchCompletedGames = async () => {
     const buttons = actionButtons.current.childNodes;
     for (let btn = 0; btn < buttons.length; btn++) {
       buttons[btn].classList.remove("activated");
     }
     buttons[0].classList.add("activated");
-    setLoading(true);
-    const games = await fetch(
-      `${urls.LIST_GAMES}?filters=completed`,
-      {
-        headers: {
-          Authorization: `Token ${handleTokens.getToken(
-            props.cookies,
-            "token"
-          )}`,
-        },
-      }
-    );
-    const jsonGames = await games.json();
-    setGames(jsonGames.results);
-    setLoading(false);
+    props.viewGames(props.cookies, "completed");
   };
+
   const fetchOngoingGames = async () => {
     const buttons = actionButtons.current.childNodes;
     for (let btn = 0; btn < buttons.length; btn++) {
       buttons[btn].classList.remove("activated");
     }
     buttons[1].classList.add("activated");
-    setLoading(true);
-    const games = await fetch(`${urls.LIST_GAMES}`, {
-      headers: {
-        Authorization: `Token ${handleTokens.getToken(props.cookies, "token")}`,
-      },
-    });
-    const jsonGames = await games.json();
-    setGames(jsonGames.results);
-    setLoading(false);
+    props.viewGames(props.cookies);
   };
+
   const paginate = (pageNum, elem) => {
     setCurrentPage(pageNum);
   };
+
   const prevPage = (startPage) => {
     if (currentPage !== 1 && currentPage === startPage) {
       setStartPage(startPage - 1);
@@ -68,20 +49,22 @@ const ViewGamesPage = (props) => {
       setCurrentPage(currentPage - 1);
     }
   };
+
   const nextPage = (endPage) => {
     if (
-      currentPage !== Math.ceil(games.length / gamesPerPage) &&
+      currentPage !== Math.ceil(props.games.length / gamesPerPage) &&
       currentPage === endPage
     ) {
       setStartPage(startPage + 1);
     }
-    if (currentPage !== Math.ceil(games.length / gamesPerPage)) {
+    if (currentPage !== Math.ceil(props.games.length / gamesPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
+
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-  const currentgames = games.slice(indexOfFirstGame, indexOfLastGame);
+  const currentgames = props.games.slice(indexOfFirstGame, indexOfLastGame);
 
   return (
     <div class="container">
@@ -93,22 +76,43 @@ const ViewGamesPage = (props) => {
           Ongoing Games
         </button>
       </div>
-      <Games games={currentgames} loading={loading} />
-      {games.length === 0 ? (
-        <div className="emptyList"> No Games to show </div>
+      {props.isGamesLoading ? (
+        <div className="loading-container">
+          <div className="load"></div>
+        </div>
+      ) : props.gameMessage ? (
+        <div className="emptyList"> {props.gameMessage} </div>
       ) : (
-        <Pagination
-          gamesPerPage={gamesPerPage}
-          totalGames={games.length}
-          prevPage={prevPage}
-          nextPage={nextPage}
-          paginate={paginate}
-          currentPage={currentPage}
-          startPage={startPage}
-        />
+        <div>
+          <Games games={currentgames} />
+          <Pagination
+            gamesPerPage={gamesPerPage}
+            totalGames={props.games.length}
+            prevPage={prevPage}
+            nextPage={nextPage}
+            paginate={paginate}
+            currentPage={currentPage}
+            startPage={startPage}
+          />
+        </div>
       )}
     </div>
   );
 };
-
-export default withCookies(ViewGamesPage);
+const mapStateToProps = (state, ownProps) => ({
+  isGamesLoading: state.viewGames.isGamesLoading,
+  gameMessage: state.viewGames.gameMessage,
+  games: state.viewGames.games,
+  cookies: ownProps.cookies,
+});
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      viewGames: (cookies, filters) => viewGames(cookies, filters),
+    },
+    dispatch
+  );
+};
+export default withCookies(
+  connect(mapStateToProps, mapDispatchToProps)(ViewGamesPage)
+);
