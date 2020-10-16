@@ -29,7 +29,6 @@ function updateGameState(newData) {
 }
 
 export default function connectToGame(url) {
-  console.log('called')
   return async (dispatch) => {
     //create websocket here
     //onrecieve dispatches actions

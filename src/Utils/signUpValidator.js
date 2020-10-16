@@ -1,5 +1,5 @@
 const validate = (name, email, password, confirmPassword) => {
-    const response = { message: "OK" };
+    let response = { message: "OK" };
     const re = /\S+@\S+\.\S+/;
     if (name === "")
       response = {
@@ -27,7 +27,7 @@ const validate = (name, email, password, confirmPassword) => {
         password: "Passwords do not match"
       };
     }
-    if (response.message !== 'OK') response.message = 'Check highlighted fields'
+    if (Object.keys(response).length > 1) response.message = 'Check highlighted fields'
     return response;
   };
 

@@ -10,12 +10,17 @@ const deserializeError = (data) => {
     "The fields user, game must make a unique set.": "User already invited"
   }
   let handler = {
-    get: (target, prop, reciever) => prop in target ? target[prop] : prop
+    get: (target, prop, reciever) => prop in target ? target[prop] : (() => {
+      const re = /Object+.*does not exist/
+      if (re.test(prop)) return 'User does not exist'
+      else return prop
+    })()
   }
   let translateAPIError= new Proxy(dict, handler)
 
   let output = ``;
   Object.entries(data).map((error) => {
+    
     output += `${translateAPIError[`${error[1]}`]}\n`;
   });
   return output;

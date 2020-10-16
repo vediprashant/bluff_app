@@ -183,12 +183,12 @@ class GamePage extends Component {
           className={"goBack"}
         />
         {gameState?.game?.started &&
-        gameState?.game_table?.current_player_id ===
+          gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id ? (
-          <div className="timer">
-            <Timer disableShow={this.skip} startTime={60} />
-          </div>
-        ) : null}
+            <div className="timer">
+              <Timer disableShow={this.skip} startTime={60} />
+            </div>
+          ) : null}
         <Players
           game_players={this.props.game?.gameState?.game_players}
           self={this.props.game?.gameState?.self}
@@ -204,35 +204,35 @@ class GamePage extends Component {
           />
         </div>
         {gameState?.game?.started &&
-        gameState?.game_table?.current_player_id ===
+          gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id ? (
-          <div className="actionButtons">
-            <Button text={"Pass"} color={"purple"} onClick={this.skip} />
-            <Button text={"Play"} color={"purple"} onClick={this.playCards} />
-            {gameState?.game_table?.last_player_id !==
-              gameState?.self?.player_id &&
-            gameState?.game_table?.card_count !== 0 &&
-            this.state.showVisible ? (
-              <span>
-                <Button text={"Show "} color={"purple"} onClick={this.show} />
-                <Timer
-                  disableShow={this.disableShow}
-                  startTime={30}
-                  text={"Time left to call bluff"}
-                />
-              </span>
-            ) : null}
-            {this.state.error ? (
-              <div className="playError">{this.state.error}</div>
-            ) : null}
-            {gameState?.game_table?.currentSet ? (
-              <div className="bluffTimer">
-                Current Set:
-                {this.displaySet(gameState.game_table.currentSet)}
-              </div>
-            ) : null}
-          </div>
-        ) : null}
+            <div className="actionButtons">
+              <Button text={"Pass"} color={"purple"} onClick={this.skip} />
+              <Button text={"Play"} color={"purple"} onClick={this.playCards} />
+              {gameState?.game_table?.last_player_id !==
+                gameState?.self?.player_id &&
+                gameState?.game_table?.card_count !== 0 &&
+                this.state.showVisible ? (
+                  <span>
+                    <Button text={"Show "} color={"purple"} onClick={this.show} />
+                    <Timer
+                      disableShow={this.disableShow}
+                      startTime={30}
+                      text={"Time left to call bluff"}
+                    />
+                  </span>
+                ) : null}
+              {this.state.error ? (
+                <div className="playError">{this.state.error}</div>
+              ) : null}
+              {gameState?.game_table?.currentSet ? (
+                <div className="bluffTimer">
+                  Current Set:
+                  {this.displaySet(gameState.game_table.currentSet)}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
 
         {gameState?.game?.started === false ? (
           gameState?.game?.owner === gameState?.self?.user?.id ? (
@@ -243,12 +243,12 @@ class GamePage extends Component {
               onClick={this.startGame}
             />
           ) : (
-            <Button
-              text={"Please wait for the owner to start the game"}
-              color={"grey"}
-              className={"startGame"}
-            />
-          )
+              <Button
+                text={"Please wait for the owner to start the game"}
+                color={"grey"}
+                className={"startGame"}
+              />
+            )
         ) : null}
         {gameState?.game?.started ? (
           <div className="playerCard">
@@ -259,11 +259,11 @@ class GamePage extends Component {
 
         {gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id &&
-        gameState?.game_table?.card_count === 0 ? (
-          <div className="selectSet">
-            <SelectSet selectSet={this.selectSet} />
-          </div>
-        ) : null}
+          gameState?.game_table?.card_count === 0 ? (
+            <div className="selectSet">
+              <SelectSet selectSet={this.selectSet} />
+            </div>
+          ) : null}
         <PlayedCardsModel game={this.props.game} />
         <WinnerModal game={this.props.game} />
         <SinglePlayerModal />
@@ -273,6 +273,13 @@ class GamePage extends Component {
             message = message.split("string=")[1].split("'")[1];
             return <ErrorModal title="Unable to join game" message={message} />;
           })()}
+        {
+          !this.props.game.isConnected &&
+          <ErrorModal
+            title='Connection Lost'
+            message='You have been disconnected from game, try to join again'
+          />
+        }
       </div>
     );
   }

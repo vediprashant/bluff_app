@@ -10,7 +10,7 @@ export default function TableCards(props) {
     let temp = [];
     let card = 0;
     const card_count = props.card_count;
-    const colors = ["blue", "gray", "green", "purple", "red", "yellow"];
+    const colors = ["blue"];
     while (card < card_count) {
       let color = colors[Math.floor(Math.random() * colors.length)];
       let deg = Math.floor(Math.random() * 100 + 1);

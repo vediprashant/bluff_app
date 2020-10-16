@@ -110,10 +110,10 @@ class SignUpPage extends Component {
   handleSubmit = () => {
     const { name, email, password, confirmPassword } = this.state;
     this.props.createUserAction(
-      (name = name),
-      (email = email),
-      (password = password),
-      (confirmPassword = confirmPassword)
+      name,
+      email,
+      password,
+      confirmPassword
     );
   };
   /**
@@ -149,6 +149,10 @@ class SignUpPage extends Component {
       }
     }
     if (response.password) {
+      if (response.password === 'Password must have atleast 8 characters'){
+        newState.password = ''
+        newState.confirmPassword = ''
+      }
       newState.passwordField = {
         class: "field error",
         placeholder: response.password,
@@ -224,6 +228,7 @@ class SignUpPage extends Component {
                   placeholder={this.state.passwordField.placeholder}
                   className={this.state.passwordField.class}
                   type="password"
+                  value={this.state.password}
                   onChange={this.handlePasswordChange}
                 />
                 <Form.Input
@@ -233,6 +238,7 @@ class SignUpPage extends Component {
                   placeholder={this.state.confirmPasswordField.placeholder}
                   className={this.state.confirmPasswordField.class}
                   type="password"
+                  value={this.state.confirmPassword}
                   onChange={this.handleConfirmPasswordChange}
                 />
                 <Button
