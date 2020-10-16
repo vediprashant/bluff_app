@@ -4,6 +4,7 @@ import createUserReducer from "./createUserReducer";
 import game from "./gameScreenReducer";
 import inviteUser from "./inviteReducer";
 import createGameReducer from "./createGameReducer";
+import viewGamesReducer from "./viewGamesReducer";
 
 export default combineReducers({
   login: loginReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   game: game,
   invite: inviteUser,
   createGame: createGameReducer,
+  viewGames: viewGamesReducer,
 });
