@@ -1,7 +1,7 @@
 import actions from "../actions";
 
 const initialState = {
-  isConnected: false,
+  connectionState: WebSocket.CLOSED,
   socket: null,
   gameState: {
     selectedCards: [],
@@ -21,7 +21,7 @@ export default function game(state = initialState, action) {
     case actions.GAME_CONNECTED:
       return {
         ...state,
-        isConnected: action.payload.isConnected,
+        connectionState: action.payload,
       };
     case actions.GAME_SOCKET_CREATE:
       return {

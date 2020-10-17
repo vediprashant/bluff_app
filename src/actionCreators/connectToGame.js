@@ -7,17 +7,10 @@ function setSocket(socketObject) {
   };
 }
 
-function connected() {
+function setConnectionState(value) {
   return {
     type: actions.GAME_CONNECTED,
-    payload: { isConnected: true },
-  };
-}
-
-function disconnected() {
-  return {
-    type: actions.GAME_CONNECTED,
-    payload: { isConnected: false },
+    payload: value,
   };
 }
 
@@ -32,9 +25,11 @@ export default function connectToGame(url) {
   return async (dispatch) => {
     //create websocket here
     //onrecieve dispatches actions
+    
     let socket = new WebSocket(url);
-    socket.onopen = () => dispatch(connected());
-    socket.onclose = () => dispatch(disconnected());
+    dispatch(setConnectionState(socket.readyState))
+    socket.onopen = () => dispatch(setConnectionState(socket.readyState));
+    socket.onclose = () => dispatch(setConnectionState(socket.readyState));
     socket.onmessage = (event) =>
       dispatch(updateGameState(JSON.parse(event.data)));
     dispatch(setSocket(socket));

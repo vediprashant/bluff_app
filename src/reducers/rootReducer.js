@@ -35,7 +35,7 @@ user: {
 }
 game: {
   activeGame: {
-    isConnected: false,
+    connectionState: false,
     socket: null,
     gameState: {
       game: {},

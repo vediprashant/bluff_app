@@ -1,5 +1,5 @@
-const BACKEND_IP = 'localhost:8000'
-const BASE_URL = `http://${BACKEND_IP}`;
+const BACKEND_DOMAIN = '127.0.0.1'
+const BASE_URL = `https://${BACKEND_DOMAIN}`;
 
 const API_URL = {
   VALIDATE_URL: `${BASE_URL}/accounts/login/`,
@@ -8,7 +8,7 @@ const API_URL = {
   INVITE_URL: `${BASE_URL}/game/player/`,
   LIST_INVITED_USERS: `${BASE_URL}/game/`,
   LIST_GAMES: `${BASE_URL}/game/`,
-  WEB_SOCKET_URL: `ws://${BACKEND_IP}/ws/game/`,
+  WEB_SOCKET_URL: `wss://${BACKEND_DOMAIN}/ws/game/`,
 };
 
 export default API_URL;

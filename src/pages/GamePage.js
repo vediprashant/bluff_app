@@ -274,10 +274,18 @@ class GamePage extends Component {
             return <ErrorModal title="Unable to join game" message={message} />;
           })()}
         {
-          !this.props.game.isConnected &&
+          this.props.game.connectionState === WebSocket.CONNECTING && 
+          <ErrorModal 
+            title='Connecting'
+            message='Establishing contact with server, Please wait..'
+          />
+        }
+        {
+          (this.props.game.connectionState === WebSocket.CLOSED && 
+            (gameState.init_success === true || gameState.init_success === undefined)) &&
           <ErrorModal
             title='Connection Lost'
-            message='You have been disconnected from game, try to join again'
+            message='Unable to connect to server, try joining again'
           />
         }
       </div>
