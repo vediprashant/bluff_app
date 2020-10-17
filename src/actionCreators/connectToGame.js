@@ -1,11 +1,5 @@
 import actions from "../actions";
-
-function setSocket(socketObject) {
-  return {
-    type: actions.GAME_SOCKET_CREATE,
-    payload: { socket: socketObject },
-  };
-}
+import urls from "../constants/urlConstants"
 
 function setConnectionState(value) {
   return {
@@ -21,17 +15,24 @@ function updateGameState(newData) {
   };
 }
 
-export default function connectToGame(url) {
+let socket = null;
+
+export function sendToGame(data) {
+  return async (dispatch) => {
+    socket.send(data)
+  }
+}
+
+export default function connectToGame(gameId) {
   return async (dispatch) => {
     //create websocket here
     //onrecieve dispatches actions
     
-    let socket = new WebSocket(url);
+    socket = new WebSocket(`${urls.WEB_SOCKET_URL}${gameId}/`);
     dispatch(setConnectionState(socket.readyState))
     socket.onopen = () => dispatch(setConnectionState(socket.readyState));
     socket.onclose = () => dispatch(setConnectionState(socket.readyState));
     socket.onmessage = (event) =>
       dispatch(updateGameState(JSON.parse(event.data)));
-    dispatch(setSocket(socket));
   };
 }

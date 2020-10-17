@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import SelectSet from "../Components/SelectSet";
 import Button from "../Components/Button";
 import PlayerCards from "../Components/PlayerCards";
-import connectToGame from "../actionCreators/connectToGame";
+import connectToGame, { sendToGame } from "../actionCreators/connectToGame";
 import TableCards from "../Components/TableCards";
 import Players from "../Components/Players";
 import cardsMapperToString from "../Utils/cardsMapperToString";
@@ -14,9 +14,10 @@ import WinnerModal from "../Components/WinnerModal";
 import Timer from "../Components/Timer";
 import SinglePlayerModal from "../Components/SinglePlayerModal";
 import ErrorModal from "../Components/ErrorModal";
-import urls from "../constants/urlConstants";
 import updateSelectedCards from "../actionCreators/updateSelectedCards";
 import actions from "../actions";
+
+
 
 /**
  * The main game screen where game is played
@@ -38,7 +39,7 @@ class GamePage extends Component {
 
   componentDidMount() {
     let gameId = this.props.match.params.id;
-    this.props.connectToGame(`${urls.WEB_SOCKET_URL}${gameId}/`);
+    this.props.connectToGame(gameId);
   }
 
   componentDidUpdate() {
@@ -86,7 +87,7 @@ class GamePage extends Component {
     };
     this.props.resetPlayer(this.resetPlayer);
     const jsonData = JSON.stringify(data);
-    this.props.game.socket.send(jsonData);
+    this.props.sendToGame(jsonData);
     this.setState({ showVisible: true });
     this.props.updateSelectedCards([]);
   };
@@ -97,7 +98,7 @@ class GamePage extends Component {
     };
     this.props.resetPlayer(this.resetPlayer);
     const jsonData = JSON.stringify(data);
-    this.props.game.socket.send(jsonData);
+    this.props.sendToGame(jsonData);
     this.setState({ error: null, showVisible: true });
   };
 
@@ -106,7 +107,7 @@ class GamePage extends Component {
       action: "start",
     };
     const jsonData = JSON.stringify(data);
-    this.props.game.socket.send(jsonData);
+    this.props.sendToGame(jsonData);
   };
 
   show = () => {
@@ -115,7 +116,7 @@ class GamePage extends Component {
     };
     this.props.resetPlayer(this.resetPlayer);
     const jsonData = JSON.stringify(data);
-    this.props.game.socket.send(jsonData);
+    this.props.sendToGame(jsonData);
 
     this.setState({ error: null, showVisible: true });
   };
@@ -308,6 +309,7 @@ const mapDispatchToProps = (dispatch) => {
         payload: { newData },
       }),
       updateSelectedCards: (cards) => updateSelectedCards(cards),
+      sendToGame: (jsonData) => sendToGame(jsonData),
     },
     dispatch
   );
