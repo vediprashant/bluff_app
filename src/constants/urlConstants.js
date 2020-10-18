@@ -1,8 +1,9 @@
-const BACKEND_DOMAIN = 'localhost:8000'
+const BACKEND_DOMAIN = "localhost:8000";
 const BASE_URL = `http://${BACKEND_DOMAIN}`;
 
 const API_URL = {
   VALIDATE_URL: `${BASE_URL}/accounts/login/`,
+  LOGOUR_URL: `${BASE_URL}/accounts/logout/`,
   CREATE_URL: `${BASE_URL}/accounts/users/`,
   CREATE_GAME_URL: `${BASE_URL}/game/`,
   INVITE_URL: `${BASE_URL}/game/player/`,

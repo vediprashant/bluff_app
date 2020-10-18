@@ -3,8 +3,8 @@ import deserializeErrors from "../Utils/deserializeErrors";
 
 /**
  * Gets auth token from api
- * @param {*} email 
- * @param {*} password 
+ * @param {*} email
+ * @param {*} password
  */
 const validateUser = async (email, password) => {
   try {
@@ -25,7 +25,7 @@ const validateUser = async (email, password) => {
     if (data.status === 500) {
       return { message: "Internal Server Error, Please Try Later" };
     }
-    if (data.status === 200) {
+    if (data.status === 201) {
       const jsonData = await data.json();
       return jsonData;
     } else {

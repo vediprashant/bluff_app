@@ -1,24 +1,23 @@
 import React, { useEffect } from "react";
+import { bindActionCreators } from "redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 import ROUTES from "../constants/pathConstants";
 import actions from "../actions";
 import handleTokens from "../Utils/handleTokens";
+
+import logoutUser from "../actionCreators/logoutUser";
 import "./header.css";
 
 const Header = (props) => {
   useEffect(() => {
     if (handleTokens.getToken(props.cookies, "token")) {
-      props.dispatch({ type: actions.LOGGED_IN });
+      props.setLogin();
     }
   }, []);
   const clickHandler = () => {
-    handleTokens.removeToken(props.cookies, "token");
-    props.dispatch({
-      type: actions.LOGGED_OUT,
-    });
-    props.history.push(ROUTES.LOGIN_ROUTE);
+    props.logoutUser(props.cookies);
   };
   return (
     <nav className="navbar">
@@ -41,5 +40,16 @@ const Header = (props) => {
 const mapStateToProps = (state) => ({
   loggedIn: state.login.loggedIn,
 });
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      logoutUser: (cookies) => logoutUser(cookies),
+      setLogin: () => ({ type: actions.LOGGED_IN }),
+    },
+    dispatch
+  );
+};
 
-export default withCookies(connect(mapStateToProps)(withRouter(Header)));
+export default withCookies(
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(Header))
+);
