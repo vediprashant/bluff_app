@@ -73,11 +73,11 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 HomePage.propTypes = {
-  isError: PropTypes.bool,
-  message: PropTypes.string,
+  isError: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
   gameId: PropTypes.number,
-  isLoading: PropTypes.bool,
-  cookies: PropTypes.object,
+  isLoading: PropTypes.bool.isRequired,
+  cookies: PropTypes.object.isRequired,
 };
 
 export default withCookies(

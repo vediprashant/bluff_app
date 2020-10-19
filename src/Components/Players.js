@@ -24,11 +24,15 @@ export default function Player(props) {
       currentPlayerClass = "userPic";
     }
     renderedPlayers.push(
-      <div className={`player`} style={{ top: `${x}px`, right: `${y}px` }}>
+      <div
+        className={`player`}
+        style={{ top: `${x}px`, right: `${y}px` }}
+        key={props.self.player_id}
+      >
         <img
-          imgId={props.self.player_id}
+          imgid={props.self.player_id}
           src="https://picsum.photos/200"
-          class={`ui avatar tiny image ${currentPlayerClass}`}
+          className={`ui avatar tiny image ${currentPlayerClass}`}
           alt="avatar"
         />
         <span>{props.self.user.name}</span>
@@ -51,13 +55,14 @@ export default function Player(props) {
     }
     renderedPlayers.push(
       <div
-        class={`player ${disconnectedClass}`}
+        className={`player ${disconnectedClass}`}
         style={{ top: `${x}px`, right: `${y}px` }}
+        key={player.player_id}
       >
         <img
-          imgId={player.player_id}
+          imgid={player.player_id}
           src="https://picsum.photos/200"
-          class={`ui avatar tiny image ${currentPlayerClass}`}
+          className={`ui avatar tiny image ${currentPlayerClass}`}
           alt="avatar"
         />
         {props.last_player_turn === player.player_id ? (
@@ -71,7 +76,7 @@ export default function Player(props) {
           src="../PNG/blue_back.png"
           alt="cardsCount"
         />
-        <span class="cardCountNum">{player.card_count}</span>
+        <span className="cardCountNum">{player.card_count}</span>
       </div>
     );
     angle += step;
@@ -81,5 +86,5 @@ export default function Player(props) {
 
 Player.propTypes = {
   self: PropTypes.object,
-  game_players: PropTypes.array,
+  game_players: PropTypes.array.isRequired,
 };

@@ -2,9 +2,9 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-const Button = ({ text, color, onClick, className }) => {
+const Button = ({ text, color, onClick, className = "" }) => {
   return (
-    <button class={`ui ${color} button ${className}`} onClick={onClick}>
+    <button className={`ui ${color} button ${className}`} onClick={onClick}>
       {text}
     </button>
   );
@@ -13,8 +13,8 @@ const Button = ({ text, color, onClick, className }) => {
 export default Button;
 
 Button.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
   color: PropTypes.string,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   className: PropTypes.string,
 };

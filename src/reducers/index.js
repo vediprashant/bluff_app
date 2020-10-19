@@ -6,7 +6,6 @@ import game from "./gameScreenReducer";
 import inviteUser from "./inviteReducer";
 import createGameReducer from "./createGameReducer";
 import viewGamesReducer from "./viewGamesReducer";
-import updateSelectedCards from "./updateSelectedCards";
 
 const gameReducer = combineReducers({
   activeGame: game,

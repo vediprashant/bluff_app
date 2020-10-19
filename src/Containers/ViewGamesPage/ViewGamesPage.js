@@ -22,7 +22,7 @@ const ViewGamesPage = (props) => {
       props.cookies,
       "completed",
       "completed",
-      API_URL.LIST_COMPLETED_GAMES,
+      `${API_URL.BASE_URL}${API_URL.LIST_COMPLETED_GAMES}`,
       true
     );
   }, []);
@@ -35,7 +35,7 @@ const ViewGamesPage = (props) => {
         props.cookies,
         activeButton,
         "completed",
-        API_URL.LIST_COMPLETED_GAMES
+        `${API_URL.BASE_URL}${API_URL.LIST_COMPLETED_GAMES}`
       );
       setActiveButton("completed");
     }
@@ -49,7 +49,7 @@ const ViewGamesPage = (props) => {
         props.cookies,
         activeButton,
         "ongoing",
-        API_URL.LIST_ONGOING_GAMES
+        `${API_URL.BASE_URL}${API_URL.LIST_ONGOING_GAMES}`
       );
       setActiveButton("ongoing");
     }
@@ -119,8 +119,8 @@ const ViewGamesPage = (props) => {
   const currentgames = props.games.slice(indexOfFirstGame, indexOfLastGame);
 
   return (
-    <div class="container">
-      <div class="ui top attached buttons">
+    <div className="container">
+      <div className="ui top attached buttons">
         <button
           className={
             activeButton === "completed"
@@ -184,12 +184,12 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 ViewGamesPage.propTypes = {
-  isGamesLoading: PropTypes.bool,
+  isGamesLoading: PropTypes.bool.isRequired,
   gameMessage: PropTypes.string,
-  games: PropTypes.array,
+  games: PropTypes.array.isRequired,
   nextCompletedGames: PropTypes.string,
   nextOngoingGames: PropTypes.string,
-  cookies: PropTypes.object,
+  cookies: PropTypes.object.isRequired,
 };
 
 export default withCookies(

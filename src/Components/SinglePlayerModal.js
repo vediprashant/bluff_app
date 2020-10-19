@@ -63,6 +63,6 @@ const mapStatetoProps = (state) => {
   };
 };
 SinglePlayerModal.propTypes = {
-  game: PropTypes.object,
+  game: PropTypes.object.isRequired,
 };
 export default connect(mapStatetoProps)(SinglePlayerModal);

@@ -127,8 +127,8 @@ const mapDispatchToProps = {
 };
 
 InvitePage.propTypes = {
-  message: PropTypes.string,
-  invitedPlayers: PropTypes.array,
+  message: PropTypes.string.isRequired,
+  invitedPlayers: PropTypes.array.isRequired,
 };
 export default withCookies(
   connect(mapStateToProps, mapDispatchToProps)(InvitePage)

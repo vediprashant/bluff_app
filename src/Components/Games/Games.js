@@ -6,13 +6,13 @@ import "./games.css";
 
 const Games = ({ games }) => {
   return (
-    <div class="gamesList">
-      <div role="list" class="ui list">
+    <div className="gamesList">
+      <div role="list" className="ui list">
         {games.map((game, index) => (
           <a
             key={index}
             role="listitem"
-            class="item"
+            className="item"
             href={`/stats/${game.id}`}
           >
             Game code: {game.id}
@@ -25,7 +25,7 @@ const Games = ({ games }) => {
 };
 
 Games.propTypes = {
-  games: PropTypes.arrayOf(PropTypes.object),
+  games: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Games;
