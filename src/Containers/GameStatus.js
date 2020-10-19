@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Button } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 export default function GameStatus(props) {
   let game = props.match.params.game;
@@ -18,3 +20,16 @@ export default function GameStatus(props) {
     </Button.Group>
   );
 }
+
+GameStatus.propTypes = {
+  /* prop provided by router having game param in url */
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      game: PropTypes.string,
+    }),
+  }).isRequired,
+  /* prop provided by router having a stack with history of pages navigated */
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};

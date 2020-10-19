@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Header, Modal } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 function WinnerModal(props) {
   const [open, setOpen] = React.useState(false);
@@ -31,5 +32,14 @@ function WinnerModal(props) {
     </Modal>
   );
 }
+
+WinnerModal.propTypes = {
+  game: PropTypes.shape({
+    gameState: PropTypes.shape({
+      self: PropTypes.object,
+      game: PropTypes.object,
+    }),
+  }),
+};
 
 export default WinnerModal;

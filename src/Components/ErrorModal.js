@@ -1,5 +1,7 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 import { Header, Modal } from "semantic-ui-react";
 
 function ErrorModal(props) {
@@ -20,5 +22,10 @@ function ErrorModal(props) {
     </Modal>
   );
 }
+
+ErrorModal.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string,
+};
 
 export default ErrorModal;

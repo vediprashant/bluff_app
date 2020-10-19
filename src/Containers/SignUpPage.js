@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import deck from "../assets/deck.png";
 import { createUser } from "../actionCreators/userActions";
@@ -254,6 +255,7 @@ class SignUpPage extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     loading: state.user.signUp.loading,
@@ -262,7 +264,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  createUserAction: createUser,
+  createUserAction: createUser
 }
+
+SignUpPage.propTypes = {
+  loading: PropTypes.string.isRequired,
+  response: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

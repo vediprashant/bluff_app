@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
 import {
   connectToGame,
@@ -65,8 +67,7 @@ class GamePage extends Component {
   playCards = () => {
     //get selected cards from store
     //when api responds, these cards will be removed automatically from page
-    const selectedCards = this.props.activeGame.activeGame.gameState
-      .selectedCards;
+    const selectedCards = this.props.selectedCards;
     const cardsSelected = [...selectedCards];
     if (
       this.state.set === null &&
@@ -322,6 +323,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatch
   );
+};
+
+GamePage.propTypes = {
+  activeGame: PropTypes.object,
+  selectedCard: PropTypes.array,
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(GamePage);

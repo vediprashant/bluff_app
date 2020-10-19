@@ -1,5 +1,7 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 import "./selectSet.css";
 
 const SelectSet = (props) => {
@@ -52,6 +54,10 @@ const SelectSet = (props) => {
       </div>
     </div>
   );
+};
+
+SelectSet.propTypes = {
+  selectSet: PropTypes.func,
 };
 
 export default SelectSet;

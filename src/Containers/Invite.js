@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { withCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
 import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
 import deck from "../assets/deck.png";
@@ -131,6 +132,10 @@ const mapDispatchToProps = {
   listInvited: showInvitedUsers,
 };
 
+InvitePage.propTypes = {
+  message: PropTypes.string,
+  invitedPlayers: PropTypes.array,
+};
 export default withCookies(
   connect(mapStateToProps, mapDispatchToProps)(InvitePage)
 );

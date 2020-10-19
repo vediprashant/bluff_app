@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+
 import { bindActionCreators } from "redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
 import ROUTES from "../../constants/pathConstants";
 import actions from "../../actions";
@@ -50,6 +52,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatch
   );
+};
+
+Header.propTypes = {
+  loggedIn: PropTypes.bool,
+  cookies: PropTypes.object,
 };
 
 export default withCookies(
