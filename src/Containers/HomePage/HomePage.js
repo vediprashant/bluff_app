@@ -3,10 +3,10 @@ import { Select } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
-import actions from "../actions";
+import actions from "../../actions";
 
 import "./HomePage.css";
-import createGame from "../actionCreators/createGame";
+import createGame from "../../actionCreators/createGame";
 
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);

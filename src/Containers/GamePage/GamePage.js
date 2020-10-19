@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import "./GamePage.css";
 import { connect } from "react-redux";
-import SelectSet from "../Components/SelectSet";
-import Button from "../Components/Button";
-import PlayerCards from "../Components/PlayerCards";
-import connectToGame, { sendToGame, disconnectFromGame } from "../actionCreators/connectToGame";
-import TableCards from "../Components/TableCards";
-import Players from "../Components/Players";
-import cardsMapperToString from "../Utils/cardsMapperToString";
-import PlayedCardsModel from "../Components/PlayedCardsModel";
-import WinnerModal from "../Components/WinnerModal";
-import Timer from "../Components/Timer";
-import SinglePlayerModal from "../Components/SinglePlayerModal";
-import ErrorModal from "../Components/ErrorModal";
-import updateSelectedCards from "../actionCreators/updateSelectedCards";
-import actions from "../actions";
+import SelectSet from "../../Components/SelectSet";
+import Button from "../../Components/Button";
+import PlayerCards from "../../Components/PlayerCards";
+import connectToGame, { sendToGame, disconnectFromGame } from "../../actionCreators/connectToGame";
+import TableCards from "../../Components/TableCards";
+import Players from "../../Components/Players";
+import cardsMapperToString from "../../Utils/cardsMapperToString";
+import PlayedCardsModal from "../../Components/PlayedCardsModal";
+import WinnerModal from "../../Components/WinnerModal";
+import Timer from "../../Components/Timer";
+import SinglePlayerModal from "../../Components/SinglePlayerModal";
+import ErrorModal from "../../Components/ErrorModal";
+import updateSelectedCards from "../../actionCreators/updateSelectedCards";
+import actions from "../../actions";
 
 
 
@@ -266,7 +266,7 @@ class GamePage extends Component {
               <SelectSet selectSet={this.selectSet} />
             </div>
           ) : null}
-        <PlayedCardsModel game={this.props.activeGame} />
+        <PlayedCardsModal game={this.props.activeGame} />
         <WinnerModal game={this.props.activeGame} />
         <SinglePlayerModal />
         {gameState.init_success === false &&

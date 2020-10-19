@@ -3,9 +3,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
-import Games from "../Components/Games";
-import Pagination from "../Components/Pagination";
-import viewGames from "../actionCreators/viewGames";
+import Games from "../../Components/Games";
+import Pagination from "../../Components/Pagination";
+import viewGames from "../../actionCreators/viewGames";
 import "./ViewGamePage.css";
 
 const ViewGamesPage = (props) => {

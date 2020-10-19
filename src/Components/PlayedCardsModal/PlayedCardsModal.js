@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { Button, Modal } from "semantic-ui-react";
-import cardsHandler from "../Utils/cardsHandler";
-import "./playerCardsModel.css";
-import stringMapperToCards from "../Utils/stringMapperToCards";
+import cardsHandler from "../../Utils/cardsHandler";
+import "./playerCardsModal.css";
+import stringMapperToCards from "../../Utils/stringMapperToCards";
 
 function PlayedCardsModal(props) {
   const [open, setOpen] = useState(false);
