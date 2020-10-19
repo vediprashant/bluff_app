@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -19,117 +19,121 @@ import { loginHandler } from "../actionCreators/userActions";
 
 import "../App.css";
 
-class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-    };
+function LoginPage (props) {
+  const initialState = {
+    email: "",
+    password: ""
   }
-  handleInputChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+
+  const [ state, setNewState ] = useState(initialState)
+  const setState = value => setNewState( prevState => ({ ...prevState, ...value }))
+
+  const handleInputChange = (event) => {
+    setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.validate(
-      this.props.cookies,
-      this.state.email,
-      this.state.password
+    props.validate(
+      props.cookies,
+      state.email,
+      state.password
     );
   };
 
-  showMessage = () => {
-    if (this.props.errorMessage === "") {
+  const showMessage = () => {
+    if (props.errorMessage === "") {
       return null;
     } else {
       return (
         <div className="ui bottom attached red warning message">
-          {this.props.errorMessage}
+          {props.errorMessage}
         </div>
       );
     }
   };
-  emailError = () => {
+  
+  const emailError = () => {
     if (
-      this.props.errorMessage === "Email field can't be blank" ||
-      this.props.errorMessage === "Please provide valid Email" ||
-      this.props.errorMessage === "Please provide valid credentials" ||
-      this.props.errorMessage === "Please provide Input"
+      props.errorMessage === "Email field can't be blank" ||
+      props.errorMessage === "Please provide valid Email" ||
+      props.errorMessage === "Please provide valid credentials" ||
+      props.errorMessage === "Please provide Input"
     ) {
       return true;
     }
     return false;
   };
-  passwordError = () => {
+  
+  const passwordError = () => {
     if (
-      this.props.errorMessage === "Please provide Input" ||
-      this.props.errorMessage === "Please provide Password" ||
-      this.props.errorMessage === "Please provide valid credentials"
+      props.errorMessage === "Please provide Input" ||
+      props.errorMessage === "Please provide Password" ||
+      props.errorMessage === "Please provide valid credentials"
     ) {
       return true;
     }
     return false;
   };
-  componentDidUpdate() {
-    if (this.props.loggedIn) {
-      this.props.history.push("/");
+
+  useEffect(() => {
+    if (props.loggedIn) {
+      props.history.push("/");
     }
-  }
-  render() {
-    return (
-      <div className="login">
-        <Grid textAlign="center">
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="grey" textAlign="center">
-              <Image src={deck} />
-              Log-in to your account
-            </Header>
-            <Form size="large">
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  onChange={this.handleInputChange}
-                  iconPosition="left"
-                  name="email"
-                  placeholder="Email"
-                  error={this.emailError()}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  name="password"
-                  type="password"
-                  onChange={this.handleInputChange}
-                  error={this.passwordError()}
-                />
-                <Button
-                  color="blue"
-                  fluid
-                  size="large"
-                  onClick={this.handleSubmit}
-                >
-                  {this.props.isLoading ? (
-                    <div className="ui active centered inline tiny inverted loader"></div>
-                  ) : (
-                    "Login"
-                  )}
-                </Button>
-              </Segment>
-            </Form>
-            <Message>
-              New to us? <a href="/signup">Sign Up</a>
-            </Message>
-            {this.props.isError ? this.showMessage() : null}
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
+  })
+
+  
+  return (
+    <div className="login">
+      <Grid textAlign="center">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="grey" textAlign="center">
+            <Image src={deck} />
+            Log-in to your account
+          </Header>
+          <Form size="large">
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="mail"
+                onChange={handleInputChange}
+                iconPosition="left"
+                name="email"
+                placeholder="Email"
+                error={emailError()}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                name="password"
+                type="password"
+                onChange={handleInputChange}
+                error={passwordError()}
+              />
+              <Button
+                color="blue"
+                fluid
+                size="large"
+                onClick={handleSubmit}
+              >
+                {props.isLoading ? (
+                  <div className="ui active centered inline tiny inverted loader"></div>
+                ) : (
+                  "Login"
+                )}
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            New to us? <a href="/signup">Sign Up</a>
+          </Message>
+          {props.isError ? showMessage() : null}
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
 }
 
 const mapStateToProps = (state, ownProps) => ({
