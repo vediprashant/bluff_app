@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import PropTypes from "prop-types";
+
 class Timer extends Component {
   constructor(props) {
     super(props);
@@ -39,5 +41,10 @@ class Timer extends Component {
     clearInterval(this.myInterval);
   }
 }
+
+Timer.propTypes = {
+  startTime: PropTypes.number,
+  disableShow: PropTypes.func,
+};
 
 export default Timer;

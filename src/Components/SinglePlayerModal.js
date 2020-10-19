@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { Header, Modal } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 import actions from "../actions";
 
@@ -61,5 +62,7 @@ const mapStatetoProps = (state) => {
     game: state.game.activeGame,
   };
 };
-
+SinglePlayerModal.propTypes = {
+  game: PropTypes.object,
+};
 export default connect(mapStatetoProps)(SinglePlayerModal);

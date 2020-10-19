@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import PropTypes from "prop-types";
+
 /**
  * Takes table card count, renders those cards
  * @param {*} props
@@ -30,3 +32,7 @@ export default function TableCards(props) {
 
   return <div>{cards}</div>;
 }
+
+TableCards.propTypes = {
+  card_count: PropTypes.number,
+};

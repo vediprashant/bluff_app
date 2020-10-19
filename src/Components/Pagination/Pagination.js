@@ -1,4 +1,7 @@
 import React from "react";
+
+import PropTypes from "prop-types";
+
 import "./pagination.css";
 
 const Pagination = ({
@@ -50,5 +53,16 @@ const Pagination = ({
       </a>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  gamesPerPage: PropTypes.number,
+  totalGames: PropTypes.number,
+  paginate: PropTypes.func,
+  prevPage: PropTypes.func,
+  nextPage: PropTypes.func,
+  currentPage: PropTypes.number,
+  startPage: PropTypes.number,
+  endPage: PropTypes.number,
 };
 export default Pagination;

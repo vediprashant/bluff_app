@@ -1,5 +1,7 @@
 import React from "react";
+
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import cardsHandler from "../Utils/cardsHandler";
 import stringMapperToCards from "../Utils/stringMapperToCards";
@@ -51,6 +53,12 @@ const mapStateToProps = (state) => {
     myCards: state.game.activeGame.gameState.self.cards,
   };
 };
+
+PlayerCards.propTypes = {
+  myCards: PropTypes.string,
+  selectedCards: PropTypes.array,
+};
+
 export default connect(mapStateToProps, {
   updateSelectedCards: updateSelectedCards,
 })(PlayerCards);

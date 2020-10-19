@@ -1,11 +1,6 @@
-<<<<<<< HEAD:src/actionCreators/gameActions/viewGames.js
 import actions from "../../actions";
 import getGamesService from "../../services/getGamesService";
-=======
-import actions from "../actions";
-import getGamesService from "../services/getGamesService";
-import API_URL from "../constants/urlConstants";
->>>>>>> d450c6734fec1f88bb36acfb7ed980bb701ffc67:src/actionCreators/viewGames.js
+import API_URL from "../../constants/urlConstants";
 
 function loading() {
   return { type: actions.GAMES_LOADING };

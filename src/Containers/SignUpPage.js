@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import deck from "../assets/deck.png";
 import { createUser } from "../actionCreators/userActions";
@@ -259,6 +260,11 @@ const mapStatetoProps = (state) => {
     loading: state.user.signUp.loading,
     response: state.user.signUp.response,
   };
+};
+
+SignUpPage.propTypes = {
+  loading: PropTypes.string.isRequired,
+  response: PropTypes.object.isRequired,
 };
 
 export default connect(mapStatetoProps, {

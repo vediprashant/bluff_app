@@ -4,6 +4,7 @@ import { Select } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
 import actions from "../../actions";
 
@@ -69,6 +70,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatch
   );
+};
+
+HomePage.propTypes = {
+  isError: PropTypes.bool,
+  message: PropTypes.string,
+  gameId: PropTypes.number,
+  isLoading: PropTypes.bool,
+  cookies: PropTypes.object,
 };
 
 export default withCookies(

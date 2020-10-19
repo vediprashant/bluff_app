@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
+import PropTypes from "prop-types";
 
 import Games from "../../Components/Games";
 import Pagination from "../../Components/Pagination";
-import viewGames from "../../actionCreators/viewGames";
+import viewGames from "../../actionCreators/gameActions/viewGames";
 import API_URL from "../../constants/urlConstants";
 import "./ViewGamePage.css";
 
@@ -181,6 +182,16 @@ const mapDispatchToProps = (dispatch) => {
     dispatch
   );
 };
+
+ViewGamesPage.propTypes = {
+  isGamesLoading: PropTypes.bool,
+  gameMessage: PropTypes.string,
+  games: PropTypes.array,
+  nextCompletedGames: PropTypes.string,
+  nextOngoingGames: PropTypes.string,
+  cookies: PropTypes.object,
+};
+
 export default withCookies(
   connect(mapStateToProps, mapDispatchToProps)(ViewGamesPage)
 );

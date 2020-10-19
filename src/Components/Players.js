@@ -1,6 +1,8 @@
 import React from "react";
 
 import { Label } from "semantic-ui-react";
+import PropTypes from "prop-types";
+
 /**
  * Takes list containing players, and an object containng self details
  * renders them in a circle
@@ -76,3 +78,8 @@ export default function Player(props) {
   });
   return <div className="avatars">{renderedPlayers}</div>;
 }
+
+Player.propTypes = {
+  self: PropTypes.object,
+  game_players: PropTypes.array,
+};

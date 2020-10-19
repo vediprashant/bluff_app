@@ -1,5 +1,7 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 import "./games.css";
 
 const Games = ({ games }) => {
@@ -20,6 +22,10 @@ const Games = ({ games }) => {
       </div>
     </div>
   );
+};
+
+Games.propTypes = {
+  games: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Games;

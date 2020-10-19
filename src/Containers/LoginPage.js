@@ -12,6 +12,7 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 import deck from "../assets/deck.png";
 import { loginHandler } from "../actionCreators/userActions";
@@ -146,6 +147,14 @@ const mapDispatchToProps = (dispatch) => {
     },
     dispatch
   );
+};
+
+LoginPage.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  cookies: PropTypes.object.isRequired,
 };
 
 export default withCookies(
