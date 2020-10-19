@@ -8,21 +8,23 @@ import apiUrls from "../constants/urlConstants";
  */
 const listInvitedUsers = async (cookies, game) => {
   try {
-    let res = await fetch(`${apiUrls.LIST_INVITED_USERS}${game}/invitedList/`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
-      },
-    })
+    let res = await fetch(
+      `${apiUrls.BASE_URL}${apiUrls.LIST_INVITED_USERS}${game}/invitedList/`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
+        },
+      })
     let data = await res.json()
     if (res.status === 200) {
       //send the list
       let list = [];
       data.results.map((object) => list.push(object.email));
       return { message: "", list };
-    }else if (data[0] === "User is not the owner of game") {
+    } else if (data[0] === "User is not the owner of game") {
       return {
         message: "Forbidden",
         list: [],
@@ -32,13 +34,13 @@ const listInvitedUsers = async (cookies, game) => {
       message: "An error occured when trying to fetch invited users",
       list: [],
     }
-  }catch(err) { 
+  } catch (err) {
     return {
       message: "An error occured when trying to fetch invited users",
       list: [],
     }
   }
 }
-    
+
 
 export default listInvitedUsers;

@@ -7,7 +7,7 @@ import handleTokens from "../Utils/handleTokens";
  */
 const logoutUser = async (cookies) => {
   try {
-    const data = await fetch(API_URL.LOGOUR_URL, {
+    const data = await fetch(`${API_URL.BASE_URL}${API_URL.LOGOUT_URL}`, {
       method: "DELETE",
       headers: {
         Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,

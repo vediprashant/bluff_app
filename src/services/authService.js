@@ -8,7 +8,7 @@ import deserializeErrors from "../Utils/deserializeErrors";
  */
 const validateUser = async (email, password) => {
   try {
-    const data = await fetch(API_URL.VALIDATE_URL, {
+    const data = await fetch(`${API_URL.BASE_URL}${API_URL.VALIDATE_URL}`, {
       method: "POST",
       headers: {
         Accept: "application/json",

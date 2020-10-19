@@ -15,7 +15,7 @@ const createUser = async (name, email, password, confirmPassword) => {
     return { response: validationResponse };
   }
   try {
-    let res = await fetch(`${API_URL.CREATE_URL}`, {
+    let res = await fetch(`${API_URL.BASE_URL}${API_URL.CREATE_URL}`, {
       method: "POST",
       headers: {
         Accept: "application/json",

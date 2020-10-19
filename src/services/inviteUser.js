@@ -39,7 +39,7 @@ const inviteUser = async (cookies, email, game) => {
     return "Enter valid email address";
   }
   try {
-    let res = await fetch(apiUrls.INVITE_URL, {
+    let res = await fetch(`${apiUrls.BASE_URL}${apiUrls.INVITE_URL}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
