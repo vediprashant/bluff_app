@@ -1,6 +1,8 @@
 import React from "react";
-import { Header, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
+
+import { Header, Modal } from "semantic-ui-react";
+
 import actions from "../actions";
 
 /**

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
-import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
-
-import deck from "../assets/deck.png";
-
-import "../App.css";
 import { withCookies } from "react-cookie";
+
+import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
+import deck from "../assets/deck.png";
+import "../App.css";
 import ErrorModal from "../Components/ErrorModal";
 
 class InvitePage extends Component {
@@ -33,15 +33,14 @@ class InvitePage extends Component {
     );
   };
 
-
   showInvited = () => {
     const invited = this.props.invitedPlayers;
     if (invited.length !== 0) {
-      const list = invited.map((user, index) => 
-          <div className="item" key={index}>
-            {user}
-          </div>
-      );
+      const list = invited.map((user, index) => (
+        <div className="item" key={index}>
+          {user}
+        </div>
+      ));
       const message = (
         <div className="ui info message">
           <div className="header">Invited Players</div>
@@ -53,7 +52,7 @@ class InvitePage extends Component {
   };
 
   render() {
-    const message = this.props.message
+    const message = this.props.message;
     return (
       <div className="login">
         <Grid textAlign="center">
@@ -80,36 +79,38 @@ class InvitePage extends Component {
                   size="large"
                   onClick={this.handleSubmit}
                 >
-                  {message === 'Inviting' ? (
+                  {message === "Inviting" ? (
                     <div className="ui active centered inline tiny inverted loader"></div>
                   ) : (
-                      "Invite"
-                    )}
+                    "Invite"
+                  )}
                 </Button>
               </Segment>
             </Form>
-            {
-              message === 'Forbidden' &&
+            {message === "Forbidden" && (
               <ErrorModal
-                message='You must be owner of the game in order to invite players'
-                title='Forbidden' />
-            }
-            {
-              message === 'Inviting' &&
+                message="You must be owner of the game in order to invite players"
+                title="Forbidden"
+              />
+            )}
+            {message === "Inviting" && (
               <div className="ui bottom attached message">{message}</div>
-            }
-            {
-              message === 'User Invited' &&
+            )}
+            {message === "User Invited" && (
               <div className="ui bottom attached success message">
                 {message}
               </div>
-            }
-            {
-              !['Forbidden', 'Inviting', 'User Invited', ''].includes(message) &&
-              <div id="inviteWarn" className="ui bottom attached red warning message">
+            )}
+            {!["Forbidden", "Inviting", "User Invited", ""].includes(
+              message
+            ) && (
+              <div
+                id="inviteWarn"
+                className="ui bottom attached red warning message"
+              >
                 {message}
               </div>
-            }
+            )}
             {this.showInvited()}
           </Grid.Column>
         </Grid>
@@ -128,7 +129,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   invite: inviteUser,
   listInvited: showInvitedUsers,
-}
+};
 
 export default withCookies(
   connect(mapStateToProps, mapDispatchToProps)(InvitePage)

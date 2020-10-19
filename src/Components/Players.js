@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Label } from "semantic-ui-react";
 /**
  * Takes list containing players, and an object containng self details

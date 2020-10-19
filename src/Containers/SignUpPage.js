@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 
 import deck from "../assets/deck.png";
-import "../App.css";
 import { createUser } from "../actionCreators/userActions";
 import deepEqual from "../Utils/deepEqual";
+import "../App.css";
 
 class SignUpPage extends Component {
   constructor(props) {
@@ -109,12 +110,7 @@ class SignUpPage extends Component {
 
   handleSubmit = () => {
     const { name, email, password, confirmPassword } = this.state;
-    this.props.createUserAction(
-      name,
-      email,
-      password,
-      confirmPassword
-    );
+    this.props.createUserAction(name, email, password, confirmPassword);
   };
   /**
    * Shows warning messages
@@ -122,58 +118,58 @@ class SignUpPage extends Component {
 
   componentDidUpdate(prevProps) {
     //if no api call, return
-    if (!prevProps.loading) return
+    if (!prevProps.loading) return;
 
     let response = this.props.response;
-    let newState = { ...this.state }
+    let newState = { ...this.state };
     if (response.name) {
       newState.nameField = {
         class: "field error",
         placeholder: response.name,
-      }
+      };
     } else {
       newState.nameField = {
         class: "field",
         placeholder: "Name",
-      }
+      };
     }
     if (response.email) {
       newState.emailField = {
         class: "field error",
         placeholder: response.email,
-      }
+      };
     } else {
       newState.emailField = {
         class: "field",
         placeholder: "Email",
-      }
+      };
     }
     if (response.password) {
-      if (response.password === 'Password must have atleast 8 characters'){
-        newState.password = ''
-        newState.confirmPassword = ''
+      if (response.password === "Password must have atleast 8 characters") {
+        newState.password = "";
+        newState.confirmPassword = "";
       }
       newState.passwordField = {
         class: "field error",
         placeholder: response.password,
-      }
+      };
       newState.confirmPasswordField = {
         class: "field error",
         placeholder: response.password,
-      }
+      };
     } else {
       newState.passwordField = {
         class: "field",
         placeholder: "Password",
-      }
+      };
       newState.confirmPasswordField = {
         class: "field",
         placeholder: "Confirm Password",
-      }
+      };
     }
     //prevents infinite render loop in case api takes too long to respond
     if (!deepEqual(this.state, newState)) {
-      this.setState(newState)
+      this.setState(newState);
     }
   }
 

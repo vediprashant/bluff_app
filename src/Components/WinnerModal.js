@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Header, Modal } from "semantic-ui-react";
 
 function WinnerModal(props) {

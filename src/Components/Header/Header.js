@@ -3,10 +3,10 @@ import { bindActionCreators } from "redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
+
 import ROUTES from "../../constants/pathConstants";
 import actions from "../../actions";
 import handleTokens from "../../Utils/handleTokens";
-
 import { logoutUser } from "../../actionCreators/userActions";
 import "./header.css";
 
