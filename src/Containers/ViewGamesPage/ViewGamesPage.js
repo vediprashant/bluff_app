@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";

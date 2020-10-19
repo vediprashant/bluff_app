@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+
 import loginReducer from "./loginReducer";
 import createUserReducer from "./createUserReducer";
 import game from "./gameScreenReducer";
@@ -13,10 +14,12 @@ const gameReducer = combineReducers({
   createGame: createGameReducer,
   viewGames: viewGamesReducer,
 });
+
 const userReducer = combineReducers({
   login: loginReducer,
   signUp: createUserReducer,
 });
+
 export default combineReducers({
   user: userReducer,
   game: gameReducer,

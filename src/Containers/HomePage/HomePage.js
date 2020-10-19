@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import { Select } from "semantic-ui-react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
+
 import actions from "../../actions";
 
 import "./HomePage.css";

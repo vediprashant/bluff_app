@@ -1,8 +1,10 @@
 import actions from "../actions";
+
 const initialState = {
   inviteMessage: "",
   invitedPlayers: [],
 };
+
 export default function inviteUser(state = initialState, action) {
   switch (action.type) {
     case actions.INVITE_MESSAGE:

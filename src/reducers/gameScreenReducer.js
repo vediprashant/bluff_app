@@ -7,16 +7,17 @@ const initialState = {
     game_players: [],
   },
 };
+
 export default function game(state = initialState, action) {
   switch (action.type) {
     case actions.UPDATE_SELECTED_CARDS:
       return {
         ...state,
-        gameState:{
+        gameState: {
           ...state.gameState,
-          selectedCards: action.payload
-        }
-      }
+          selectedCards: action.payload,
+        },
+      };
     case actions.GAME_CONNECTED:
       return {
         ...state,

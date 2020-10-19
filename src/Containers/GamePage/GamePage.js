@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import "./GamePage.css";
+
 import { connect } from "react-redux";
+
+import {
+  connectToGame,
+  disconnectFromGame,
+  sendToGame,
+} from "../../actionCreators/gameActions";
 import SelectSet from "../../Components/SelectSet";
 import Button from "../../Components/Button";
 import PlayerCards from "../../Components/PlayerCards";
-import { connectToGame, disconnectFromGame, sendToGame } from "../../actionCreators/gameActions";
 import TableCards from "../../Components/TableCards";
 import Players from "../../Components/Players";
 import cardsMapperToString from "../../Utils/cardsMapperToString";
@@ -16,8 +20,7 @@ import SinglePlayerModal from "../../Components/SinglePlayerModal";
 import ErrorModal from "../../Components/ErrorModal";
 import { updateSelectedCards } from "../../actionCreators/gameActions";
 import actions from "../../actions";
-
-
+import "./GamePage.css";
 
 /**
  * The main game screen where game is played
@@ -47,7 +50,9 @@ class GamePage extends Component {
       this.props.activeGame.gameState !== undefined &&
       this.state.set != this.props.activeGame.gameState?.game_table?.currentSet
     ) {
-      this.setState({ set: this.props.activeGame.gameState.game_table.currentSet });
+      this.setState({
+        set: this.props.activeGame.gameState.game_table.currentSet,
+      });
     }
     this.resetPlayer = {
       game_table: {
@@ -60,7 +65,8 @@ class GamePage extends Component {
   playCards = () => {
     //get selected cards from store
     //when api responds, these cards will be removed automatically from page
-    const selectedCards = this.props.activeGame.activeGame.gameState.selectedCards
+    const selectedCards = this.props.activeGame.activeGame.gameState
+      .selectedCards;
     const cardsSelected = [...selectedCards];
     if (
       this.state.set === null &&
@@ -185,12 +191,12 @@ class GamePage extends Component {
           className={"goBack"}
         />
         {gameState?.game?.started &&
-          gameState?.game_table?.current_player_id ===
+        gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id ? (
-            <div className="timer">
-              <Timer disableShow={this.skip} startTime={60} />
-            </div>
-          ) : null}
+          <div className="timer">
+            <Timer disableShow={this.skip} startTime={60} />
+          </div>
+        ) : null}
         <Players
           game_players={this.props.activeGame?.gameState?.game_players}
           self={this.props.activeGame?.gameState?.self}
@@ -202,39 +208,41 @@ class GamePage extends Component {
         />
         <div className="tableCards">
           <TableCards
-            card_count={this.props.activeGame?.gameState?.game_table?.card_count}
+            card_count={
+              this.props.activeGame?.gameState?.game_table?.card_count
+            }
           />
         </div>
         {gameState?.game?.started &&
-          gameState?.game_table?.current_player_id ===
+        gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id ? (
-            <div className="actionButtons">
-              <Button text={"Pass"} color={"purple"} onClick={this.skip} />
-              <Button text={"Play"} color={"purple"} onClick={this.playCards} />
-              {gameState?.game_table?.last_player_id !==
-                gameState?.self?.player_id &&
-                gameState?.game_table?.card_count !== 0 &&
-                this.state.showVisible ? (
-                  <span>
-                    <Button text={"Show "} color={"purple"} onClick={this.show} />
-                    <Timer
-                      disableShow={this.disableShow}
-                      startTime={30}
-                      text={"Time left to call bluff"}
-                    />
-                  </span>
-                ) : null}
-              {this.state.error ? (
-                <div className="playError">{this.state.error}</div>
-              ) : null}
-              {gameState?.game_table?.currentSet ? (
-                <div className="bluffTimer">
-                  Current Set:
-                  {this.displaySet(gameState.game_table.currentSet)}
-                </div>
-              ) : null}
-            </div>
-          ) : null}
+          <div className="actionButtons">
+            <Button text={"Pass"} color={"purple"} onClick={this.skip} />
+            <Button text={"Play"} color={"purple"} onClick={this.playCards} />
+            {gameState?.game_table?.last_player_id !==
+              gameState?.self?.player_id &&
+            gameState?.game_table?.card_count !== 0 &&
+            this.state.showVisible ? (
+              <span>
+                <Button text={"Show "} color={"purple"} onClick={this.show} />
+                <Timer
+                  disableShow={this.disableShow}
+                  startTime={30}
+                  text={"Time left to call bluff"}
+                />
+              </span>
+            ) : null}
+            {this.state.error ? (
+              <div className="playError">{this.state.error}</div>
+            ) : null}
+            {gameState?.game_table?.currentSet ? (
+              <div className="bluffTimer">
+                Current Set:
+                {this.displaySet(gameState.game_table.currentSet)}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
         {gameState?.game?.started === false ? (
           gameState?.game?.owner === gameState?.self?.user?.id ? (
@@ -245,12 +253,12 @@ class GamePage extends Component {
               onClick={this.startGame}
             />
           ) : (
-              <Button
-                text={"Please wait for the owner to start the game"}
-                color={"grey"}
-                className={"startGame"}
-              />
-            )
+            <Button
+              text={"Please wait for the owner to start the game"}
+              color={"grey"}
+              className={"startGame"}
+            />
+          )
         ) : null}
         {gameState?.game?.started ? (
           <div className="playerCard">
@@ -261,11 +269,11 @@ class GamePage extends Component {
 
         {gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id &&
-          gameState?.game_table?.card_count === 0 ? (
-            <div className="selectSet">
-              <SelectSet selectSet={this.selectSet} />
-            </div>
-          ) : null}
+        gameState?.game_table?.card_count === 0 ? (
+          <div className="selectSet">
+            <SelectSet selectSet={this.selectSet} />
+          </div>
+        ) : null}
         <PlayedCardsModal game={this.props.activeGame} />
         <WinnerModal game={this.props.activeGame} />
         <SinglePlayerModal />
@@ -275,21 +283,20 @@ class GamePage extends Component {
             message = message.split("string=")[1].split("'")[1];
             return <ErrorModal title="Unable to join game" message={message} />;
           })()}
-        {
-          this.props.activeGame.connectionState === WebSocket.CONNECTING &&
+        {this.props.activeGame.connectionState === WebSocket.CONNECTING && (
           <ErrorModal
-            title='Connecting'
-            message='Establishing contact with server, Please wait..'
+            title="Connecting"
+            message="Establishing contact with server, Please wait.."
           />
-        }
-        {
-          (this.props.activeGame.connectionState === WebSocket.CLOSED &&
-            (gameState.init_success === true || gameState.init_success === undefined)) &&
-          <ErrorModal
-            title='Connection Lost'
-            message='Unable to connect to server, try joining again'
-          />
-        }
+        )}
+        {this.props.activeGame.connectionState === WebSocket.CLOSED &&
+          (gameState.init_success === true ||
+            gameState.init_success === undefined) && (
+            <ErrorModal
+              title="Connection Lost"
+              message="Unable to connect to server, try joining again"
+            />
+          )}
       </div>
     );
   }
@@ -311,7 +318,7 @@ const mapDispatchToProps = (dispatch) => {
       }),
       updateSelectedCards: (cards) => updateSelectedCards(cards),
       sendToGame: (jsonData) => sendToGame(jsonData),
-      disconnectFromGame: () => disconnectFromGame()
+      disconnectFromGame: () => disconnectFromGame(),
     },
     dispatch
   );

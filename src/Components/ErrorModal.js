@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Header, Modal } from "semantic-ui-react";
+
+import { Header, Modal } from "semantic-ui-react";
 
 function ErrorModal(props) {
   const [open, setOpen] = React.useState(false);
