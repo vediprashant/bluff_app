@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
@@ -10,32 +10,29 @@ import deck from "../assets/deck.png";
 import "../App.css";
 import ErrorModal from "../Components/ErrorModal";
 
-class InvitePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-    };
-  }
-  componentDidMount() {
-    this.props.listInvited(this.props.cookies, this.props.match.params.game);
-  }
+function InvitePage(props) {
+  const [email, setEmail] = useState('')
+  const message = props.message;
 
-  handleEmailChange = (event) => {
-    this.setState({ email: event.target.value });
+  useEffect(() => {
+    props.listInvited(props.cookies, props.match.params.game);
+  }, [])
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
   };
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.invite(
-      this.props.cookies,
-      this.state.email,
-      this.props.match.params.game
+    props.invite(
+      props.cookies,
+      email,
+      props.match.params.game
     );
   };
 
-  showInvited = () => {
-    const invited = this.props.invitedPlayers;
+  const showInvited = () => {
+    const invited = props.invitedPlayers;
     if (invited.length !== 0) {
       const list = invited.map((user, index) => (
         <div className="item" key={index}>
@@ -51,73 +48,70 @@ class InvitePage extends Component {
       return message;
     } else return null;
   };
-
-  render() {
-    const message = this.props.message;
-    return (
-      <div className="login">
-        <Grid textAlign="center">
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h3" color="brown">
-              Game Code {this.props.match.params.game}
-            </Header>
-            <Header as="h2" color="grey" textAlign="center">
-              <Image src={deck} />
-              Invite your friends
-            </Header>
-            <Form size="large">
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  onChange={this.handleEmailChange}
-                  iconPosition="left"
-                  placeholder="Email"
-                />
-                <Button
-                  color="blue"
-                  fluid
-                  size="large"
-                  onClick={this.handleSubmit}
-                >
-                  {message === "Inviting" ? (
-                    <div className="ui active centered inline tiny inverted loader"></div>
-                  ) : (
-                    "Invite"
-                  )}
-                </Button>
-              </Segment>
-            </Form>
-            {message === "Forbidden" && (
-              <ErrorModal
-                message="You must be owner of the game in order to invite players"
-                title="Forbidden"
+    
+  return (
+    <div className="login">
+      <Grid textAlign="center">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h3" color="brown">
+            Game Code {props.match.params.game}
+          </Header>
+          <Header as="h2" color="grey" textAlign="center">
+            <Image src={deck} />
+            Invite your friends
+          </Header>
+          <Form size="large">
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="mail"
+                onChange={handleEmailChange}
+                iconPosition="left"
+                placeholder="Email"
               />
-            )}
-            {message === "Inviting" && (
-              <div className="ui bottom attached message">{message}</div>
-            )}
-            {message === "User Invited" && (
-              <div className="ui bottom attached success message">
-                {message}
-              </div>
-            )}
-            {!["Forbidden", "Inviting", "User Invited", ""].includes(
-              message
-            ) && (
-              <div
-                id="inviteWarn"
-                className="ui bottom attached red warning message"
+              <Button
+                color="blue"
+                fluid
+                size="large"
+                onClick={handleSubmit}
               >
-                {message}
-              </div>
-            )}
-            {this.showInvited()}
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
+                {message === "Inviting" ? (
+                  <div className="ui active centered inline tiny inverted loader"></div>
+                ) : (
+                  "Invite"
+                )}
+              </Button>
+            </Segment>
+          </Form>
+          {message === "Forbidden" && (
+            <ErrorModal
+              message="You must be owner of the game in order to invite players"
+              title="Forbidden"
+            />
+          )}
+          {message === "Inviting" && (
+            <div className="ui bottom attached message">{message}</div>
+          )}
+          {message === "User Invited" && (
+            <div className="ui bottom attached success message">
+              {message}
+            </div>
+          )}
+          {!["Forbidden", "Inviting", "User Invited", ""].includes(
+            message
+          ) && (
+            <div
+              id="inviteWarn"
+              className="ui bottom attached red warning message"
+            >
+              {message}
+            </div>
+          )}
+          {showInvited()}
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

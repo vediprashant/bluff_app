@@ -54,18 +54,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-<<<<<<< HEAD
 const mapDispatchToProps = {
   updateSelectedCards: updateSelectedCards
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerCards);
-=======
+
 PlayerCards.propTypes = {
   myCards: PropTypes.string,
   selectedCards: PropTypes.array,
 };
 
-export default connect(mapStateToProps, {
-  updateSelectedCards: updateSelectedCards,
-})(PlayerCards);
->>>>>>> 82c6a2be9b3f3126f9f1254b4c08f5058ee2f7c3
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerCards);
