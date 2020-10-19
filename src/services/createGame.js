@@ -9,7 +9,7 @@ import deserializeErrors from "../Utils/deserializeErrors";
  */
 const createGame = async (cookies, decks) => {
   try {
-    const game = await fetch(API_URL.CREATE_GAME_URL, {
+    const game = await fetch(`${API_URL.BASE_URL}${API_URL.CREATE_GAME_URL}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
