@@ -38,8 +38,8 @@ WinnerModal.propTypes = {
     gameState: PropTypes.shape({
       self: PropTypes.object,
       game: PropTypes.object,
-    }),
-  }),
+    }).isRequired,
+  }).isRequired,
 };
 
 export default WinnerModal;

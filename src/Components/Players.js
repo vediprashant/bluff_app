@@ -80,6 +80,6 @@ export default function Player(props) {
 }
 
 Player.propTypes = {
-  self: PropTypes.object,
-  game_players: PropTypes.array,
+  self: PropTypes.object.isRequired,
+  game_players: PropTypes.array.isRequired,
 };

@@ -43,8 +43,8 @@ class Timer extends Component {
 }
 
 Timer.propTypes = {
-  startTime: PropTypes.number,
-  disableShow: PropTypes.func,
+  startTime: PropTypes.number.isRequired,
+  disableShow: PropTypes.func.isRequired,
 };
 
 export default Timer;

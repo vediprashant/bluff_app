@@ -264,8 +264,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  createUserAction: createUser
-}
+  createUserAction: createUser,
+};
 
 SignUpPage.propTypes = {
   loading: PropTypes.string.isRequired,

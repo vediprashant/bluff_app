@@ -57,7 +57,7 @@ const SelectSet = (props) => {
 };
 
 SelectSet.propTypes = {
-  selectSet: PropTypes.func,
+  selectSet: PropTypes.func.isRequired,
 };
 
 export default SelectSet;

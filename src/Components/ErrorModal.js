@@ -24,8 +24,8 @@ function ErrorModal(props) {
 }
 
 ErrorModal.propTypes = {
-  title: PropTypes.string,
-  message: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 export default ErrorModal;

@@ -184,12 +184,12 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 ViewGamesPage.propTypes = {
-  isGamesLoading: PropTypes.bool,
-  gameMessage: PropTypes.string,
-  games: PropTypes.array,
-  nextCompletedGames: PropTypes.string,
-  nextOngoingGames: PropTypes.string,
-  cookies: PropTypes.object,
+  isGamesLoading: PropTypes.bool.isRequired,
+  gameMessage: PropTypes.string.isRequired,
+  games: PropTypes.array.isRequired,
+  nextCompletedGames: PropTypes.string.isRequired,
+  nextOngoingGames: PropTypes.string.isRequired,
+  cookies: PropTypes.object.isRequired,
 };
 
 export default withCookies(

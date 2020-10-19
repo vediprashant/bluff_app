@@ -326,8 +326,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 GamePage.propTypes = {
-  activeGame: PropTypes.object,
-  selectedCard: PropTypes.array,
+  activeGame: PropTypes.object.isRequired,
+  selectedCard: PropTypes.array.isRequired,
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(GamePage);

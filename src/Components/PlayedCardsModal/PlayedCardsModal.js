@@ -58,7 +58,7 @@ function PlayedCardsModal(props) {
 
 PlayedCardsModal.propTypes = {
   game: PropTypes.shape({
-    gameState: PropTypes.object,
+    gameState: PropTypes.object.isRequired,
   }),
 };
 

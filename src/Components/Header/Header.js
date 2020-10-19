@@ -55,8 +55,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 Header.propTypes = {
-  loggedIn: PropTypes.bool,
-  cookies: PropTypes.object,
+  loggedIn: PropTypes.bool.isRequired,
+  cookies: PropTypes.object.isRequired,
 };
 
 export default withCookies(

@@ -56,13 +56,13 @@ const Pagination = ({
 };
 
 Pagination.propTypes = {
-  gamesPerPage: PropTypes.number,
-  totalGames: PropTypes.number,
-  paginate: PropTypes.func,
-  prevPage: PropTypes.func,
-  nextPage: PropTypes.func,
-  currentPage: PropTypes.number,
-  startPage: PropTypes.number,
-  endPage: PropTypes.number,
+  gamesPerPage: PropTypes.number.isRequired,
+  totalGames: PropTypes.number.isRequired,
+  paginate: PropTypes.func.isRequired,
+  prevPage: PropTypes.func.isRequired,
+  nextPage: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  startPage: PropTypes.number.isRequired,
+  endPage: PropTypes.number.isRequired,
 };
 export default Pagination;

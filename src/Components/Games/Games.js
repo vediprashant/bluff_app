@@ -25,7 +25,7 @@ const Games = ({ games }) => {
 };
 
 Games.propTypes = {
-  games: PropTypes.arrayOf(PropTypes.object),
+  games: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Games;

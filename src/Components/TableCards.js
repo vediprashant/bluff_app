@@ -34,5 +34,5 @@ export default function TableCards(props) {
 }
 
 TableCards.propTypes = {
-  card_count: PropTypes.number,
+  card_count: PropTypes.number.isRequired,
 };
