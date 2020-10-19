@@ -17,7 +17,7 @@ const validateUser = async (email, password) => {
       body: JSON.stringify({ email, password }),
     });
     if (data.status === 400) {
-      return { message: "Please provide valid input" };
+      return { message: "Please provide valid credentials" };
     }
     if (data.status === 401) {
       return { message: "Please provide valid credentials" };

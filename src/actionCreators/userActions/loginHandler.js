@@ -56,6 +56,7 @@ function validatingUser(cookies, email, password) {
     } else {
       dispatch(loading());
       dispatch(unsetError());
+      dispatch(setMessage(""));
       handleTokens.addToken(cookies, "token", jsonData.token);
       dispatch(login());
     }
