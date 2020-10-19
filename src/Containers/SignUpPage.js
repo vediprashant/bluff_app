@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
@@ -9,65 +9,65 @@ import { createUser } from "../actionCreators/userActions";
 import deepEqual from "../Utils/deepEqual";
 import "../App.css";
 
-class SignUpPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      nameField: {
-        placeholder: "Name",
-        class: "field",
-      },
-      emailField: {
-        placeholder: "Email",
-        class: "field",
-      },
-      passwordField: {
-        placeholder: "Password",
-        class: "field",
-      },
-      confirmPasswordField: {
-        placeholder: "Confirm Password",
-        class: "field",
-      },
-    };
-  }
-
-  handleNameChange = (evt) => {
+function SignUpPage(props) {
+  const initialState = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    nameField: {
+      placeholder: "Name",
+      class: "field",
+    },
+    emailField: {
+      placeholder: "Email",
+      class: "field",
+    },
+    passwordField: {
+      placeholder: "Password",
+      class: "field",
+    },
+    confirmPasswordField: {
+      placeholder: "Confirm Password",
+      class: "field",
+    },
+  };
+  const [state, setNewState] = useState(initialState)
+  const setState = value => setNewState((prevState) => ({ ...prevState, ...value }))
+  const handleNameChange = (evt) => {
     if (evt.target.value === "") {
-      this.setState({
+      setState({
         nameField: {
           class: "field error",
           placeholder: "Name cannot be blank",
         },
       });
     } else {
-      this.setState({
+      setState({
         nameField: {
           class: "field",
           placeholder: "Name",
         },
       });
     }
-    this.setState({ name: evt.target.value });
+    setState({
+      name: evt.target.value 
+    });
   };
 
-  handleEmailChange = (evt) => {
-    const emailField = this.state.emailField;
+  const handleEmailChange = (evt) => {
+    const emailField = state.emailField;
     const re = /\S+@\S+\.\S+/;
     if (!re.test(evt.target.value)) {
       evt.target.value = "";
-      this.setState({
+      setState({
         emailField: {
           class: "field error",
           placeholder: "Enter valid Email",
         },
       });
     } else {
-      this.setState({
+      setState({
         emailField: {
           class: "field",
           placeholder: "Email",
@@ -76,15 +76,15 @@ class SignUpPage extends Component {
     }
   };
 
-  updateEmailState = (evt) => {
-    this.setState({ email: evt.target.value });
+  const updateEmailState = (evt) => {
+    setState({ email: evt.target.value });
   };
 
-  handlePasswordChange = (evt) => this.setState({ password: evt.target.value });
+  const handlePasswordChange = (evt) => setState({ password: evt.target.value });
 
-  handleConfirmPasswordChange = (evt) => {
-    if (evt.target.value !== this.state.password) {
-      this.setState({
+  const handleConfirmPasswordChange = (evt) => {
+    if (evt.target.value !== state.password) {
+      setState({
         passwordField: {
           class: "field error",
           placeholder: "Passwords do not match",
@@ -95,7 +95,7 @@ class SignUpPage extends Component {
         },
       });
     } else {
-      this.setState({
+      setState({
         passwordField: {
           class: "field",
           placeholder: "Password",
@@ -106,23 +106,23 @@ class SignUpPage extends Component {
         },
       });
     }
-    this.setState({ confirmPassword: evt.target.value });
+    setState({ confirmPassword: evt.target.value });
   };
 
-  handleSubmit = () => {
-    const { name, email, password, confirmPassword } = this.state;
-    this.props.createUserAction(name, email, password, confirmPassword);
+  const handleSubmit = () => {
+    const { name, email, password, confirmPassword } = state;
+    props.createUserAction(name, email, password, confirmPassword);
   };
   /**
    * Shows warning messages
    */
 
-  componentDidUpdate(prevProps) {
+  useEffect(() => {
     //if no api call, return
-    if (!prevProps.loading) return;
+    //if (!prevProps.loading) return;
 
-    let response = this.props.response;
-    let newState = { ...this.state };
+    let response = props.response;
+    let newState = { ...state };
     if (response.name) {
       newState.nameField = {
         class: "field error",
@@ -169,18 +169,18 @@ class SignUpPage extends Component {
       };
     }
     //prevents infinite render loop in case api takes too long to respond
-    if (!deepEqual(this.state, newState)) {
-      this.setState(newState);
+    if (!deepEqual(state, newState)) {
+      setState(newState);
     }
-  }
+  },[props.loading])
 
-  showMessage = () => {
-    const { response } = this.props;
+  const showMessage = () => {
+    const { response } = props;
     let message = response.message;
     if (message === "") {
       return null;
     } else if (message === "Success") {
-      this.props.history.push("/login/");
+      props.history.push("/login/");
     } else {
       return (
         <div id="signUpWarn" className="ui bottom attached red warning message">
@@ -189,71 +189,70 @@ class SignUpPage extends Component {
       );
     }
   };
+  
+  return (
+    <div className="login">
+      <Grid textAlign="center">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="grey" textAlign="center">
+            <Image src={deck} />
+            Create a new account
+          </Header>
+          <Form size="large">
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                onChange={handleNameChange}
+                iconPosition="left"
+                placeholder={state.nameField.placeholder}
+                className={state.nameField.class}
+              />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                placeholder={state.emailField.placeholder}
+                className={state.emailField.class}
+                onBlur={handleEmailChange}
+                onChange={updateEmailState}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder={state.passwordField.placeholder}
+                className={state.passwordField.class}
+                type="password"
+                value={state.password}
+                onChange={handlePasswordChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder={state.confirmPasswordField.placeholder}
+                className={state.confirmPasswordField.class}
+                type="password"
+                value={state.confirmPassword}
+                onChange={handleConfirmPasswordChange}
+              />
+              <Button
+                color="blue"
+                fluid
+                size="large"
+                onClick={handleSubmit}
+              >
+                Sign-Up
+              </Button>
+            </Segment>
+          </Form>
+          {showMessage()}
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
 
-  render() {
-    return (
-      <div className="login">
-        <Grid textAlign="center">
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="grey" textAlign="center">
-              <Image src={deck} />
-              Create a new account
-            </Header>
-            <Form size="large">
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="user"
-                  onChange={this.handleNameChange}
-                  iconPosition="left"
-                  placeholder={this.state.nameField.placeholder}
-                  className={this.state.nameField.class}
-                />
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  placeholder={this.state.emailField.placeholder}
-                  className={this.state.emailField.class}
-                  onBlur={this.handleEmailChange}
-                  onChange={this.updateEmailState}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder={this.state.passwordField.placeholder}
-                  className={this.state.passwordField.class}
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.handlePasswordChange}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder={this.state.confirmPasswordField.placeholder}
-                  className={this.state.confirmPasswordField.class}
-                  type="password"
-                  value={this.state.confirmPassword}
-                  onChange={this.handleConfirmPasswordChange}
-                />
-                <Button
-                  color="blue"
-                  fluid
-                  size="large"
-                  onClick={this.handleSubmit}
-                >
-                  Sign-Up
-                </Button>
-              </Segment>
-            </Form>
-            {this.showMessage()}
-          </Grid.Column>
-        </Grid>
-      </div>
-    );
-  }
 }
 
 const mapStateToProps = (state) => {
