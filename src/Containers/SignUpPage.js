@@ -254,13 +254,15 @@ class SignUpPage extends Component {
     );
   }
 }
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     loading: state.user.signUp.loading,
     response: state.user.signUp.response,
   };
 };
 
-export default connect(mapStatetoProps, {
+const mapDispatchToProps = {
   createUserAction: createUser,
-})(SignUpPage);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

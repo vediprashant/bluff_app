@@ -51,6 +51,8 @@ const mapStateToProps = (state) => {
     myCards: state.game.activeGame.gameState.self.cards,
   };
 };
-export default connect(mapStateToProps, {
-  updateSelectedCards: updateSelectedCards,
-})(PlayerCards);
+
+const mapDispatchToProps = {
+  updateSelectedCards: updateSelectedCards
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerCards);
