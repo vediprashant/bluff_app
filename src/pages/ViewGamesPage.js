@@ -109,9 +109,9 @@ const ViewGamesPage = (props) => {
   );
 };
 const mapStateToProps = (state, ownProps) => ({
-  isGamesLoading: state.viewGames.isGamesLoading,
-  gameMessage: state.viewGames.gameMessage,
-  games: state.viewGames.games,
+  isGamesLoading: state.game.viewGames.isGamesLoading,
+  gameMessage: state.game.viewGames.gameMessage,
+  games: state.game.viewGames.games,
   cookies: ownProps.cookies,
 });
 const mapDispatchToProps = (dispatch) => {

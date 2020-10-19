@@ -121,8 +121,8 @@ class InvitePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    message: state.invite.inviteMessage,
-    invitedPlayers: state.invite.invitedPlayers,
+    message: state.game.inviteToGame.inviteMessage,
+    invitedPlayers: state.game.inviteToGame.invitedPlayers,
   };
 };
 

@@ -53,10 +53,10 @@ function HomePage(props) {
 }
 const mapStateToProps = (state, ownProps) => ({
   cookies: ownProps.cookies,
-  isError: state.createGame.gameError,
-  message: state.createGame.gameMessage,
-  gameId: state.createGame.gameId,
-  isLoading: state.createGame.createGameLoading,
+  isError: state.game.createGame.gameError,
+  message: state.game.createGame.gameMessage,
+  gameId: state.game.createGame.gameId,
+  isLoading: state.game.createGame.createGameLoading,
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(

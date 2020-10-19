@@ -7,14 +7,19 @@ import createGameReducer from "./createGameReducer";
 import viewGamesReducer from "./viewGamesReducer";
 import updateSelectedCards from "./updateSelectedCards";
 
-export default combineReducers({
-  login: loginReducer,
-  createUser: createUserReducer,
-  game: game,
-  invite: inviteUser,
+const gameReducer = combineReducers({
+  activeGame: game,
+  inviteToGame: inviteUser,
   createGame: createGameReducer,
-  viewGames: viewGamesReducer,
-  selectedCards: updateSelectedCards,
+  viewGames: viewGamesReducer
+})
+const userReducer = combineReducers({
+  login: loginReducer,
+  signUp: createUserReducer
+})
+export default combineReducers({
+  user: userReducer,
+  game: gameReducer
 });
 
 /*
@@ -38,6 +43,7 @@ game: {
     connectionState: false,
     socket: null,
     gameState: {
+      selectedCards: []
       game: {},
       game_players: [],
       self: {
@@ -61,5 +67,4 @@ game: {
     gameMessage: null,
   }
 }
-selectedCards: updateSelectedCards,
 */

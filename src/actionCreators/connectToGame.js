@@ -23,6 +23,12 @@ export function sendToGame(data) {
   }
 }
 
+export function disconnectFromGame() {
+  return async (dispatch) => {
+    socket.close()
+  }
+}
+
 export default function connectToGame(gameId) {
   return async (dispatch) => {
     //create websocket here

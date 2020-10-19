@@ -38,8 +38,8 @@ const PlayerCards = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    selectedCards: state.game.gameState.selectedCards,
-    myCards: state.game.gameState.self.cards
+    selectedCards: state.game.activeGame.gameState.selectedCards,
+    myCards: state.game.activeGame.gameState.self.cards
   }
 }
 export default connect(

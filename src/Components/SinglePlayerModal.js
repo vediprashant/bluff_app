@@ -56,7 +56,7 @@ function SinglePlayerModal(props) {
 
 const mapStatetoProps = (state) => {
   return {
-    game: state.game,
+    game: state.game.activeGame,
   };
 };
 

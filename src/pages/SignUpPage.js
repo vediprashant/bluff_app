@@ -260,8 +260,8 @@ class SignUpPage extends Component {
 }
 const mapStatetoProps = (state) => {
   return {
-    loading: state.createUser.loading,
-    response: state.createUser.response,
+    loading: state.user.signUp.loading,
+    response: state.user.signUp.response,
   };
 };
 

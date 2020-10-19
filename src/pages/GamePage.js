@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import SelectSet from "../Components/SelectSet";
 import Button from "../Components/Button";
 import PlayerCards from "../Components/PlayerCards";
-import connectToGame, { sendToGame } from "../actionCreators/connectToGame";
+import connectToGame, { sendToGame, disconnectFromGame } from "../actionCreators/connectToGame";
 import TableCards from "../Components/TableCards";
 import Players from "../Components/Players";
 import cardsMapperToString from "../Utils/cardsMapperToString";
@@ -34,7 +34,7 @@ class GamePage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.game.socket.close();
+    this.props.disconnectFromGame();
   }
 
   componentDidMount() {
@@ -44,14 +44,14 @@ class GamePage extends Component {
 
   componentDidUpdate() {
     if (
-      this.props.game.gameState !== undefined &&
-      this.state.set != this.props.game.gameState?.game_table?.currentSet
+      this.props.activeGame.gameState !== undefined &&
+      this.state.set != this.props.activeGame.gameState?.game_table?.currentSet
     ) {
-      this.setState({ set: this.props.game.gameState.game_table.currentSet });
+      this.setState({ set: this.props.activeGame.gameState.game_table.currentSet });
     }
     this.resetPlayer = {
       game_table: {
-        ...this.props.game.gameState.game_table,
+        ...this.props.activeGame.gameState.game_table,
         current_player_id: null,
       },
     };
@@ -60,10 +60,11 @@ class GamePage extends Component {
   playCards = () => {
     //get selected cards from store
     //when api responds, these cards will be removed automatically from page
-    const cardsSelected = [...this.props.selectedCards];
+    const selectedCards = this.props.activeGame.activeGame.gameState.selectedCards
+    const cardsSelected = [...selectedCards];
     if (
       this.state.set === null &&
-      this.props.game.gameState.game_table.currentSet === null
+      this.props.activeGame.gameState.game_table.currentSet === null
     ) {
       this.setState({ error: "Please select the set" });
       return;
@@ -144,7 +145,7 @@ class GamePage extends Component {
         updatedSet = event.target.textContent;
         break;
     }
-    this.props.game.gameState.game_table.currentSet = updatedSet;
+    this.props.activeGame.gameState.game_table.currentSet = updatedSet;
     this.setState({ set: updatedSet });
   };
   displaySet = (currentSet) => {
@@ -174,7 +175,7 @@ class GamePage extends Component {
   };
 
   render() {
-    const gameState = this.props.game.gameState;
+    const gameState = this.props.activeGame.gameState;
     return (
       <div className="gameScreen">
         <Button
@@ -191,17 +192,17 @@ class GamePage extends Component {
             </div>
           ) : null}
         <Players
-          game_players={this.props.game?.gameState?.game_players}
-          self={this.props.game?.gameState?.self}
-          last_player_turn={this.props.game?.gameState?.last_player_turn}
-          action={this.props.game?.gameState?.action}
+          game_players={this.props.activeGame?.gameState?.game_players}
+          self={this.props.activeGame?.gameState?.self}
+          last_player_turn={this.props.activeGame?.gameState?.last_player_turn}
+          action={this.props.activeGame?.gameState?.action}
           current_player_id={
-            this.props.game?.gameState?.game_table?.current_player_id
+            this.props.activeGame?.gameState?.game_table?.current_player_id
           }
         />
         <div className="tableCards">
           <TableCards
-            card_count={this.props.game?.gameState?.game_table?.card_count}
+            card_count={this.props.activeGame?.gameState?.game_table?.card_count}
           />
         </div>
         {gameState?.game?.started &&
@@ -254,7 +255,7 @@ class GamePage extends Component {
         {gameState?.game?.started ? (
           <div className="playerCard">
             <h1 className="heading1">Select Cards</h1>
-            <PlayerCards game={this.props.game} />
+            <PlayerCards game={this.props.activeGame} />
           </div>
         ) : null}
 
@@ -265,8 +266,8 @@ class GamePage extends Component {
               <SelectSet selectSet={this.selectSet} />
             </div>
           ) : null}
-        <PlayedCardsModel game={this.props.game} />
-        <WinnerModal game={this.props.game} />
+        <PlayedCardsModel game={this.props.activeGame} />
+        <WinnerModal game={this.props.activeGame} />
         <SinglePlayerModal />
         {gameState.init_success === false &&
           (() => {
@@ -275,14 +276,14 @@ class GamePage extends Component {
             return <ErrorModal title="Unable to join game" message={message} />;
           })()}
         {
-          this.props.game.connectionState === WebSocket.CONNECTING && 
-          <ErrorModal 
+          this.props.activeGame.connectionState === WebSocket.CONNECTING &&
+          <ErrorModal
             title='Connecting'
             message='Establishing contact with server, Please wait..'
           />
         }
         {
-          (this.props.game.connectionState === WebSocket.CLOSED && 
+          (this.props.activeGame.connectionState === WebSocket.CLOSED &&
             (gameState.init_success === true || gameState.init_success === undefined)) &&
           <ErrorModal
             title='Connection Lost'
@@ -296,8 +297,8 @@ class GamePage extends Component {
 
 const mapStatetoProps = (state) => {
   return {
-    game: state.game,
-    selectedCards: state.game.gameState.selectedCards,
+    activeGame: state.game.activeGame,
+    selectedCards: state.game.activeGame.gameState.selectedCards,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -310,6 +311,7 @@ const mapDispatchToProps = (dispatch) => {
       }),
       updateSelectedCards: (cards) => updateSelectedCards(cards),
       sendToGame: (jsonData) => sendToGame(jsonData),
+      disconnectFromGame: () => disconnectFromGame()
     },
     dispatch
   );

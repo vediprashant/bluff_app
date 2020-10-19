@@ -37,9 +37,12 @@ const Header = (props) => {
     </nav>
   );
 };
-const mapStateToProps = (state) => ({
-  loggedIn: state.login.loggedIn,
-});
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+  loggedIn: state.user.login.loggedIn,
+}
+};
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
