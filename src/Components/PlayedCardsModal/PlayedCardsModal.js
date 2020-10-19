@@ -24,7 +24,7 @@ function PlayedCardsModal(props) {
       let cards = cardsHandler(listCards);
       playerCards = cards.map((number, ind) => (
         <img
-          class="bluffCardsPlayed"
+          className="bluffCardsPlayed"
           src={`../PNG/${number}.png`}
           alt="card"
         ></img>
@@ -40,7 +40,7 @@ function PlayedCardsModal(props) {
     <Modal open={open}>
       <Modal.Header>{props.game.gameState.bluffLooser} lost</Modal.Header>
       <Modal.Content image>
-        <div class="bluffCards">{bluffCards}</div>
+        <div className="bluffCards">{bluffCards}</div>
       </Modal.Content>
       <Modal.Actions>
         <Button

@@ -49,7 +49,7 @@ class GamePage extends Component {
 
   componentDidUpdate() {
     if (
-      this.props.activeGame.gameState !== undefined &&
+      this.props.activeGame.gameState.game_table !== undefined &&
       this.state.set != this.props.activeGame.gameState?.game_table?.currentSet
     ) {
       this.setState({
@@ -327,7 +327,7 @@ const mapDispatchToProps = (dispatch) => {
 
 GamePage.propTypes = {
   activeGame: PropTypes.object.isRequired,
-  selectedCard: PropTypes.array.isRequired,
+  selectedCard: PropTypes.array,
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(GamePage);

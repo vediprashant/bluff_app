@@ -37,8 +37,12 @@ export default function getGames(
     dispatch(setError(""));
     if (active !== target || reset === true) {
       dispatch(resetGames());
-      dispatch(setCompletedGames(API_URL.LIST_COMPLETED_GAMES));
-      dispatch(setOngoingGames(API_URL.LIST_ONGOING_GAMES));
+      dispatch(
+        setCompletedGames(`${API_URL.BASE_URL}${API_URL.LIST_COMPLETED_GAMES}`)
+      );
+      dispatch(
+        setOngoingGames(`${API_URL.BASE_URL}${API_URL.LIST_ONGOING_GAMES}`)
+      );
     }
     const games = await getGamesService(cookies, targetUrl);
     if (games.results) {

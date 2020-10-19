@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
 HomePage.propTypes = {
   isError: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
-  gameId: PropTypes.number.isRequired,
+  gameId: PropTypes.number,
   isLoading: PropTypes.bool.isRequired,
   cookies: PropTypes.object.isRequired,
 };

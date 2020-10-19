@@ -21,22 +21,23 @@ const Pagination = ({
   }
   return (
     <nav
-      className="pagination"
       aria-label="Pagination Navigation"
       role="navigation"
-      class="ui pagination menu"
+      className="ui pagination menu"
     >
       <a
         className={currentPage === 1 ? "disabled item" : "item"}
         onClick={() => prevPage(startPage)}
+        href="#prevPage"
       >
         Prev
       </a>
       {pageNumbers.map((num) => (
         <a
           onClick={() => paginate(num)}
-          href="#"
+          href="#pages"
           className={currentPage === num ? "activated item" : "item"}
+          key={num}
         >
           {num}
         </a>
@@ -48,6 +49,7 @@ const Pagination = ({
             : "item"
         }
         onClick={() => nextPage(endPage)}
+        href="#nextPage"
       >
         Next
       </a>
@@ -56,13 +58,13 @@ const Pagination = ({
 };
 
 Pagination.propTypes = {
-  gamesPerPage: PropTypes.number.isRequired,
-  totalGames: PropTypes.number.isRequired,
-  paginate: PropTypes.func.isRequired,
-  prevPage: PropTypes.func.isRequired,
-  nextPage: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  startPage: PropTypes.number.isRequired,
-  endPage: PropTypes.number.isRequired,
+  gamesPerPage: PropTypes.number,
+  totalGames: PropTypes.number,
+  paginate: PropTypes.func,
+  prevPage: PropTypes.func,
+  nextPage: PropTypes.func,
+  currentPage: PropTypes.number,
+  startPage: PropTypes.number,
+  endPage: PropTypes.number,
 };
 export default Pagination;

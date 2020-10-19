@@ -5,8 +5,8 @@ const initialState = {
   isGamesLoading: false,
   games: [],
   gameMessage: null,
-  nextCompletedGames: `${API_URL.LIST_GAMES}?filters=completed`,
-  nextOngoingGames: API_URL.LIST_GAMES,
+  nextCompletedGames: `${API_URL.BASE_URL}${API_URL.LIST_COMPLETED_GAMES}`,
+  nextOngoingGames: `${API_URL.BASE_URL}${API_URL.LIST_ONGOING_GAMES}`,
 };
 
 function viewGamesReducer(state = initialState, action) {
