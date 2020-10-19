@@ -1,5 +1,5 @@
-import createUserService from "../services/createUser";
-import actions from "../actions";
+import createUserService from "../../services/createUser";
+import actions from "../../actions";
 
 function setResponse(response) {
   return {

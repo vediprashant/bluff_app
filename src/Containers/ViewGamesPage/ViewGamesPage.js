@@ -5,7 +5,7 @@ import { withCookies } from "react-cookie";
 
 import Games from "../../Components/Games";
 import Pagination from "../../Components/Pagination";
-import viewGames from "../../actionCreators/viewGames";
+import { viewGames } from "../../actionCreators/gameActions";
 import "./ViewGamePage.css";
 
 const ViewGamesPage = (props) => {

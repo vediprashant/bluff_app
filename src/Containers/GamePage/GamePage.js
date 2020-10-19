@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import SelectSet from "../../Components/SelectSet";
 import Button from "../../Components/Button";
 import PlayerCards from "../../Components/PlayerCards";
-import connectToGame, { sendToGame, disconnectFromGame } from "../../actionCreators/connectToGame";
+import { connectToGame, disconnectFromGame, sendToGame } from "../../actionCreators/gameActions";
 import TableCards from "../../Components/TableCards";
 import Players from "../../Components/Players";
 import cardsMapperToString from "../../Utils/cardsMapperToString";
@@ -14,7 +14,7 @@ import WinnerModal from "../../Components/WinnerModal";
 import Timer from "../../Components/Timer";
 import SinglePlayerModal from "../../Components/SinglePlayerModal";
 import ErrorModal from "../../Components/ErrorModal";
-import updateSelectedCards from "../../actionCreators/updateSelectedCards";
+import { updateSelectedCards } from "../../actionCreators/gameActions";
 import actions from "../../actions";
 
 

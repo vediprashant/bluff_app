@@ -13,7 +13,7 @@ import {
 } from "semantic-ui-react";
 
 import deck from "../assets/deck.png";
-import loginHandler from "../actionCreators/loginHandler";
+import { loginHandler } from "../actionCreators/userActions";
 
 import "../App.css";
 

@@ -1,7 +1,6 @@
-import actions from "../actions";
-import handleTokens from "../Utils/handleTokens";
-import logoutService from "../services/logoutService";
-import ROUTES from "../constants/pathConstants";
+import actions from "../../actions";
+import handleTokens from "../../Utils/handleTokens";
+import logoutService from "../../services/logoutService";
 
 function setLogout() {
   return { type: actions.LOGGED_OUT };

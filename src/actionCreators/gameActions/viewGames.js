@@ -1,5 +1,5 @@
-import actions from "../actions";
-import getGamesService from "../services/getGamesService";
+import actions from "../../actions";
+import getGamesService from "../../services/getGamesService";
 
 function loading() {
   return { type: actions.GAMES_LOADING };

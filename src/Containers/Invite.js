@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import inviteUserAction from "../actionCreators/inviteUser";
-import listInvitedUsers from "../actionCreators/showInvitedUsers";
+import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 
 import deck from "../assets/deck.png";
@@ -127,8 +126,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  invite: inviteUserAction,
-  listInvited: listInvitedUsers,
+  invite: inviteUser,
+  listInvited: showInvitedUsers,
 }
 
 export default withCookies(

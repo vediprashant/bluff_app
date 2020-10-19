@@ -1,5 +1,5 @@
 import React from 'react'
-import actions from "../actions"
+import actions from "../../actions"
 
 function updateSelectedCards(selectedCards) {
     return {

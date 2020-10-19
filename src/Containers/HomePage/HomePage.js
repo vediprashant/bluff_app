@@ -6,7 +6,7 @@ import { withCookies } from "react-cookie";
 import actions from "../../actions";
 
 import "./HomePage.css";
-import createGame from "../../actionCreators/createGame";
+import { createGame } from "../../actionCreators/gameActions";
 
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);

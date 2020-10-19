@@ -1,5 +1,5 @@
-import actions from "../actions";
-import urls from "../constants/urlConstants"
+import actions from "../../actions";
+import urls from "../../constants/urlConstants"
 
 function setConnectionState(value) {
   return {

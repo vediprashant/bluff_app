@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import deck from "../assets/deck.png";
 import "../App.css";
-import createUser from "../actionCreators/createUser";
+import { createUser } from "../actionCreators/userActions";
 import deepEqual from "../Utils/deepEqual";
 
 class SignUpPage extends Component {

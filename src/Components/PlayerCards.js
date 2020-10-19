@@ -4,7 +4,7 @@ import stringMapperToCards from "../Utils/stringMapperToCards";
 import cardsMapperToString from "../Utils/cardsMapperToString"
 import "./playerCards.css";
 import { connect } from "react-redux"
-import updateSelectedCards from "../actionCreators/updateSelectedCards"
+import { updateSelectedCards } from "../actionCreators/gameActions"
 
 /**
  * Render cards and save card selection to store

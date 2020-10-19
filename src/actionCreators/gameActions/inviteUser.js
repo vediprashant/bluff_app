@@ -1,6 +1,6 @@
-import inviteUserService from "../services/inviteUser";
-import actions from "../actions";
-import showInvitedUsers from "../actionCreators/showInvitedUsers";
+import inviteUserService from "../../services/inviteUser";
+import actions from "../../actions";
+import { showInvitedUsers } from "../../actionCreators/gameActions";
 
 function setMessage(message) {
   return {

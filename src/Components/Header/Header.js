@@ -7,7 +7,7 @@ import ROUTES from "../../constants/pathConstants";
 import actions from "../../actions";
 import handleTokens from "../../Utils/handleTokens";
 
-import logoutUser from "../../actionCreators/logoutUser";
+import { logoutUser } from "../../actionCreators/userActions";
 import "./header.css";
 
 const Header = (props) => {
@@ -38,7 +38,6 @@ const Header = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
   loggedIn: state.user.login.loggedIn,
 }
