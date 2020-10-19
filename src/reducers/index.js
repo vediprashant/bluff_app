@@ -11,15 +11,15 @@ const gameReducer = combineReducers({
   activeGame: game,
   inviteToGame: inviteUser,
   createGame: createGameReducer,
-  viewGames: viewGamesReducer
-})
+  viewGames: viewGamesReducer,
+});
 const userReducer = combineReducers({
   login: loginReducer,
-  signUp: createUserReducer
-})
+  signUp: createUserReducer,
+});
 export default combineReducers({
   user: userReducer,
-  game: gameReducer
+  game: gameReducer,
 });
 
 /*

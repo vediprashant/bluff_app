@@ -38,10 +38,9 @@ const Header = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
-  loggedIn: state.user.login.loggedIn,
-}
+    loggedIn: state.user.login.loggedIn,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(

@@ -1,4 +1,3 @@
-import API_URL from "../constants/urlConstants";
 import handleTokens from "../Utils/handleTokens";
 import deserializeErrors from "../Utils/deserializeErrors";
 
@@ -7,9 +6,9 @@ import deserializeErrors from "../Utils/deserializeErrors";
  * @param {*} cookies
  */
 
-const getGames = async (cookies, filters = "") => {
+const getGames = async (cookies, targetUrl) => {
   try {
-    const games = await fetch(`${API_URL.LIST_GAMES}?filters=${filters}`, {
+    const games = await fetch(targetUrl, {
       headers: {
         Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
       },
