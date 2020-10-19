@@ -5,7 +5,8 @@ import { withCookies } from "react-cookie";
 
 import Games from "../../Components/Games";
 import Pagination from "../../Components/Pagination";
-import { viewGames } from "../../actionCreators/gameActions";
+import viewGames from "../../actionCreators/viewGames";
+import API_URL from "../../constants/urlConstants";
 import "./ViewGamePage.css";
 
 const ViewGamesPage = (props) => {
@@ -15,25 +16,62 @@ const ViewGamesPage = (props) => {
   const [activeButton, setActiveButton] = useState("completed");
 
   useEffect(() => {
-    fetchCompletedGames();
+    props.viewGames(
+      props.cookies,
+      "completed",
+      "completed",
+      API_URL.LIST_COMPLETED_GAMES,
+      true
+    );
   }, []);
 
   const fetchCompletedGames = async () => {
-    props.viewGames(props.cookies, "completed");
     if (activeButton !== "completed") {
+      setCurrentPage(1);
+      setStartPage(1);
+      props.viewGames(
+        props.cookies,
+        activeButton,
+        "completed",
+        API_URL.LIST_COMPLETED_GAMES
+      );
       setActiveButton("completed");
     }
   };
 
   const fetchOngoingGames = async () => {
-    props.viewGames(props.cookies);
     if (activeButton !== "ongoing") {
+      setCurrentPage(1);
+      setStartPage(1);
+      props.viewGames(
+        props.cookies,
+        activeButton,
+        "ongoing",
+        API_URL.LIST_ONGOING_GAMES
+      );
       setActiveButton("ongoing");
     }
   };
 
   const paginate = (pageNum, elem) => {
     setCurrentPage(pageNum);
+    if (pageNum === Math.ceil(props.games.length / gamesPerPage)) {
+      if (props.nextCompletedGames !== null && activeButton === "completed")
+        props.viewGames(
+          props.cookies,
+          activeButton,
+          "completed",
+          props.nextCompletedGames
+        );
+      if (props.nextOngoingGames !== null && activeButton === "ongoing") {
+        props.viewGames(
+          props.cookies,
+          activeButton,
+          "ongoing",
+          props.nextOngoingGames
+        );
+      }
+    }
   };
 
   const prevPage = (startPage) => {
@@ -54,6 +92,23 @@ const ViewGamesPage = (props) => {
     }
     if (currentPage !== Math.ceil(props.games.length / gamesPerPage)) {
       setCurrentPage(currentPage + 1);
+    }
+    if (currentPage + 1 === Math.ceil(props.games.length / gamesPerPage)) {
+      if (props.nextCompletedGames !== null && activeButton === "completed")
+        props.viewGames(
+          props.cookies,
+          activeButton,
+          "completed",
+          props.nextCompletedGames
+        );
+      if (props.nextOngoingGames !== null && activeButton === "ongoing") {
+        props.viewGames(
+          props.cookies,
+          activeButton,
+          "ongoing",
+          props.nextOngoingGames
+        );
+      }
     }
   };
 
@@ -112,12 +167,15 @@ const mapStateToProps = (state, ownProps) => ({
   isGamesLoading: state.game.viewGames.isGamesLoading,
   gameMessage: state.game.viewGames.gameMessage,
   games: state.game.viewGames.games,
+  nextCompletedGames: state.game.viewGames.nextCompletedGames,
+  nextOngoingGames: state.game.viewGames.nextOngoingGames,
   cookies: ownProps.cookies,
 });
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      viewGames: (cookies, filters) => viewGames(cookies, filters),
+      viewGames: (cookies, activeButton, currentButton, url, reset) =>
+        viewGames(cookies, activeButton, currentButton, url, reset),
     },
     dispatch
   );
