@@ -1,50 +1,56 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+
+import { Progress } from "semantic-ui-react";
 
 import PropTypes from "prop-types";
 
-class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: props.startTime,
+const Timer = (props) => {
+  const [count, setcount] = useState(props.startTime);
+  let myInterval = null;
+
+  const updateTimer = () => {
+    setcount((count) => count - 1);
+  };
+
+  const startTimer = () => {
+    myInterval = setInterval(updateTimer, 1000);
+  };
+
+  useEffect(() => {
+    startTimer();
+    return () => {
+      clearInterval(myInterval);
     };
-  }
+  }, []);
 
-  render() {
-    const { count } = this.state;
-    return (
-      <div className="playError">
-        {this.props.text ? `${this.props.text} : ${count}` : null}
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    this.startTimer();
-  }
-
-  startTimer = () => {
-    this.myInterval = setInterval(this.updateTimer, 1000);
-  };
-  updateTimer = () => {
-    if (this.state.count === 1) {
-      this.props.disableShow();
-      clearInterval(this.myInterval);
-    } else {
-      this.setState((prevState) => ({
-        count: prevState.count - 1,
-      }));
+  useEffect(() => {
+    if (count === 0) {
+      clearInterval(myInterval);
+      if (props.disableShow) props.disableShow();
+      setcount(props.startTime);
     }
-  };
+  }, [count]);
 
-  componentWillUnmount() {
-    clearInterval(this.myInterval);
-  }
-}
+  return (
+    <div>
+      {props.progress && (
+        <Progress
+          percent={(count * 100) / props.startTime}
+          inverted
+          color="grey"
+          attached="top"
+        />
+      )}
+      <div className="playError">
+        {props.text ? `${props.text} : ${count}` : null}
+      </div>
+    </div>
+  );
+};
 
 Timer.propTypes = {
   startTime: PropTypes.number.isRequired,
-  disableShow: PropTypes.func.isRequired,
+  disableShow: PropTypes.func,
 };
 
 export default Timer;

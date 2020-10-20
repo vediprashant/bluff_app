@@ -48,7 +48,7 @@ export default function getGames(
     if (games.results) {
       dispatch(loading());
       dispatch(setGames(games.results));
-      if (target === "complete") dispatch(setCompletedGames(games.next));
+      if (target === "completed") dispatch(setCompletedGames(games.next));
       if (target === "ongoing") dispatch(setOngoingGames(games.next));
       if (games.results.length === 0) {
         dispatch(setError("No Games To Show"));

@@ -35,7 +35,8 @@ const ViewGamesPage = (props) => {
         props.cookies,
         activeButton,
         "completed",
-        `${API_URL.BASE_URL}${API_URL.LIST_COMPLETED_GAMES}`
+        `${API_URL.BASE_URL}${API_URL.LIST_COMPLETED_GAMES}`,
+        true
       );
       setActiveButton("completed");
     }
@@ -49,7 +50,8 @@ const ViewGamesPage = (props) => {
         props.cookies,
         activeButton,
         "ongoing",
-        `${API_URL.BASE_URL}${API_URL.LIST_ONGOING_GAMES}`
+        `${API_URL.BASE_URL}${API_URL.LIST_ONGOING_GAMES}`,
+        true
       );
       setActiveButton("ongoing");
     }

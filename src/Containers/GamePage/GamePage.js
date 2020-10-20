@@ -244,6 +244,17 @@ class GamePage extends Component {
             ) : null}
           </div>
         ) : null}
+        {gameState?.game?.started &&
+        gameState?.game_table?.current_player_id !==
+          gameState?.self?.player_id ? (
+          <div className="otherTimer">
+            <Timer
+              startTime={60}
+              text={`Time Left For Player to play his turn`}
+              progress={true}
+            />
+          </div>
+        ) : null}
 
         {gameState?.game?.started === false ? (
           gameState?.game?.owner === gameState?.self?.user?.id ? (

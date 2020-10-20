@@ -63,6 +63,11 @@
   width: 300px;
   height: 200px;
 }
+.otherTimer {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+}
 .selectSet {
   position: absolute;
   top: 170px;
