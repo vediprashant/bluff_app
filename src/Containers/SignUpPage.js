@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
+import { Button, Message, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -247,6 +247,9 @@ function SignUpPage(props) {
               </Button>
             </Segment>
           </Form>
+          <Message>
+            Already a user? <a href="/login">Login</a>
+          </Message>
           {showMessage()}
         </Grid.Column>
       </Grid>
