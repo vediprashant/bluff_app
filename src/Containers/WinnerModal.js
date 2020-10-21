@@ -3,6 +3,10 @@ import React from "react";
 import { Header, Modal, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
+/**
+ * Modal to show when a winner is declared
+ * @param {*} props
+ */
 function WinnerModal(props) {
   const [open, setOpen] = React.useState(false);
   if (
@@ -33,11 +37,12 @@ function WinnerModal(props) {
         <Button
           color="black"
           onClick={() => {
-            props.history.push('/games')
+            props.history.push("/games");
             setOpen(false);
           }}
         >
-          Redirect to My Games        </Button>
+          Redirect to My Games{" "}
+        </Button>
       </Modal.Actions>
     </Modal>
   );

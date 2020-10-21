@@ -11,6 +11,9 @@ import actions from "../../actions";
 import "./HomePage.css";
 import { createGame } from "../../actionCreators/gameActions";
 
+/**
+ * HomePage where user can create a game
+ */
 function HomePage(props) {
   const [totalDecks, setTotalDecks] = useState(null);
 

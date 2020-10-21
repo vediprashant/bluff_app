@@ -9,28 +9,26 @@ import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
 import deck from "../assets/deck.png";
 import "../App.css";
 import ErrorModal from "./ErrorModal";
-
+/**
+ * A Page where you can invite users and see a list of currently invited one's
+ */
 function InvitePage(props) {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("");
   const message = props.message;
-
+  /*Set currently invited players on mount */
   useEffect(() => {
     props.listInvited(props.cookies, props.match.params.game);
-  }, [])
+  }, []);
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value)
+    setEmail(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    props.invite(
-      props.cookies,
-      email,
-      props.match.params.game
-    );
+    props.invite(props.cookies, email, props.match.params.game);
   };
-
+  /* Gets invited Players and converts them to ui list*/
   const showInvited = () => {
     const invited = props.invitedPlayers;
     if (invited.length !== 0) {
@@ -48,7 +46,7 @@ function InvitePage(props) {
       return message;
     } else return null;
   };
-    
+
   return (
     <div className="login">
       <Grid textAlign="center">
@@ -69,12 +67,7 @@ function InvitePage(props) {
                 iconPosition="left"
                 placeholder="Email"
               />
-              <Button
-                color="blue"
-                fluid
-                size="large"
-                onClick={handleSubmit}
-              >
+              <Button color="blue" fluid size="large" onClick={handleSubmit}>
                 {message === "Inviting" ? (
                   <div className="ui active centered inline tiny inverted loader"></div>
                 ) : (
@@ -94,13 +87,9 @@ function InvitePage(props) {
             <div className="ui bottom attached message">{message}</div>
           )}
           {message === "User Invited" && (
-            <div className="ui bottom attached success message">
-              {message}
-            </div>
+            <div className="ui bottom attached success message">{message}</div>
           )}
-          {!["Forbidden", "Inviting", "User Invited", ""].includes(
-            message
-          ) && (
+          {!["Forbidden", "Inviting", "User Invited", ""].includes(message) && (
             <div
               id="inviteWarn"
               className="ui bottom attached red warning message"

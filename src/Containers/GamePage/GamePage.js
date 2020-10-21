@@ -47,6 +47,9 @@ class GamePage extends Component {
     this.props.connectToGame(gameId);
   }
 
+  /**
+   * It sets the current rank of cards when updated gameData comes
+   */
   componentDidUpdate() {
     if (
       this.props.activeGame.gameState.game_table !== undefined &&
@@ -64,9 +67,11 @@ class GamePage extends Component {
     };
   }
 
+  /**
+   * It plays the current selected cards of user when he play his turn
+   */
+
   playCards = () => {
-    //get selected cards from store
-    //when api responds, these cards will be removed automatically from page
     const selectedCards = this.props.selectedCards;
     const cardsSelected = [...selectedCards];
     if (
@@ -81,11 +86,6 @@ class GamePage extends Component {
       return;
     }
     this.setState({ error: null });
-    // for (let card = 0; card < cardsSelected.length; card++) {
-    //   mappedCards.push(cardsSelected[card].id);
-
-    //   cardsSelected[card].classList.remove("selectedCards");
-    // }
     let stringCards = cardsMapperToString(cardsSelected);
     const data = {
       action: "play",
@@ -100,6 +100,9 @@ class GamePage extends Component {
     this.props.updateSelectedCards([]);
   };
 
+  /**
+   * It skips the turn of user when user skips or timer runs out
+   */
   skip = () => {
     const data = {
       action: "skip",
@@ -110,6 +113,9 @@ class GamePage extends Component {
     this.setState({ error: null, showVisible: true });
   };
 
+  /**
+   * start the game only done by owner
+   */
   startGame = () => {
     const data = {
       action: "start",
@@ -118,6 +124,9 @@ class GamePage extends Component {
     this.props.sendToGame(jsonData);
   };
 
+  /**
+   * It displays the last played cards when user calls show
+   */
   show = () => {
     const data = {
       action: "callBluff",
@@ -129,10 +138,16 @@ class GamePage extends Component {
     this.setState({ error: null, showVisible: true });
   };
 
+  /**
+   * It disabled the show button after it is called
+   */
   disableShow = () => {
     this.setState({ showVisible: false });
   };
 
+  /**
+   * Sets the current rank of cards
+   */
   selectSet = (event) => {
     let updatedSet;
     switch (event.target.textContent) {
@@ -155,6 +170,10 @@ class GamePage extends Component {
     this.props.activeGame.gameState.game_table.currentSet = updatedSet;
     this.setState({ set: updatedSet });
   };
+
+  /**
+   * It displays the current rank of cards that is being played
+   */
   displaySet = (currentSet) => {
     let updatedSet = currentSet;
     switch (currentSet) {
@@ -176,7 +195,9 @@ class GamePage extends Component {
     }
     return updatedSet;
   };
-
+  /**
+   * Go Back to the previous Page
+   */
   backHandler = () => {
     this.props.history.goBack();
   };
@@ -214,6 +235,7 @@ class GamePage extends Component {
             }
           />
         </div>
+        {/* Render action Buttons when its users turn and game is started */}
         {gameState?.game?.started &&
         gameState?.game_table?.current_player_id ===
           gameState?.self?.player_id ? (
@@ -246,7 +268,8 @@ class GamePage extends Component {
         ) : null}
         {gameState?.game?.started &&
         gameState?.game_table?.current_player_id !==
-          gameState?.self?.player_id ? (
+          gameState?.self?.player_id &&
+        !gameState?.game?.winner ? (
           <div className="otherTimer">
             <Timer
               startTime={60}
@@ -287,17 +310,22 @@ class GamePage extends Component {
           </div>
         ) : null}
         <PlayedCardsModal game={this.props.activeGame} />
-        <WinnerModal game={this.props.activeGame} history={this.props.history} />
+        <WinnerModal
+          game={this.props.activeGame}
+          history={this.props.history}
+        />
         <SinglePlayerModal history={this.props.history} />
         {gameState.init_success === false &&
           (() => {
             let message = gameState.message;
             message = message.split("string=")[1].split("'")[1];
-            return <ErrorModal
-             title="Unable to join game"
-             message={message}
-             history={this.props.history}
-            />;
+            return (
+              <ErrorModal
+                title="Unable to join game"
+                message={message}
+                history={this.props.history}
+              />
+            );
           })()}
         {this.props.activeGame.connectionState === WebSocket.CONNECTING && (
           <ErrorModal
@@ -319,13 +347,19 @@ class GamePage extends Component {
     );
   }
 }
-
+/**
+ * Maps state from store to the props
+ */
 const mapStatetoProps = (state) => {
   return {
     activeGame: state.game.activeGame,
     selectedCards: state.game.activeGame.gameState.selectedCards,
   };
 };
+/**
+ * Maps dispatch action of store to the props
+ */
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
@@ -342,6 +376,9 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
+/**
+ * Verifies the type of the props provided
+ */
 GamePage.propTypes = {
   activeGame: PropTypes.object.isRequired,
   selectedCard: PropTypes.array,

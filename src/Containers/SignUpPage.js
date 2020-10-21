@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import { Button, Message, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
+import {
+  Button,
+  Message,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Segment,
+} from "semantic-ui-react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -9,6 +17,9 @@ import { createUser } from "../actionCreators/userActions";
 import deepEqual from "../Utils/deepEqual";
 import "../App.css";
 
+/**
+ * Page to SignUp a User
+ */
 function SignUpPage(props) {
   const initialState = {
     name: "",
@@ -32,8 +43,9 @@ function SignUpPage(props) {
       class: "field",
     },
   };
-  const [state, setNewState] = useState(initialState)
-  const setState = value => setNewState((prevState) => ({ ...prevState, ...value }))
+  const [state, setNewState] = useState(initialState);
+  const setState = (value) =>
+    setNewState((prevState) => ({ ...prevState, ...value }));
   const handleNameChange = (evt) => {
     if (evt.target.value === "") {
       setState({
@@ -51,7 +63,7 @@ function SignUpPage(props) {
       });
     }
     setState({
-      name: evt.target.value 
+      name: evt.target.value,
     });
   };
 
@@ -80,7 +92,8 @@ function SignUpPage(props) {
     setState({ email: evt.target.value });
   };
 
-  const handlePasswordChange = (evt) => setState({ password: evt.target.value });
+  const handlePasswordChange = (evt) =>
+    setState({ password: evt.target.value });
 
   const handleConfirmPasswordChange = (evt) => {
     if (evt.target.value !== state.password) {
@@ -113,14 +126,11 @@ function SignUpPage(props) {
     const { name, email, password, confirmPassword } = state;
     props.createUserAction(name, email, password, confirmPassword);
   };
+
   /**
-   * Shows warning messages
+   * Show field specific warning messages
    */
-
   useEffect(() => {
-    //if no api call, return
-    //if (!prevProps.loading) return;
-
     let response = props.response;
     let newState = { ...state };
     if (response.name) {
@@ -172,7 +182,7 @@ function SignUpPage(props) {
     if (!deepEqual(state, newState)) {
       setState(newState);
     }
-  },[props.loading])
+  }, [props.loading]);
 
   const showMessage = () => {
     const { response } = props;
@@ -189,7 +199,7 @@ function SignUpPage(props) {
       );
     }
   };
-  
+
   return (
     <div className="login">
       <Grid textAlign="center">
@@ -237,12 +247,7 @@ function SignUpPage(props) {
                 value={state.confirmPassword}
                 onChange={handleConfirmPasswordChange}
               />
-              <Button
-                color="blue"
-                fluid
-                size="large"
-                onClick={handleSubmit}
-              >
+              <Button color="blue" fluid size="large" onClick={handleSubmit}>
                 Sign-Up
               </Button>
             </Segment>
@@ -255,7 +260,6 @@ function SignUpPage(props) {
       </Grid>
     </div>
   );
-
 }
 
 const mapStateToProps = (state) => {
