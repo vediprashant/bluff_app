@@ -1,6 +1,6 @@
-import API_URL from "../constants/urlConstants";
-import deserializeErrors from "../Utils/deserializeErrors";
-import handleTokens from "../Utils/handleTokens";
+import API_URL from "../../constants/urlConstants";
+import deserializeErrors from "../../Utils/deserializeErrors";
+import handleTokens from "../../Utils/handleTokens";
 
 /**
  * deletes token from the backend

@@ -4,7 +4,7 @@ import { Label } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 /**
- * Takes list containing players, and an object containng self details
+ * Takes list containing players, and an object containing self details
  * renders them in a circle
  * @param {*} props
  */

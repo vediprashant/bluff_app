@@ -1,6 +1,6 @@
-import API_URL from "../constants/urlConstants";
-import deserializeErrors from "../Utils/deserializeErrors";
-import validate from "../Utils/signUpValidator"
+import API_URL from "../../constants/urlConstants";
+import deserializeErrors from "../../Utils/deserializeErrors";
+import validate from "../../Utils/signUpValidator"
 
 /**
  * Send form data to api to create a user

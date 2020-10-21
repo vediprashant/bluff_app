@@ -10,7 +10,7 @@ import { updateSelectedCards } from "../actionCreators/gameActions";
 import "./playerCards.css";
 
 /**
- * Render cards and save card selection to store
+ * Renders cards and save card selection to store
  * @param {*} props
  */
 const PlayerCards = (props) => {
@@ -19,6 +19,7 @@ const PlayerCards = (props) => {
     : null;
   const labeledCards = cardPositions ? cardsHandler(cardPositions) : null;
   const selectedCardsHash = cardsMapperToString(props.selectedCards, true);
+  
   let playerCards = labeledCards.map((cardName, ind) => {
     return (
       <img
@@ -62,4 +63,5 @@ PlayerCards.propTypes = {
   myCards: PropTypes.string,
   selectedCards: PropTypes.array,
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerCards);

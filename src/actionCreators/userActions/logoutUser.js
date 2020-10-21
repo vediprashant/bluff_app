@@ -1,6 +1,6 @@
 import actions from "../../actions";
 import handleTokens from "../../Utils/handleTokens";
-import logoutService from "../../services/logoutService";
+import { logoutService } from "../../services/userServices";
 
 function setLogout() {
   return { type: actions.LOGGED_OUT };

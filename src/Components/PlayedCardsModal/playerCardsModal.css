@@ -6,6 +6,7 @@
 
   /* width: fit-content; */
 }
+
 .bluffCardsPlayed {
   height: 200px;
   filter: drop-shadow(-20px 15px 10px rgba(49, 49, 49, 0.4));

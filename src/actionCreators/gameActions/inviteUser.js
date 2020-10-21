@@ -1,4 +1,4 @@
-import inviteUserService from "../../services/inviteUser";
+import { inviteUser as inviteUserService } from "../../services/gameServices";
 import actions from "../../actions";
 import { showInvitedUsers } from "../../actionCreators/gameActions";
 

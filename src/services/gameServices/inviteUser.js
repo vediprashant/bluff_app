@@ -1,5 +1,5 @@
-import handleTokens from "../Utils/handleTokens";
-import apiUrls from "../constants/urlConstants";
+import handleTokens from "../../Utils/handleTokens";
+import apiUrls from "../../constants/urlConstants";
 
 /**
  * Converts JSON from api to 'easy to read' format

@@ -4,6 +4,10 @@ import { Progress } from "semantic-ui-react";
 
 import PropTypes from "prop-types";
 
+/**
+ * Renders a timer with given countdown
+ * @param {*} props 
+ */
 const Timer = (props) => {
   const [count, setcount] = useState(props.startTime);
   let myInterval = null;

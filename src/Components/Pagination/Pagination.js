@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 
 import "./pagination.css";
 
+/**
+ * Pagination module for games list
+ * @param {*} param0 
+ */
 const Pagination = ({
   gamesPerPage,
   totalGames,
@@ -67,4 +71,5 @@ Pagination.propTypes = {
   startPage: PropTypes.number,
   endPage: PropTypes.number,
 };
+
 export default Pagination;

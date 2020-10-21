@@ -1,6 +1,6 @@
-import API_URL from "../constants/urlConstants";
-import handleTokens from "../Utils/handleTokens";
-import deserializeErrors from "../Utils/deserializeErrors";
+import API_URL from "../../constants/urlConstants";
+import handleTokens from "../../Utils/handleTokens";
+import deserializeErrors from "../../Utils/deserializeErrors";
 
 /**
  * Creates a new game with given decks

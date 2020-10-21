@@ -1,5 +1,5 @@
 import handleTokens from "../../Utils/handleTokens";
-import validateUser from "../../services/authService";
+import { authService as validateUser } from "../../services/userServices";
 import actions from "../../actions";
 
 function setError() {

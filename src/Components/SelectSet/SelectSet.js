@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 
 import "./selectSet.css";
 
+/**
+ * Displays a set of ranks for user to choose
+ * Only displays when table is empty
+ * @param {*} props 
+ */
 const SelectSet = (props) => {
   return (
     <div className="setSelection">

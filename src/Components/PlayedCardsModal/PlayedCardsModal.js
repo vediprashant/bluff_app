@@ -7,6 +7,10 @@ import cardsHandler from "../../Utils/cardsHandler";
 import stringMapperToCards from "../../Utils/stringMapperToCards";
 import "./playerCardsModal.css";
 
+/**
+ * Modal to display the cards in context of current bluff call.
+ * @param {} props 
+ */
 function PlayedCardsModal(props) {
   const [open, setOpen] = useState(false);
   const [bluffCards, setBluffCards] = useState([]);
@@ -19,6 +23,7 @@ function PlayedCardsModal(props) {
   else {
     stringCards = null;
   }
+  
   useEffect(() => {
     if (stringCards !== null) {
       let playerCards = null;

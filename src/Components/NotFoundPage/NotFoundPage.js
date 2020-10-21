@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 import "./notFoundPage.css";
 
+/**
+ * 404 Error Page
+ */
 const NotFoundPage = () => (
   <div className="notFound">
     <div className="code">

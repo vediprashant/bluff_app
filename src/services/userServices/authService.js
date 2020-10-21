@@ -1,5 +1,5 @@
-import API_URL from "../constants/urlConstants";
-import deserializeErrors from "../Utils/deserializeErrors";
+import API_URL from "../../constants/urlConstants";
+import deserializeErrors from "../../Utils/deserializeErrors";
 
 /**
  * Gets auth token from api

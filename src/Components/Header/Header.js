@@ -12,15 +12,21 @@ import handleTokens from "../../Utils/handleTokens";
 import { logoutUser } from "../../actionCreators/userActions";
 import "./header.css";
 
+/**
+ * Navbar for navigation througout the app
+ * @param {} props 
+ */
 const Header = (props) => {
   useEffect(() => {
     if (handleTokens.getToken(props.cookies, "token")) {
       props.setLogin();
     }
   }, []);
+
   const clickHandler = () => {
     props.logoutUser(props.cookies);
   };
+  
   return (
     <nav className="navbar">
       {props.loggedIn ? (
@@ -39,11 +45,13 @@ const Header = (props) => {
     </nav>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.user.login.loggedIn,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {

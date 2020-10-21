@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 
 import "./games.css";
 
+/**
+ * Renders a list of games
+ * @param {*} param0 
+ */
 const Games = ({ games }) => {
   return (
     <div className="gamesList">

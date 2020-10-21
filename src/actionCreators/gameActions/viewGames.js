@@ -1,5 +1,5 @@
 import actions from "../../actions";
-import getGamesService from "../../services/getGamesService";
+import { getGamesService } from "../../services/gameServices";
 import API_URL from "../../constants/urlConstants";
 
 function loading() {
