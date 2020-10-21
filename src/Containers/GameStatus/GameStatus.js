@@ -3,24 +3,32 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
+import "./gameStatus.css";
+
 /**
  * Gives option to invite Players or join a game
  */
 export default function GameStatus(props) {
   let game = props.match.params.game;
   return (
-    <Button.Group>
-      <Button onClick={() => props.history.push(`/invite/${game}`)}>
-        Invite Players
-      </Button>
-      <Button.Or />
-      <Button
-        onClick={() => props.history.push(`/game/${game}`)}
-        color="violet"
-      >
-        Join Game
-      </Button>
-    </Button.Group>
+    <div className="inviteOrJoin">
+      <Button.Group>
+        <Button
+          className="huge"
+          onClick={() => props.history.push(`/invite/${game}`)}
+        >
+          Invite Players
+        </Button>
+        <Button.Or />
+        <Button
+          className="huge"
+          onClick={() => props.history.push(`/game/${game}`)}
+          color="violet"
+        >
+          Join Game
+        </Button>
+      </Button.Group>
+    </div>
   );
 }
 
