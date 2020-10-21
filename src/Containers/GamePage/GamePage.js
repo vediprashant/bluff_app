@@ -16,10 +16,10 @@ import TableCards from "../../Components/TableCards";
 import Players from "../../Components/Players";
 import cardsMapperToString from "../../Utils/cardsMapperToString";
 import PlayedCardsModal from "../../Components/PlayedCardsModal";
-import WinnerModal from "../../Components/WinnerModal";
+import WinnerModal from "../WinnerModal";
 import Timer from "../../Components/Timer";
-import SinglePlayerModal from "../../Components/SinglePlayerModal";
-import ErrorModal from "../../Components/ErrorModal";
+import SinglePlayerModal from "../SinglePlayerModal";
+import ErrorModal from "../ErrorModal";
 import { updateSelectedCards } from "../../actionCreators/gameActions";
 import actions from "../../actions";
 import "./GamePage.css";
@@ -287,18 +287,23 @@ class GamePage extends Component {
           </div>
         ) : null}
         <PlayedCardsModal game={this.props.activeGame} />
-        <WinnerModal game={this.props.activeGame} />
-        <SinglePlayerModal />
+        <WinnerModal game={this.props.activeGame} history={this.props.history} />
+        <SinglePlayerModal history={this.props.history} />
         {gameState.init_success === false &&
           (() => {
             let message = gameState.message;
             message = message.split("string=")[1].split("'")[1];
-            return <ErrorModal title="Unable to join game" message={message} />;
+            return <ErrorModal
+             title="Unable to join game"
+             message={message}
+             history={this.props.history}
+            />;
           })()}
         {this.props.activeGame.connectionState === WebSocket.CONNECTING && (
           <ErrorModal
             title="Connecting"
             message="Establishing contact with server, Please wait.."
+            history={this.props.history}
           />
         )}
         {this.props.activeGame.connectionState === WebSocket.CLOSED &&
@@ -307,6 +312,7 @@ class GamePage extends Component {
             <ErrorModal
               title="Connection Lost"
               message="Unable to connect to server, try joining again"
+              history={this.props.history}
             />
           )}
       </div>

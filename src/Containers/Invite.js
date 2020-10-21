@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
 import deck from "../assets/deck.png";
 import "../App.css";
-import ErrorModal from "../Components/ErrorModal";
+import ErrorModal from "./ErrorModal";
 
 function InvitePage(props) {
   const [email, setEmail] = useState('')
@@ -87,6 +87,7 @@ function InvitePage(props) {
             <ErrorModal
               message="You must be owner of the game in order to invite players"
               title="Forbidden"
+              history={props.history}
             />
           )}
           {message === "Inviting" && (

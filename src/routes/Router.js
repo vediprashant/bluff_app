@@ -12,7 +12,7 @@ import InvitePage from "../Containers/Invite";
 import ViewGamesPage from "../Containers/ViewGamesPage";
 import GamePage from "../Containers/GamePage";
 import GameStatus from "../Containers/GameStatus";
-import NotFoundPage from "../Containers/NotFoundPage";
+import NotFoundPage from "../Components/NotFoundPage";
 
 const AppRouter = () => {
   return (

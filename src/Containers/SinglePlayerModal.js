@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Header, Modal } from "semantic-ui-react";
+import { Header, Modal, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import actions from "../actions";
@@ -53,6 +53,17 @@ function SinglePlayerModal(props) {
           <Header>Please wait for someone else to join the game!</Header>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions>
+        <Button
+          color="black"
+          onClick={() => {
+            props.history.push('')
+            setOpen(false);
+          }}
+        >
+          Redirect to Home Page
+        </Button>
+      </Modal.Actions>
     </Modal>
   );
 }
@@ -62,7 +73,9 @@ const mapStatetoProps = (state) => {
     game: state.game.activeGame,
   };
 };
+
 SinglePlayerModal.propTypes = {
   game: PropTypes.object.isRequired,
 };
+
 export default connect(mapStatetoProps)(SinglePlayerModal);

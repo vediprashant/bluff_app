@@ -1,8 +1,7 @@
 import React from "react";
-
 import PropTypes from "prop-types";
 
-import { Header, Modal } from "semantic-ui-react";
+import { Button, Header, Modal } from "semantic-ui-react";
 
 function ErrorModal(props) {
   const [open, setOpen] = React.useState(false);
@@ -19,6 +18,17 @@ function ErrorModal(props) {
           <Header>{props.message}</Header>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions>
+        <Button
+          color="black"
+          onClick={() => {
+            props.history.push('')
+            setOpen(false);
+          }}
+        >
+          Redirect to Home Page
+        </Button>
+      </Modal.Actions>
     </Modal>
   );
 }

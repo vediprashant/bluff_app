@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Modal } from "semantic-ui-react";
+import { Header, Modal, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 function WinnerModal(props) {
@@ -29,6 +29,16 @@ function WinnerModal(props) {
           </Header>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions>
+        <Button
+          color="black"
+          onClick={() => {
+            props.history.push('/games')
+            setOpen(false);
+          }}
+        >
+          Redirect to My Games        </Button>
+      </Modal.Actions>
     </Modal>
   );
 }

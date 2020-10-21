@@ -10,6 +10,8 @@ import "./playerCardsModal.css";
 function PlayedCardsModal(props) {
   const [open, setOpen] = useState(false);
   const [bluffCards, setBluffCards] = useState([]);
+  const bluffLooser = props.game.gameState.bluffLooser
+  const mySelf = props.game.gameState.self?.user
 
   let stringCards;
   if (props.game.gameState.bluff_cards !== undefined)
@@ -38,7 +40,12 @@ function PlayedCardsModal(props) {
 
   return (
     <Modal open={open}>
-      <Modal.Header>{props.game.gameState.bluffLooser} lost</Modal.Header>
+      <Modal.Header>
+        {
+          bluffLooser?.userId === mySelf?.id ? 'You' : bluffLooser?.userName
+        } 
+        {` lost`}
+      </Modal.Header>
       <Modal.Content image>
         <div className="bluffCards">{bluffCards}</div>
       </Modal.Content>
