@@ -17,7 +17,9 @@ import PropTypes from "prop-types";
 import deck from "../assets/deck.png";
 import { loginHandler } from "../actionCreators/userActions";
 import "../App.css";
-
+/**
+ * Page to Login a User with credentials
+ */
 const LoginPage = (props) => {
   const initialState = {
     email: "",
@@ -47,6 +49,7 @@ const LoginPage = (props) => {
       );
     }
   };
+
   const emailError = () => {
     if (
       props.errorMessage === "Email field can't be blank" ||
@@ -58,6 +61,7 @@ const LoginPage = (props) => {
     }
     return false;
   };
+
   const passwordError = () => {
     if (
       props.errorMessage === "Please provide Input" ||
@@ -69,6 +73,7 @@ const LoginPage = (props) => {
     return false;
   };
 
+  /* If a user is loggedIn send him to LoginPage*/
   useEffect(() => {
     if (props.loggedIn) {
       props.history.push("/");

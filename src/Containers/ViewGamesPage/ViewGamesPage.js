@@ -11,6 +11,9 @@ import viewGames from "../../actionCreators/gameActions/viewGames";
 import API_URL from "../../constants/urlConstants";
 import "./ViewGamePage.css";
 
+/**
+ * Page to view all your completed and ongoing games
+ */
 const ViewGamesPage = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage, setGamesPerPage] = useState(4);
@@ -152,7 +155,9 @@ const ViewGamesPage = (props) => {
         <div className="emptyList"> {props.gameMessage} </div>
       ) : (
         <div>
+          {/* It shows the list of the games */}
           <Games games={currentgames} />
+          {/* Dnamic Pagination button list based on the pages */}
           <Pagination
             gamesPerPage={gamesPerPage}
             totalGames={props.games.length}

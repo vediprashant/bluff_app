@@ -3,6 +3,9 @@ import React from "react";
 import { Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
+/**
+ * Gives option to invite Players or join a game
+ */
 export default function GameStatus(props) {
   let game = props.match.params.game;
   return (

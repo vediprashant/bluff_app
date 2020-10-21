@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 
 import { Button, Header, Modal } from "semantic-ui-react";
 
+/**
+ * Modal to show error over a screen
+ */
 function ErrorModal(props) {
   const [open, setOpen] = React.useState(false);
   if (open === false) setOpen(true);
@@ -22,7 +25,7 @@ function ErrorModal(props) {
         <Button
           color="black"
           onClick={() => {
-            props.history.push('')
+            props.history.push("");
             setOpen(false);
           }}
         >
