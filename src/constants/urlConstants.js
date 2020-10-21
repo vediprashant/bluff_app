@@ -8,8 +8,8 @@ const API_URL = {
   CREATE_GAME_URL: `game/`,
   INVITE_URL: `game/player/`,
   LIST_INVITED_USERS: `game/`,
-  LIST_COMPLETED_GAMES: `game/?filters=completed`,
-  LIST_ONGOING_GAMES: `game/`,
+  LIST_COMPLETED_GAMES: `game/?ongoing=False`,
+  LIST_ONGOING_GAMES: `game/?ongoing=True`,
   WEB_SOCKET_URL: `ws://${BACKEND_DOMAIN}/ws/game/`,
 };
 
