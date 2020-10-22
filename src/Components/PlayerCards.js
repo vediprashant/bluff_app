@@ -3,10 +3,10 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import cardsHandler from "../Utils/cardsHandler";
-import stringMapperToCards from "../Utils/stringMapperToCards";
-import cardsMapperToString from "../Utils/cardsMapperToString";
-import { updateSelectedCards } from "../actionCreators/gameActions";
+import cardsHandler from "Utils/cardsHandler";
+import stringMapperToCards from "Utils/stringMapperToCards";
+import cardsMapperToString from "Utils/cardsMapperToString";
+import { updateSelectedCards } from "actionCreators/gameActions";
 import "./playerCards.css";
 
 /**
@@ -19,7 +19,7 @@ const PlayerCards = (props) => {
     : null;
   const labeledCards = cardPositions ? cardsHandler(cardPositions) : null;
   const selectedCardsHash = cardsMapperToString(props.selectedCards, true);
-  
+
   let playerCards = labeledCards.map((cardName, ind) => {
     return (
       <img

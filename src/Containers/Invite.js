@@ -5,9 +5,9 @@ import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import { withCookies } from "react-cookie";
 import PropTypes from "prop-types";
 
-import { inviteUser, showInvitedUsers } from "../actionCreators/gameActions";
-import deck from "../assets/deck.png";
-import "../App.css";
+import { inviteUser, showInvitedUsers } from "actionCreators/gameActions";
+import deck from "assets/deck.png";
+import "App.css";
 import ErrorModal from "./ErrorModal";
 /**
  * A Page where you can invite users and see a list of currently invited one's

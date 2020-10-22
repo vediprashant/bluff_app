@@ -12,10 +12,10 @@ import {
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import deck from "../assets/deck.png";
-import { createUser } from "../actionCreators/userActions";
-import deepEqual from "../Utils/deepEqual";
-import "../App.css";
+import deck from "assets/deck.png";
+import { createUser } from "actionCreators/userActions";
+import deepEqual from "Utils/deepEqual";
+import "App.css";
 
 /**
  * Page to SignUp a User

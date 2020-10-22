@@ -7,14 +7,14 @@ import { withCookies } from "react-cookie";
 import PropTypes from "prop-types";
 
 import ROUTES from "../../constants/pathConstants";
-import actions from "../../actions";
-import handleTokens from "../../Utils/handleTokens";
-import { logoutUser } from "../../actionCreators/userActions";
+import actions from "actions";
+import handleTokens from "Utils/handleTokens";
+import { logoutUser } from "actionCreators/userActions";
 import "./header.css";
 
 /**
  * Navbar for navigation througout the app
- * @param {} props 
+ * @param {} props
  */
 const Header = (props) => {
   useEffect(() => {
@@ -26,7 +26,7 @@ const Header = (props) => {
   const clickHandler = () => {
     props.logoutUser(props.cookies);
   };
-  
+
   return (
     <nav className="navbar">
       {props.loggedIn ? (

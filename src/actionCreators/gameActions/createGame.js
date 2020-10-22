@@ -1,5 +1,5 @@
-import actions from "../../actions";
-import { createGame as createGameService } from "../../services/gameServices";
+import actions from "actions";
+import { createGame as createGameService } from "services/gameServices";
 
 function setError() {
   return { type: actions.GAME_CREATION_ERROR_SET };

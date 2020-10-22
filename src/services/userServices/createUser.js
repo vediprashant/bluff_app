@@ -1,6 +1,6 @@
-import API_URL from "../../constants/urlConstants";
-import deserializeErrors from "../../Utils/deserializeErrors";
-import validate from "../../Utils/signUpValidator"
+import API_URL from "constants/urlConstants";
+import deserializeErrors from "Utils/deserializeErrors";
+import validate from "Utils/signUpValidator";
 
 /**
  * Send form data to api to create a user
@@ -27,15 +27,17 @@ const createUser = async (name, email, password, confirmPassword) => {
         password,
         confirm_password: confirmPassword,
       }),
-    })
+    });
     if (res.status === 201) {
       //user created
       return { response: { message: "Success" } };
     } else if (res.status === 400) {
-      let data = await res.json()
-      return { response: { ...data, message: data[Object.keys(data)[0]] }, }
+      let data = await res.json();
+      return { response: { ...data, message: data[Object.keys(data)[0]] } };
     } else return { response: { message: deserializeErrors(res.status) } };
-  } catch (err) { return { response: { message: "API Error" } } }
-}
+  } catch (err) {
+    return { response: { message: "API Error" } };
+  }
+};
 
 export default createUser;

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Header, Modal, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
-import actions from "../actions";
+import actions from "actions";
 
 /**
  * Modal to show when only one player is connected to game
@@ -57,7 +57,7 @@ function SinglePlayerModal(props) {
         <Button
           color="black"
           onClick={() => {
-            props.history.push('')
+            props.history.push("");
             setOpen(false);
           }}
         >

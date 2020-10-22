@@ -6,10 +6,10 @@ import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 import PropTypes from "prop-types";
 
-import actions from "../../actions";
+import actions from "actions";
 
 import "./HomePage.css";
-import { createGame } from "../../actionCreators/gameActions";
+import { createGame } from "actionCreators/gameActions";
 
 /**
  * HomePage where user can create a game

@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
-import cardsHandler from "../../Utils/cardsHandler";
-import stringMapperToCards from "../../Utils/stringMapperToCards";
+import cardsHandler from "Utils/cardsHandler";
+import stringMapperToCards from "Utils/stringMapperToCards";
 import "./playerCardsModal.css";
 
 /**
  * Modal to display the cards in context of current bluff call.
- * @param {} props 
+ * @param {} props
  */
 function PlayedCardsModal(props) {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ function PlayedCardsModal(props) {
   else {
     stringCards = null;
   }
-  
+
   useEffect(() => {
     if (stringCards !== null) {
       let playerCards = null;

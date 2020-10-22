@@ -1,6 +1,6 @@
-import actions from "../../actions";
-import { getGamesService } from "../../services/gameServices";
-import API_URL from "../../constants/urlConstants";
+import actions from "actions";
+import { getGamesService } from "services/gameServices";
+import API_URL from "constants/urlConstants";
 
 function loading() {
   return { type: actions.GAMES_LOADING };

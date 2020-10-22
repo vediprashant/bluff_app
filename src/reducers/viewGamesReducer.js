@@ -1,5 +1,5 @@
-import actions from "../actions";
-import API_URL from "../constants/urlConstants";
+import actions from "actions";
+import API_URL from "constants/urlConstants";
 
 const initialState = {
   isGamesLoading: false,

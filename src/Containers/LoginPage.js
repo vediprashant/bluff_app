@@ -14,9 +14,9 @@ import {
 } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
-import deck from "../assets/deck.png";
-import { loginHandler } from "../actionCreators/userActions";
-import "../App.css";
+import deck from "assets/deck.png";
+import { loginHandler } from "actionCreators/userActions";
+import "App.css";
 /**
  * Page to Login a User with credentials
  */

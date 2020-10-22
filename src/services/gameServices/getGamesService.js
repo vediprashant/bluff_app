@@ -1,5 +1,5 @@
-import handleTokens from "../../Utils/handleTokens";
-import deserializeErrors from "../../Utils/deserializeErrors";
+import handleTokens from "Utils/handleTokens";
+import deserializeErrors from "Utils/deserializeErrors";
 
 /**
  * Get all the games user is part of

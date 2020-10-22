@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 import PropTypes from "prop-types";
 
-import Games from "../../Components/Games";
-import Pagination from "../../Components/Pagination";
-import viewGames from "../../actionCreators/gameActions/viewGames";
-import API_URL from "../../constants/urlConstants";
+import Games from "Components/Games";
+import Pagination from "Components/Pagination";
+import viewGames from "actionCreators/gameActions/viewGames";
+import API_URL from "constants/urlConstants";
 import "./ViewGamePage.css";
 
 /**
