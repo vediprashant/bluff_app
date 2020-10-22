@@ -1,6 +1,6 @@
 import API_URL from "../../constants/urlConstants";
-import handleTokens from "../../Utils/handleTokens";
 import deserializeErrors from "../../Utils/deserializeErrors";
+import customFetch from "../customFetch"
 
 /**
  * Creates a new game with given decks
@@ -9,15 +9,11 @@ import deserializeErrors from "../../Utils/deserializeErrors";
  */
 const createGame = async (cookies, decks) => {
   try {
-    const game = await fetch(`${API_URL.BASE_URL}${API_URL.CREATE_GAME_URL}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `token ${handleTokens.getToken(cookies, "token")}`,
-      },
-      body: JSON.stringify({ decks }),
-    });
+    const game = await customFetch({
+      url: `${API_URL.BASE_URL}${API_URL.CREATE_GAME_URL}`,
+      body:{decks},
+      cookies
+    })
     if (game.status === 400) {
       return { message: "Please provide valid input" };
     }

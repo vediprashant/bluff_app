@@ -1,5 +1,6 @@
 import handleTokens from "../../Utils/handleTokens";
 import deserializeErrors from "../../Utils/deserializeErrors";
+import customFetch from "../customFetch"
 
 /**
  * Get all the games user is part of
@@ -8,11 +9,7 @@ import deserializeErrors from "../../Utils/deserializeErrors";
 
 const getGames = async (cookies, targetUrl) => {
   try {
-    const games = await fetch(targetUrl, {
-      headers: {
-        Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
-      },
-    });
+    const games = await customFetch({ url: targetUrl, cookies, method: 'GET'})
     if (games.status === 200) {
       const jsonGames = await games.json();
       return jsonGames;
