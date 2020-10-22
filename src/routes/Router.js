@@ -2,17 +2,17 @@ import React from "react";
 
 import { Switch } from "react-router-dom";
 
-import ROUTES from "../constants/pathConstants";
-import LoginPage from "../Containers/LoginPage";
-import SignUpPage from "../Containers/SignUpPage";
+import ROUTES from "constants/pathConstants";
+import LoginPage from "Containers/LoginPage";
+import SignUpPage from "Containers/SignUpPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AnonymousRoute from "./AnonymousRoute";
-import HomePage from "../Containers/HomePage";
-import InvitePage from "../Containers/Invite";
-import ViewGamesPage from "../Containers/ViewGamesPage";
-import GamePage from "../Containers/GamePage";
-import GameStatus from "../Containers/GameStatus";
-import NotFoundPage from "../Components/NotFoundPage";
+import HomePage from "Containers/HomePage";
+import InvitePage from "Containers/Invite";
+import ViewGamesPage from "Containers/ViewGamesPage";
+import GamePage from "Containers/GamePage";
+import GameStatus from "Containers/GameStatus";
+import NotFoundPage from "Components/NotFoundPage";
 
 const AppRouter = () => {
   return (

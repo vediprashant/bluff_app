@@ -1,11 +1,11 @@
-import API_URL from "../../constants/urlConstants";
-import deserializeErrors from "../../Utils/deserializeErrors";
-import customFetch from "../customFetch"
+import API_URL from "constants/urlConstants";
+import deserializeErrors from "Utils/deserializeErrors";
+import customFetch from "services/customFetch"
 
 /**
  * Creates a new game with given decks
- * @param {*} cookies 
- * @param {*} decks 
+ * @param {*} cookies
+ * @param {*} decks
  */
 const createGame = async (cookies, decks) => {
   try {

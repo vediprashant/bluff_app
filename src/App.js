@@ -3,9 +3,9 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { matchPath } from "react-router";
 
-import Header from "./Components/Header";
-import AppRouter from "./routes/Router";
-import "./App.css";
+import Header from "Components/Header";
+import AppRouter from "routes/Router";
+import "App.css";
 
 function App() {
   let location = useLocation();

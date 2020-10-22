@@ -1,10 +1,10 @@
-import handleTokens from "../../Utils/handleTokens";
-import apiUrls from "../../constants/urlConstants";
+import handleTokens from "Utils/handleTokens";
+import apiUrls from "constants/urlConstants";
 
 /**
  * Fetches list of all users invited to a game
- * @param {*} cookies 
- * @param {*} game 
+ * @param {*} cookies
+ * @param {*} game
  */
 const listInvitedUsers = async (cookies, game) => {
   try {
@@ -17,8 +17,9 @@ const listInvitedUsers = async (cookies, game) => {
           "Content-Type": "application/json",
           Authorization: `Token ${handleTokens.getToken(cookies, "token")}`,
         },
-      })
-    let data = await res.json()
+      }
+    );
+    let data = await res.json();
     if (res.status === 200) {
       //send the list
       let list = [];
@@ -33,14 +34,13 @@ const listInvitedUsers = async (cookies, game) => {
     return {
       message: "An error occured when trying to fetch invited users",
       list: [],
-    }
+    };
   } catch (err) {
     return {
       message: "An error occured when trying to fetch invited users",
       list: [],
-    }
+    };
   }
-}
-
+};
 
 export default listInvitedUsers;

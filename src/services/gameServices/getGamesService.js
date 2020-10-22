@@ -1,6 +1,5 @@
-import handleTokens from "../../Utils/handleTokens";
-import deserializeErrors from "../../Utils/deserializeErrors";
-import customFetch from "../customFetch"
+import deserializeErrors from "Utils/deserializeErrors";
+import customFetch from "services/customFetch"
 
 /**
  * Get all the games user is part of

@@ -1,6 +1,6 @@
-import { inviteUser as inviteUserService } from "../../services/gameServices";
-import actions from "../../actions";
-import { showInvitedUsers } from "../../actionCreators/gameActions";
+import { inviteUser as inviteUserService } from "services/gameServices";
+import actions from "actions";
+import { showInvitedUsers } from "actionCreators/gameActions";
 
 function setMessage(message) {
   return {

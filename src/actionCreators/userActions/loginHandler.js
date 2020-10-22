@@ -1,6 +1,6 @@
-import handleTokens from "../../Utils/handleTokens";
-import { authService as validateUser } from "../../services/userServices";
-import actions from "../../actions";
+import handleTokens from "Utils/handleTokens";
+import { authService as validateUser } from "services/userServices";
+import actions from "actions";
 
 function setError() {
   return { type: actions.SET_ERROR };

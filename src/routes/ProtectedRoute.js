@@ -3,8 +3,8 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { withCookies } from "react-cookie";
 
-import ROUTES from "../constants/pathConstants";
-import handleTokens from "../Utils/handleTokens";
+import ROUTES from "constants/pathConstants";
+import handleTokens from "Utils/handleTokens";
 
 const ProtectedRoute = ({ component: Component, cookies, ...rest }) => {
   return (

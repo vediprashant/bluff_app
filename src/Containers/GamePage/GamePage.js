@@ -8,20 +8,20 @@ import {
   connectToGame,
   disconnectFromGame,
   sendToGame,
-} from "../../actionCreators/gameActions";
-import SelectSet from "../../Components/SelectSet";
-import Button from "../../Components/Button";
-import PlayerCards from "../../Components/PlayerCards";
-import TableCards from "../../Components/TableCards";
-import Players from "../../Components/Players";
-import cardsMapperToString from "../../Utils/cardsMapperToString";
-import PlayedCardsModal from "../../Components/PlayedCardsModal";
+} from "actionCreators/gameActions";
+import SelectSet from "Components/SelectSet";
+import Button from "Components/Button";
+import PlayerCards from "Components/PlayerCards";
+import TableCards from "Components/TableCards";
+import Players from "Components/Players";
+import cardsMapperToString from "Utils/cardsMapperToString";
+import PlayedCardsModal from "Components/PlayedCardsModal";
 import WinnerModal from "../WinnerModal";
-import Timer from "../../Components/Timer";
+import Timer from "Components/Timer";
 import SinglePlayerModal from "../SinglePlayerModal";
 import ErrorModal from "../ErrorModal";
-import { updateSelectedCards } from "../../actionCreators/gameActions";
-import actions from "../../actions";
+import { updateSelectedCards } from "actionCreators/gameActions";
+import actions from "actions";
 import "./GamePage.css";
 
 /**

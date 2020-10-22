@@ -6,9 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import "semantic-ui-css/semantic.min.css";
 
-import store from "./store";
-import App from "./App";
-import "./index.css";
+import store from "store";
+import App from "App";
+import "index.css";
 
 ReactDOM.render(
   <CookiesProvider>
