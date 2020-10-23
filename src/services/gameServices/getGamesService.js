@@ -1,5 +1,4 @@
-import deserializeErrors from "Utils/deserializeErrors";
-import customFetch from "services/customFetch"
+import BaseService from "services/baseService";
 
 /**
  * Get all the games user is part of
@@ -7,16 +6,8 @@ import customFetch from "services/customFetch"
  */
 
 const getGames = async (cookies, targetUrl) => {
-  try {
-    const games = await customFetch({ url: targetUrl, cookies, method: 'GET'})
-    if (games.status === 200) {
-      const jsonGames = await games.json();
-      return jsonGames;
-    }
-    return { message: deserializeErrors(games.status) };
-  } catch {
-    return { message: "API Error, Please try Again" };
-  }
+  const games = new BaseService();
+  return await games.get(targetUrl, cookies);
 };
 
 export default getGames;
