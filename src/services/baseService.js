@@ -3,7 +3,6 @@ import deserializeErrors from "Utils/deserializeErrors";
 
 class ApiClient {
   async request(method, url, cookies, options) {
-    console.log(url);
     try {
       const response = await fetch(url, {
         method: method,
